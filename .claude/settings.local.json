@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "WebFetch(domain:www.palantir.com)",
+      "Bash(dir:*)",
+      "Bash(timeout:*)"
+    ]
+  }
+}
