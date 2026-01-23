@@ -154,9 +154,10 @@ export function LandingPage() {
   ];
 
   const roadmapItems = [
-    { phase: 'MVP', title: t('roadmap.mvp'), items: [t('roadmap.mvp.item1'), t('roadmap.mvp.item2'), t('roadmap.mvp.item3')] },
-    { phase: 'MVP + 1', title: t('roadmap.mvp1'), items: [t('roadmap.mvp1.item1'), t('roadmap.mvp1.item2'), t('roadmap.mvp1.item3')] },
-    { phase: 'MVP + 2', title: t('roadmap.mvp2'), items: [t('roadmap.mvp2.item1'), t('roadmap.mvp2.item2'), t('roadmap.mvp2.item3')] },
+    { phase: 'Phase 1', title: t('roadmap.phase1'), items: [t('roadmap.phase1.item1'), t('roadmap.phase1.item2'), t('roadmap.phase1.item3'), t('roadmap.phase1.item4')] },
+    { phase: 'Phase 2', title: t('roadmap.phase2'), items: [t('roadmap.phase2.item1'), t('roadmap.phase2.item2'), t('roadmap.phase2.item3'), t('roadmap.phase2.item4')] },
+    { phase: 'Phase 3', title: t('roadmap.phase3'), items: [t('roadmap.phase3.item1'), t('roadmap.phase3.item2'), t('roadmap.phase3.item3'), t('roadmap.phase3.item4')] },
+    { phase: 'Phase 4', title: t('roadmap.phase4'), items: [t('roadmap.phase4.item1'), t('roadmap.phase4.item2'), t('roadmap.phase4.item3'), t('roadmap.phase4.item4')] },
   ];
 
   return (
@@ -348,6 +349,45 @@ export function LandingPage() {
             ))}
           </div>
 
+          {/* For Manufacturers */}
+          <div className="mt-16">
+            <div className="mb-12">
+              <p className="text-3xl md:text-4xl font-light max-w-3xl">
+                {t('manufacturers.title')}
+              </p>
+              <p className="text-muted-foreground mt-4 max-w-2xl">
+                {t('manufacturers.desc')}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+              <div className="border border-border p-6 hover:border-foreground transition-colors">
+                <h3 className="font-medium mb-2">{t('manufacturers.item1.title')}</h3>
+                <p className="text-sm text-muted-foreground">{t('manufacturers.item1.desc')}</p>
+              </div>
+              <div className="border border-border p-6 hover:border-foreground transition-colors">
+                <h3 className="font-medium mb-2">{t('manufacturers.item2.title')}</h3>
+                <p className="text-sm text-muted-foreground">{t('manufacturers.item2.desc')}</p>
+              </div>
+              <div className="border border-border p-6 hover:border-foreground transition-colors">
+                <h3 className="font-medium mb-2">{t('manufacturers.item3.title')}</h3>
+                <p className="text-sm text-muted-foreground">{t('manufacturers.item3.desc')}</p>
+              </div>
+              <div className="border border-border p-6 hover:border-foreground transition-colors">
+                <h3 className="font-medium mb-2">{t('manufacturers.item4.title')}</h3>
+                <p className="text-sm text-muted-foreground">{t('manufacturers.item4.desc')}</p>
+              </div>
+              <div className="border border-border p-6 hover:border-foreground transition-colors">
+                <h3 className="font-medium mb-2">{t('manufacturers.item5.title')}</h3>
+                <p className="text-sm text-muted-foreground">{t('manufacturers.item5.desc')}</p>
+              </div>
+            </div>
+
+            <p className="text-muted-foreground mt-8 italic">
+              {t('manufacturers.summary')}
+            </p>
+          </div>
+
           {/* Security - Stolen Flag */}
           <div className="mt-16">
             {/* Sub-header */}
@@ -421,7 +461,7 @@ export function LandingPage() {
             subtitle={t('roadmap.subtitle')}
           />
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {roadmapItems.map((item, i) => (
               <div key={item.phase} className={`border-l-2 pl-6 ${i === 0 ? 'border-foreground' : 'border-border'}`}>
                 <p className="text-sm text-muted-foreground mb-1">{item.phase}</p>
