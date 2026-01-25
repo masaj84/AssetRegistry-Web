@@ -7,8 +7,8 @@ import { cn } from '../../lib/utils';
 
 const getNavigation = (t: (key: string) => string) => [
   {
-    name: t('app.dashboard'),
-    href: '/app',
+    name: t('admin.dashboard'),
+    href: '/app/admin',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
         <path d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
@@ -16,8 +16,26 @@ const getNavigation = (t: (key: string) => string) => [
     ),
   },
   {
-    name: t('app.assets'),
-    href: '/app/assets',
+    name: t('admin.users'),
+    href: '/app/admin/users',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+      </svg>
+    ),
+  },
+  {
+    name: t('admin.organizations'),
+    href: '/app/admin/organizations',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+      </svg>
+    ),
+  },
+  {
+    name: t('admin.assets'),
+    href: '/app/admin/assets',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
         <path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
@@ -25,17 +43,26 @@ const getNavigation = (t: (key: string) => string) => [
     ),
   },
   {
-    name: t('app.reports'),
-    href: '/app/reports',
+    name: t('admin.newsletter'),
+    href: '/app/admin/newsletter',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-        <path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+        <path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+      </svg>
+    ),
+  },
+  {
+    name: t('admin.security'),
+    href: '/app/admin/security',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
       </svg>
     ),
   },
 ];
 
-export function AppLayout() {
+export function AdminLayout() {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -47,6 +74,13 @@ export function AppLayout() {
   const handleLogout = () => {
     logout();
     navigate('/');
+  };
+
+  const isActive = (href: string) => {
+    if (href === '/app/admin') {
+      return location.pathname === '/app/admin';
+    }
+    return location.pathname.startsWith(href);
   };
 
   return (
@@ -81,16 +115,15 @@ export function AppLayout() {
             </div>
             <span className="text-sm font-medium tracking-widest dark:text-orange/90">TRUVALUE</span>
           </Link>
-          <span className="ml-auto text-[10px] font-mono text-muted-foreground border border-border dark:border-purple/30 dark:text-purple-light/70 px-2 py-0.5">
-            MVP
+          <span className="ml-auto text-[10px] font-mono text-amber-500 dark:text-orange border border-amber-500 dark:border-orange/60 px-2 py-0.5">
+            ADMIN
           </span>
         </div>
 
         {/* Navigation */}
         <nav className="flex-1 p-4 space-y-1">
           {navigation.map((item) => {
-            const isActive = location.pathname === item.href ||
-              (item.href !== '/app' && location.pathname.startsWith(item.href));
+            const active = isActive(item.href);
             return (
               <Link
                 key={item.name}
@@ -98,56 +131,45 @@ export function AppLayout() {
                 onClick={() => setSidebarOpen(false)}
                 className={cn(
                   'flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all relative group',
-                  isActive
+                  active
                     ? 'text-foreground dark:text-orange bg-foreground/5 dark:bg-orange/10'
                     : 'text-muted-foreground hover:text-foreground dark:hover:text-orange/90 hover:bg-foreground/[0.02] dark:hover:bg-orange/5'
                 )}
               >
                 {/* Active indicator */}
-                {isActive && (
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-8 bg-foreground dark:bg-gradient-to-b dark:from-orange dark:to-magenta" />
+                {active && (
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-8 bg-amber-500 dark:bg-gradient-to-b dark:from-orange dark:to-magenta" />
                 )}
-                <span className={cn(isActive && 'dark:text-orange')}>{item.icon}</span>
+                <span className={cn(active && 'dark:text-orange')}>{item.icon}</span>
                 {item.name}
               </Link>
             );
           })}
         </nav>
 
-        {/* Quick actions */}
-        <div className="p-4 border-t border-border dark:border-border/50 space-y-2">
-          <Link to="/app/assets/new">
+        {/* Back to app */}
+        <div className="p-4 border-t border-border dark:border-border/50">
+          <Link to="/app">
             <button className="w-full flex items-center justify-center gap-2 h-10 border border-dashed border-border dark:border-purple/40 hover:border-foreground dark:hover:border-purple text-muted-foreground hover:text-foreground dark:hover:text-purple-light transition-colors text-sm dark:hover:bg-purple/10 dark:hover:shadow-[0_0_15px_rgba(168,85,247,0.2)]">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path d="M12 4v16m8-8H4" />
+                <path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
               </svg>
-              {t('app.newAsset')}
+              {t('admin.backToApp')}
             </button>
           </Link>
-          {user?.role === 'ADMIN' && (
-            <Link to="/app/admin">
-              <button className="w-full flex items-center justify-center gap-2 h-10 border border-foreground dark:border-orange/60 bg-foreground dark:bg-gradient-to-r dark:from-orange/20 dark:to-magenta/20 text-background dark:text-orange hover:bg-foreground/90 dark:hover:from-orange/30 dark:hover:to-magenta/30 transition-colors text-sm font-medium dark:hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                {t('app.adminPanel')}
-              </button>
-            </Link>
-          )}
         </div>
 
         {/* User */}
         <div className="p-4 border-t border-border dark:border-border/50">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 border border-border dark:border-magenta/40 flex items-center justify-center bg-foreground/5 dark:bg-magenta/10">
-              <span className="text-sm font-medium dark:text-magenta">
-                {user?.username?.charAt(0).toUpperCase() || 'U'}
+            <div className="w-10 h-10 border border-amber-500 dark:border-orange/60 flex items-center justify-center bg-amber-500/10 dark:bg-orange/10">
+              <span className="text-sm font-medium text-amber-500 dark:text-orange">
+                {user?.username?.charAt(0).toUpperCase() || 'A'}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate dark:text-foreground/90">{user?.username || 'User'}</p>
-              <p className="text-xs text-muted-foreground dark:text-purple-light/60 truncate">{user?.email}</p>
+              <p className="text-sm font-medium truncate dark:text-foreground/90">{user?.username || 'Admin'}</p>
+              <p className="text-xs text-amber-500 dark:text-orange/70 truncate">Administrator</p>
             </div>
           </div>
           <button
@@ -181,22 +203,25 @@ export function AppLayout() {
             <nav className="text-sm text-muted-foreground">
               <ol className="flex items-center gap-2">
                 <li>
-                  <Link to="/app" className="hover:text-foreground transition-colors">
-                    {t('app.dashboard')}
+                  <Link to="/app/admin" className="hover:text-foreground dark:hover:text-orange transition-colors">
+                    Admin
                   </Link>
                 </li>
-                {location.pathname !== '/app' && (
+                {location.pathname !== '/app/admin' && (
                   <>
                     <li>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                         <path d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                       </svg>
                     </li>
-                    <li className="text-foreground font-medium">
-                      {location.pathname.includes('/assets/new') ? t('app.newAsset') :
-                       location.pathname.includes('/assets/') ? t('app.editAsset') :
-                       location.pathname.includes('/assets') ? t('app.assets') :
-                       location.pathname.includes('/reports') ? t('app.reports') : ''}
+                    <li className="text-foreground dark:text-orange font-medium">
+                      {location.pathname.includes('/users/') ? 'User Details' :
+                       location.pathname.includes('/users') ? 'Users' :
+                       location.pathname.includes('/organizations/') ? 'Organization Details' :
+                       location.pathname.includes('/organizations') ? 'Organizations' :
+                       location.pathname.includes('/assets') ? 'Assets' :
+                       location.pathname.includes('/newsletter') ? 'Newsletter' :
+                       location.pathname.includes('/security') ? 'Security' : ''}
                     </li>
                   </>
                 )}
@@ -204,55 +229,38 @@ export function AppLayout() {
             </nav>
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2">
-            {/* Search */}
-            <button className="w-10 h-10 flex items-center justify-center border border-border dark:border-purple/30 hover:border-foreground dark:hover:border-purple text-muted-foreground hover:text-foreground dark:hover:text-purple-light transition-colors dark:hover:bg-purple/10">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          {/* Language toggle */}
+          <button
+            onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}
+            className="h-10 px-3 flex items-center justify-center border border-border dark:border-purple/30 hover:border-foreground dark:hover:border-purple text-muted-foreground hover:text-foreground dark:hover:text-purple-light transition-colors text-sm font-medium dark:hover:bg-purple/10"
+            aria-label="Toggle language"
+          >
+            {language === 'en' ? 'PL' : 'EN'}
+          </button>
+
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="w-10 h-10 flex items-center justify-center border border-border dark:border-orange/40 hover:border-foreground dark:hover:border-orange text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors dark:hover:bg-orange/10 dark:hover:shadow-[0_0_15px_rgba(251,146,60,0.2)]"
+            aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+          >
+            {theme === 'light' ? (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
               </svg>
-            </button>
-
-            {/* Notifications */}
-            <button className="w-10 h-10 flex items-center justify-center border border-border dark:border-purple/30 hover:border-foreground dark:hover:border-purple text-muted-foreground hover:text-foreground dark:hover:text-purple-light transition-colors relative dark:hover:bg-purple/10">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            ) : (
+              <svg className="w-5 h-5 dark:text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
-              <span className="absolute top-2 right-2 w-2 h-2 bg-foreground dark:bg-orange rounded-full"></span>
-            </button>
+            )}
+          </button>
 
-            {/* Language toggle */}
-            <button
-              onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}
-              className="h-10 px-3 flex items-center justify-center border border-border dark:border-purple/30 hover:border-foreground dark:hover:border-purple text-muted-foreground hover:text-foreground dark:hover:text-purple-light transition-colors text-sm font-medium dark:hover:bg-purple/10"
-              aria-label="Toggle language"
-            >
-              {language === 'en' ? 'PL' : 'EN'}
-            </button>
-
-            {/* Theme toggle */}
-            <button
-              onClick={toggleTheme}
-              className="w-10 h-10 flex items-center justify-center border border-border dark:border-orange/40 hover:border-foreground dark:hover:border-orange text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors dark:hover:bg-orange/10 dark:hover:shadow-[0_0_15px_rgba(251,146,60,0.2)]"
-              aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-            >
-              {theme === 'light' ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-              ) : (
-                <svg className="w-5 h-5 dark:text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              )}
-            </button>
-
-            {/* Help */}
-            <button className="hidden sm:flex w-10 h-10 items-center justify-center border border-border dark:border-purple/30 hover:border-foreground dark:hover:border-purple text-muted-foreground hover:text-foreground dark:hover:text-purple-light transition-colors dark:hover:bg-purple/10">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-              </svg>
-            </button>
+          {/* Admin badge */}
+          <div className="flex items-center gap-2 text-xs text-amber-500 dark:text-orange border border-amber-500 dark:border-orange/60 dark:bg-orange/10 px-3 py-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+            {t('admin.adminPanel')}
           </div>
         </header>
 

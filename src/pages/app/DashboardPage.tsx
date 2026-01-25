@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { assetsService } from '../../services/assetsService';
@@ -58,7 +57,13 @@ export function DashboardPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-muted-foreground">Loading...</div>
+        <div className="flex items-center gap-3 text-muted-foreground">
+          <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          Loading...
+        </div>
       </div>
     );
   }
@@ -66,101 +71,103 @@ export function DashboardPage() {
   if (error) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-destructive">{error}</div>
+        <div className="text-center">
+          <div className="w-12 h-12 border border-red-500/30 flex items-center justify-center mx-auto mb-4">
+            <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+            </svg>
+          </div>
+          <p className="text-red-500">{error}</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-light">Dashboard</h1>
-          <p className="text-muted-foreground">Overview of your assets</p>
+          <h1 className="text-3xl font-light mb-1">Dashboard</h1>
+          <p className="text-muted-foreground">Overview of your product registry</p>
         </div>
         <Link to="/app/assets/new">
-          <Button>Add Asset</Button>
+          <Button className="h-11">
+            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path d="M12 4v16m8-8H4" />
+            </svg>
+            Add Asset
+          </Button>
         </Link>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Assets</p>
-                <p className="text-3xl font-bold">{stats.total}</p>
-              </div>
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Total */}
+        <div className="border border-border p-6 relative group hover:border-foreground transition-colors">
+          <div className="absolute top-0 left-0 w-1 h-full bg-foreground" />
+          <p className="text-sm text-muted-foreground mb-1">Total Assets</p>
+          <p className="text-4xl font-light">{stats.total}</p>
+          <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+            </svg>
+            All registered items
+          </div>
+        </div>
 
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Draft</p>
-                <p className="text-3xl font-bold text-muted-foreground">{stats.draft}</p>
-              </div>
-              <div className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center">
-                <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Draft */}
+        <div className="border border-border p-6 group hover:border-foreground transition-colors">
+          <p className="text-sm text-muted-foreground mb-1">Draft</p>
+          <p className="text-4xl font-light text-muted-foreground">{stats.draft}</p>
+          <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="w-2 h-2 bg-muted-foreground/50 rounded-full" />
+            Awaiting completion
+          </div>
+        </div>
 
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Verified</p>
-                <p className="text-3xl font-bold text-amber-500">{stats.verified}</p>
-              </div>
-              <div className="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                <svg className="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Verified */}
+        <div className="border border-border p-6 group hover:border-foreground transition-colors">
+          <p className="text-sm text-muted-foreground mb-1">Verified</p>
+          <p className="text-4xl font-light text-amber-500">{stats.verified}</p>
+          <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="w-2 h-2 bg-amber-500 rounded-full" />
+            Ready to mint
+          </div>
+        </div>
 
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Minted</p>
-                <p className="text-3xl font-bold text-emerald-500">{stats.minted}</p>
-              </div>
-              <div className="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                <svg className="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Minted */}
+        <div className="border border-border p-6 group hover:border-foreground transition-colors">
+          <p className="text-sm text-muted-foreground mb-1">Minted</p>
+          <p className="text-4xl font-light text-emerald-500">{stats.minted}</p>
+          <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="w-2 h-2 bg-emerald-500 rounded-full" />
+            On blockchain
+          </div>
+        </div>
       </div>
 
-      {/* Charts and Lists */}
+      {/* Main content grid */}
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Assets by Type */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Assets by Type</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="border border-border">
+          <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+            <h2 className="font-medium">Assets by Type</h2>
+            <span className="text-xs text-muted-foreground">{Object.keys(assetsByType).length} types</span>
+          </div>
+          <div className="p-6">
             {Object.keys(assetsByType).length === 0 ? (
-              <p className="text-muted-foreground text-sm">No assets yet</p>
+              <div className="text-center py-8">
+                <div className="w-12 h-12 border border-border flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    <path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                  </svg>
+                </div>
+                <p className="text-muted-foreground text-sm">No assets yet</p>
+                <Link to="/app/assets/new" className="text-sm text-foreground hover:underline mt-2 inline-block">
+                  Add your first asset →
+                </Link>
+              </div>
             ) : (
               <div className="space-y-4">
                 {Object.entries(assetsByType)
@@ -168,14 +175,14 @@ export function DashboardPage() {
                   .map(([type, count]) => {
                     const percentage = stats.total > 0 ? (count / stats.total) * 100 : 0;
                     return (
-                      <div key={type} className="space-y-2">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="capitalize">{type}</span>
+                      <div key={type} className="group">
+                        <div className="flex items-center justify-between text-sm mb-2">
+                          <span className="capitalize font-medium">{type}</span>
                           <span className="text-muted-foreground">{count}</span>
                         </div>
-                        <div className="h-2 bg-secondary rounded-full overflow-hidden">
+                        <div className="h-1 bg-border overflow-hidden">
                           <div
-                            className="h-full bg-primary rounded-full transition-all duration-500"
+                            className="h-full bg-foreground transition-all duration-500"
                             style={{ width: `${percentage}%` }}
                           />
                         </div>
@@ -184,62 +191,98 @@ export function DashboardPage() {
                   })}
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Recent Assets */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Assets</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="border border-border">
+          <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+            <h2 className="font-medium">Recent Assets</h2>
+            <Link to="/app/assets" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              View all →
+            </Link>
+          </div>
+          <div className="divide-y divide-border">
             {recentAssets.length === 0 ? (
-              <p className="text-muted-foreground text-sm">No assets yet</p>
+              <div className="text-center py-8 px-6">
+                <div className="w-12 h-12 border border-border flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    <path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <p className="text-muted-foreground text-sm">No recent activity</p>
+              </div>
             ) : (
-              <div className="space-y-4">
-                {recentAssets.map((asset) => (
-                  <Link
-                    key={asset.id}
-                    to={`/app/assets/${asset.id}`}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-secondary transition-colors"
-                  >
+              recentAssets.map((asset) => (
+                <Link
+                  key={asset.id}
+                  to={`/app/assets/${asset.id}`}
+                  className="flex items-center justify-between p-4 hover:bg-foreground/[0.02] transition-colors group"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 border border-border flex items-center justify-center text-muted-foreground group-hover:border-foreground group-hover:text-foreground transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                        <path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                      </svg>
+                    </div>
                     <div>
                       <p className="font-medium">{asset.metadata.name || `Asset #${asset.id}`}</p>
-                      <p className="text-sm text-muted-foreground capitalize">{asset.type}</p>
+                      <p className="text-xs text-muted-foreground capitalize">{asset.type}</p>
                     </div>
-                    <Badge variant={statusVariants[asset.status]}>
-                      {statusLabels[asset.status]}
-                    </Badge>
-                  </Link>
-                ))}
-              </div>
+                  </div>
+                  <Badge variant={statusVariants[asset.status]}>
+                    {statusLabels[asset.status]}
+                  </Badge>
+                </Link>
+              ))
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
-      {/* Status Overview */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Status Overview</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-3 gap-4">
-            <div className="text-center p-4 rounded-lg bg-secondary">
-              <Badge className="mb-2">Draft</Badge>
-              <p className="text-2xl font-bold">{stats.draft}</p>
+      {/* Status Pipeline */}
+      <div className="border border-border">
+        <div className="px-6 py-4 border-b border-border">
+          <h2 className="font-medium">Asset Pipeline</h2>
+        </div>
+        <div className="p-6">
+          <div className="flex items-center gap-4">
+            {/* Draft */}
+            <div className="flex-1 text-center">
+              <div className="border border-border p-6 mb-3">
+                <p className="text-3xl font-light text-muted-foreground">{stats.draft}</p>
+              </div>
+              <p className="text-sm text-muted-foreground">Draft</p>
             </div>
-            <div className="text-center p-4 rounded-lg bg-secondary">
-              <Badge variant="warning" className="mb-2">Verified</Badge>
-              <p className="text-2xl font-bold">{stats.verified}</p>
+
+            {/* Arrow */}
+            <svg className="w-6 h-6 text-muted-foreground flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+
+            {/* Verified */}
+            <div className="flex-1 text-center">
+              <div className="border border-amber-500/30 bg-amber-500/5 p-6 mb-3">
+                <p className="text-3xl font-light text-amber-500">{stats.verified}</p>
+              </div>
+              <p className="text-sm text-muted-foreground">Verified</p>
             </div>
-            <div className="text-center p-4 rounded-lg bg-secondary">
-              <Badge variant="success" className="mb-2">Minted</Badge>
-              <p className="text-2xl font-bold">{stats.minted}</p>
+
+            {/* Arrow */}
+            <svg className="w-6 h-6 text-muted-foreground flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+
+            {/* Minted */}
+            <div className="flex-1 text-center">
+              <div className="border border-emerald-500/30 bg-emerald-500/5 p-6 mb-3">
+                <p className="text-3xl font-light text-emerald-500">{stats.minted}</p>
+              </div>
+              <p className="text-sm text-muted-foreground">Minted</p>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

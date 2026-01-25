@@ -4,23 +4,10 @@ import { Input } from './ui/Input';
 import { useLanguage } from '../context/LanguageContext';
 import { newsletterService, getErrorMessage } from '../services/newsletterService';
 
-// Minimalist icons (jak w LandingPage)
-const Icons = {
-  mail: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      <path d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-  ),
-  newsletter: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-      <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-    </svg>
-  )
-};
-
 export function ContactSection() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
   const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,7 +18,7 @@ export function ContactSection() {
 
     try {
       await newsletterService.subscribe(email);
-      alert(t('newsletter.success'));
+      setSubscribed(true);
       setEmail('');
     } catch (error) {
       console.error('Newsletter subscription error:', error);
@@ -42,76 +29,168 @@ export function ContactSection() {
   };
 
   return (
-    <section className="py-24 px-6 border-t border-border" id="contact">
-      <div className="max-w-7xl mx-auto">
-        {/* SectionHeader style */}
-        <div className="mb-16">
-          <div className="flex items-center gap-6 mb-6">
-            <h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground">
+    <section className="py-24 px-6 border-t border-border dark:border-border/50 relative overflow-hidden" id="contact">
+      {/* Background grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.02] dark:opacity-[0.015]"
+        style={{
+          backgroundImage: 'linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)',
+          backgroundSize: '60px 60px'
+        }}
+      />
+      {/* Dark mode ambient glows */}
+      <div className="absolute top-20 left-20 w-64 h-64 bg-purple/10 rounded-full blur-[100px] dark:block hidden" />
+      <div className="absolute bottom-20 right-20 w-64 h-64 bg-orange/10 rounded-full blur-[100px] dark:block hidden" />
+
+      <div className="max-w-7xl mx-auto relative">
+        {/* Section Header - centered */}
+        <div className="mb-16 text-center">
+          <div className="flex items-center justify-center gap-6 mb-6">
+            <div className="flex-1 h-px bg-border dark:bg-gradient-to-r dark:from-transparent dark:to-orange/30 max-w-24" />
+            <h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground dark:text-orange/70">
               {t('contact.sectionTitle')}
             </h2>
-            <div className="flex-1 h-px bg-border" />
+            <div className="flex-1 h-px bg-border dark:bg-gradient-to-r dark:from-purple/30 dark:to-transparent max-w-24" />
           </div>
+          <p className="text-3xl md:text-4xl font-light max-w-2xl mx-auto">
+            {t('contact.headline')}
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-stretch">
-          {/* Lewa strona - email kontaktowy */}
-          <div className="border border-border p-8 md:p-12">
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-6">
-              {t('contact.questions')}
-            </p>
-            <h3 className="text-2xl font-light mb-6">
+        <div className="grid md:grid-cols-2 gap-8 items-stretch">
+          {/* Left - Contact */}
+          <div className="border border-border dark:border-purple/30 p-8 md:p-12 relative group hover:border-foreground dark:hover:border-purple transition-all duration-300 dark:hover:shadow-[0_0_40px_rgba(168,85,247,0.15)]">
+            {/* Corner accents */}
+            <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-foreground dark:border-purple opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-foreground dark:border-purple opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-foreground dark:border-purple opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-foreground dark:border-purple opacity-0 group-hover:opacity-100 transition-opacity" />
+
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 border border-border dark:border-purple/40 flex items-center justify-center dark:text-purple-light">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                  <path d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground dark:text-purple-light/70">
+                {t('contact.questions')}
+              </p>
+            </div>
+
+            <h3 className="text-2xl md:text-3xl font-light mb-4">
               {t('contact.writeUs')}
             </h3>
-            <div className="flex items-start gap-4">
-              <div className="text-muted-foreground flex-shrink-0">{Icons.mail}</div>
-              <div>
-                <h4 className="font-medium mb-1">{t('contact.email')}</h4>
-                <p className="text-muted-foreground text-sm mb-2">{t('contact.response')}</p>
-                <a
-                  href={`mailto:${t('contact.emailAddress')}`}
-                  className="text-foreground hover:text-primary transition-colors font-medium"
-                >
-                  {t('contact.emailAddress')}
-                </a>
+            <p className="text-muted-foreground mb-8">
+              {t('contact.response')}
+            </p>
+
+            {/* Email link with modern style */}
+            <a
+              href={`mailto:${t('contact.emailAddress')}`}
+              className="group/link inline-flex items-center gap-3 p-4 border border-border dark:border-purple/30 hover:border-foreground dark:hover:border-purple hover:bg-foreground/[0.02] dark:hover:bg-purple/10 transition-all"
+            >
+              <div className="w-8 h-8 border border-foreground/20 dark:border-purple/40 group-hover/link:border-foreground dark:group-hover/link:border-purple flex items-center justify-center transition-colors">
+                <svg className="w-4 h-4 dark:group-hover/link:text-purple-light" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </div>
+              <span className="font-medium dark:group-hover/link:text-purple-light">{t('contact.emailAddress')}</span>
+            </a>
+
+            {/* Status indicator */}
+            <div className="mt-8 pt-6 border-t border-border dark:border-border/50 flex items-center gap-3 text-sm text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-500 dark:bg-purple rounded-full animate-pulse dark:shadow-[0_0_8px_rgba(168,85,247,0.5)]" />
+                {t('contact.status')}
+              </span>
             </div>
           </div>
 
-          {/* Prawa strona - newsletter */}
-          <div className="border border-border p-8 md:p-12">
-            <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-6">
-              {t('newsletter.title')}
-            </p>
-            <h3 className="text-2xl font-light mb-6">
-              {t('newsletter.stayUpdated')}
-            </h3>
-            <div className="flex items-start gap-4 mb-8">
-              <div className="text-muted-foreground flex-shrink-0">{Icons.newsletter}</div>
-              <div>
-                <h4 className="font-medium mb-1">{t('newsletter.news')}</h4>
-                <p className="text-muted-foreground text-sm">{t('newsletter.newsDesc')}</p>
+          {/* Right - Newsletter */}
+          <div className="border border-foreground dark:border-orange/40 p-8 md:p-12 relative bg-gradient-to-br from-foreground/[0.02] dark:from-orange/[0.05] to-transparent dark:shadow-[0_0_40px_rgba(251,146,60,0.1)] overflow-hidden">
+            {/* Decorative element */}
+            <div className="absolute top-0 right-0 w-32 h-32 border-r border-t border-foreground/10 dark:border-orange/20" />
+            {/* Glow in corner */}
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-orange/20 rounded-full blur-[60px] dark:block hidden" />
+
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 border border-foreground dark:border-orange flex items-center justify-center bg-foreground dark:bg-gradient-to-br dark:from-orange dark:to-orange-dark text-background">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                  <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
               </div>
+              <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground dark:text-orange/70">
+                {t('newsletter.title')}
+              </p>
             </div>
 
-            <form onSubmit={handleSubmit}>
-              <div className="flex gap-3">
-                <Input
-                  type="email"
-                  placeholder={t('newsletter.placeholder')}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1"
-                />
-                <Button
-                  type="submit"
-                  disabled={isSubmitting || !email}
-                  className="px-6 whitespace-nowrap"
-                >
-                  {isSubmitting ? t('newsletter.submitting') : t('newsletter.submit')}
-                </Button>
+            <h3 className="text-2xl md:text-3xl font-light mb-4">
+              {t('newsletter.stayUpdated')}
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              {t('newsletter.newsDesc')}
+            </p>
+
+            {subscribed ? (
+              <div className="p-6 border border-green-500/30 dark:border-orange/40 bg-green-500/[0.05] dark:bg-orange/10">
+                <div className="flex items-center gap-3 text-green-600 dark:text-orange">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="font-medium">{t('newsletter.success')}</span>
+                </div>
               </div>
-            </form>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex-1 relative">
+                    <Input
+                      type="email"
+                      placeholder={t('newsletter.placeholder')}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full h-12 pr-4 dark:border-orange/30 dark:focus:border-orange"
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting || !email}
+                    className="h-12 px-8 whitespace-nowrap dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_20px_rgba(251,146,60,0.4)]"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center gap-2">
+                        <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                        {t('newsletter.submitting')}
+                      </span>
+                    ) : (
+                      t('newsletter.submit')
+                    )}
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground mt-4">
+                  {t('newsletter.privacy')}
+                </p>
+              </form>
+            )}
+
+            {/* Features list */}
+            <div className="mt-8 pt-6 border-t border-border dark:border-orange/20 grid grid-cols-2 gap-4 text-sm">
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <svg className="w-4 h-4 dark:text-orange" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path d="M5 13l4 4L19 7" />
+                </svg>
+                {t('newsletter.feature1')}
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <svg className="w-4 h-4 dark:text-orange" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path d="M5 13l4 4L19 7" />
+                </svg>
+                {t('newsletter.feature2')}
+              </div>
+            </div>
           </div>
         </div>
       </div>

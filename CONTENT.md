@@ -1,6 +1,6 @@
 # Truvalue — Landing Page Content (MVP)
 
-Plik do pracy nad tekstami marketingowymi.  
+Plik do pracy nad tekstami marketingowymi.
 Po zmianach zaktualizuj `src/context/LanguageContext.tsx`.
 
 ---
@@ -10,7 +10,7 @@ Po zmianach zaktualizuj `src/context/LanguageContext.tsx`.
 | Key | EN | PL |
 |------|-----|-----|
 | nav.problem | Problem | Problem |
-| nav.howItWorks | How it works | Jak działa |
+| nav.howItWorks | How it works | Jak dziala |
 | nav.useCases | Use cases | Zastosowania |
 | nav.faq | FAQ | FAQ |
 | nav.demo | Demo | Demo |
@@ -36,6 +36,18 @@ Po zmianach zaktualizuj `src/context/LanguageContext.tsx`.
 - **Podtytuł:** Truvalue to rejestr każdego wartościowego produktu, zapisany w blockchain na zawsze. Dokumentuj zakupy, serwisy, naprawy — raz zapisane, nigdy nie znikną.
 - **CTA główny:** Zarejestruj za darmo
 - **CTA dodatkowy:** Zobacz jak działa →
+
+---
+
+## TRUST STATS (Hero section)
+
+| Key | EN | PL |
+|------|-----|-----|
+| stats.immutable | Immutable | Niezmienny |
+| stats.transparent | Transparent | Przejrzysty |
+| stats.accessible | Accessible | Dostępny |
+
+Wyświetlane jako: ∞ Immutable | 100% Transparent | 24/7 Accessible
 
 ---
 
@@ -136,7 +148,7 @@ Po zmianach zaktualizuj `src/context/LanguageContext.tsx`.
 
 ---
 
-## FOR MANUFACTURERS (WITHIN USE CASES)
+## FOR MANUFACTURERS (B2B Section)
 
 ### Header
 
@@ -146,10 +158,10 @@ Po zmianach zaktualizuj `src/context/LanguageContext.tsx`.
 
 ### Description
 
-**English:**  
+**English:**
 Manufacturers can create product identity at production stage and attach verified origin data from day one.
 
-**Polski:**  
+**Polski:**
 Producenci mogą tworzyć tożsamość produktu już na etapie produkcji i dodawać zweryfikowane dane od pierwszego dnia.
 
 ---
@@ -158,66 +170,70 @@ Producenci mogą tworzyć tożsamość produktu już na etapie produkcji i dodaw
 
 | # | EN Title | EN Desc | PL Title | PL Desc |
 |---|----------|---------|----------|---------|
-| 1 | Product identity | Each product gets unique blockchain identity at factory. | Tożsamość produktu | Każdy produkt dostaje unikalną tożsamość już w fabryce. |
-| 2 | Proof of origin | Verified manufacturing data and certificates. | Dowód pochodzenia | Zweryfikowane dane produkcyjne i certyfikaty. |
-| 3 | Anti-counterfeiting | Customers can verify if product is original. | Ochrona przed podróbkami | Klient może sprawdzić, czy produkt jest oryginalny. |
-| 4 | Lifecycle tracking | Full visibility across servicing and resale. | Historia w całym cyklu życia | Pełna widoczność przez serwisy i kolejne sprzedaże. |
-| 5 | Brand protection | Stolen or fake products damage brand reputation. | Ochrona marki | Kradzione i fałszywe produkty nie psują reputacji marki. |
+| 01 | Product identity | Each product gets unique blockchain identity at factory. | Tożsamość produktu | Każdy produkt dostaje unikalną tożsamość już w fabryce. |
+| 02 | Proof of origin | Verified manufacturing data and certificates. | Dowód pochodzenia | Zweryfikowane dane produkcyjne i certyfikaty. |
+| 03 | Anti-counterfeiting | Customers can verify if product is original. | Ochrona przed podróbkami | Klient może sprawdzić, czy produkt jest oryginalny. |
+| 04 | Lifecycle tracking | Full visibility across servicing and resale. | Historia w całym cyklu życia | Pełna widoczność przez serwisy i kolejne sprzedaże. |
+| 05 | Brand protection | Stolen or fake products damage brand reputation. | Ochrona marki | Kradzione i fałszywe produkty nie psują reputacji marki. |
 
 ---
 
 ### Summary
 
-**EN:**  
+**EN:**
 Truvalue becomes a shared product record between manufacturer, owner and service partners.
 
-**PL:**  
+**PL:**
 Truvalue staje się wspólnym rejestrem produktu dla producenta, właściciela i serwisów.
 
 ---
 
-## ADDITIONAL PRODUCT STATUS (WITHIN USE CASES)
+## SECURITY - PRODUCT OWNERSHIP & THEFT STATUS
 
-### Separator
+### Header
 
 | EN | PL |
 |----|-----|
-| Plus | Dodatkowo |
+| Security | Security |
+| Product ownership and theft status | Status własności i kradzieży produktu |
+
+### Description
+
+**English:**
+Owner can report a product as stolen. The status becomes part of the product history and is visible during every verification.
+
+**Polski:**
+Właściciel może zgłosić produkt jako skradziony. Status staje się częścią historii produktu i jest widoczny przy każdej weryfikacji.
+
+### Benefits
+
+| EN | PL |
+|----|-----|
+| Protects buyers and manufacturers | Ochrona kupujących i producentów |
+| Limits illegal resale | Ograniczenie nielegalnego obrotu |
+| Increases trust in product history | Większe zaufanie do historii produktu |
+
+### Note
+
+| EN | PL |
+|----|-----|
+| Applies to all products registered in Truvalue. | Dotyczy wszystkich produktów zarejestrowanych w Truvalue. |
+
+### Warning Badge
+
+| EN | PL |
+|----|-----|
+| ITEM REPORTED STOLEN | PRZEDMIOT ZGŁOSZONY JAKO SKRADZIONY |
+| This product has been reported as stolen by its owner. The status is permanently recorded on blockchain. | Ten produkt został zgłoszony jako skradziony przez właściciela. Status jest trwale zapisany w blockchain. |
 
 ---
 
-## PRODUCT OWNERSHIP & THEFT STATUS
+## CONSTANTLY EVOLVING (po Security)
 
-### English
-
-**Title:** Product ownership and theft status
-
-Owner can report a product as stolen.  
-The status becomes part of the product history and is visible during every verification.
-
-**Impact:**
-- protects buyers and manufacturers  
-- limits illegal resale  
-- increases trust in product history  
-
-*Applies to all products registered in Truvalue.*
-
----
-
-### Polski
-
-**Tytuł:** Status własności i kradzieży produktu
-
-Właściciel może zgłosić produkt jako skradziony.  
-Status staje się częścią historii produktu i jest widoczny przy każdej weryfikacji.
-
-**Efekt:**
-- ochrona kupujących i producentów  
-- ograniczenie nielegalnego obrotu  
-- większe zaufanie do historii produktu  
-
-*Dotyczy wszystkich produktów zarejestrowanych w Truvalue.*
-
+| Key | EN | PL |
+|------|-----|-----|
+| useCases.evolving | Constantly evolving | Ciągle się rozwijamy |
+| useCases.evolvingDesc | New features and possibilities are added as the platform grows. This is just the beginning. | Nowe funkcje i możliwości pojawiają się wraz z rozwojem platformy. To dopiero początek. |
 
 ---
 
@@ -292,40 +308,40 @@ Status staje się częścią historii produktu i jest widoczny przy każdej wery
 
 ### Q1
 
-**Is it really free?**  
+**Is it really free?**
 MVP — yes, completely free. Test it and give feedback.
 
-**Czy to naprawdę darmowe?**  
+**Czy to naprawdę darmowe?**
 MVP — tak, całkowicie za darmo. Testuj i dawaj feedback.
 
 ---
 
 ### Q2
 
-**Do I need to understand blockchain?**  
+**Do I need to understand blockchain?**
 No. Truvalue works like a normal app. Blockchain runs under the hood.
 
-**Czy muszę znać blockchain?**  
+**Czy muszę znać blockchain?**
 Nie. Truvalue działa jak zwykła aplikacja. Blockchain jest pod spodem.
 
 ---
 
 ### Q3
 
-**Can I register anything?**  
+**Can I register anything?**
 Yes. Any product that has value.
 
-**Czy mogę zarejestrować cokolwiek?**  
+**Czy mogę zarejestrować cokolwiek?**
 Tak. Każdy produkt, który ma wartość.
 
 ---
 
 ### Q4
 
-**Can I edit the history?**  
+**Can I edit the history?**
 No. Once recorded, it cannot be changed.
 
-**Czy mogę edytować historię?**  
+**Czy mogę edytować historię?**
 Nie. Raz zapisane, nie da się zmienić.
 
 ---
@@ -348,12 +364,87 @@ Nie. Raz zapisane, nie da się zmienić.
 
 ---
 
-## FOOTER
+## CONTACT SECTION
+
+### Header
 
 | Key | EN | PL |
 |------|-----|-----|
-| Tagline | Blockchain registry for valuable products. | Blockchain registry for wartościowych produktów. |
-| Product | Product | Produkt |
-| Contact | Contact | Kontakt |
-| Copyright | © 2025 Truvalue.co | © 2025 Truvalue.co |
-| Slogan | Built on blockchain. Built for trust. | Built on blockchain. Built for trust. |
+| contact.sectionTitle | Contact | Kontakt |
+| contact.headline | Let's build the future of product identity together | Zbudujmy razem przyszłość tożsamości produktów |
+
+### Contact Card
+
+| Key | EN | PL |
+|------|-----|-----|
+| contact.questions | Got questions? | Masz pytania? |
+| contact.writeUs | Write to us | Napisz do nas |
+| contact.response | We typically respond within 24 hours. Real humans, real answers. | Odpowiadamy zwykle w ciągu 24 godzin. Prawdziwi ludzie, prawdziwe odpowiedzi. |
+| contact.emailAddress | hello@truvalue.co | hello@truvalue.co |
+| contact.status | Online and ready to help | Online i gotowi do pomocy |
+
+### Newsletter Card
+
+| Key | EN | PL |
+|------|-----|-----|
+| newsletter.title | Newsletter | Newsletter |
+| newsletter.stayUpdated | Stay in the loop | Bądź na bieżąco |
+| newsletter.newsDesc | Product updates, new features, and insights delivered to your inbox. | Aktualizacje produktu, nowe funkcje i inspiracje prosto na Twój email. |
+| newsletter.placeholder | Enter your email | Wpisz swój email |
+| newsletter.submit | Subscribe | Zapisz się |
+| newsletter.submitting | Subscribing... | Zapisuję... |
+| newsletter.success | You're in! Check your inbox. | Jesteś na liście! Sprawdź skrzynkę. |
+| newsletter.error | An error occurred. Please try again. | Wystąpił błąd. Spróbuj ponownie. |
+| newsletter.privacy | No spam. Unsubscribe anytime. | Bez spamu. Wypisz się kiedy chcesz. |
+| newsletter.feature1 | Monthly updates | Miesięczne aktualizacje |
+| newsletter.feature2 | Early access | Wczesny dostęp |
+
+---
+
+## FOOTER
+
+### Brand
+
+| Key | EN | PL |
+|------|-----|-----|
+| footer.tagline | The immutable registry for valuable products. Every item has a story — we make sure it's never lost. | Niezmienny rejestr wartościowych produktów. Każdy przedmiot ma swoją historię — my sprawiamy, że nigdy nie zostanie utracona. |
+| footer.version | Early Access v0.1 | Early Access v0.1 |
+| footer.tech | Blockchain-powered | Zasilany blockchain |
+| footer.slogan | Built on blockchain. Built for trust. | Built on blockchain. Built for trust. |
+
+### Links
+
+| Key | EN | PL |
+|------|-----|-----|
+| footer.product | Product | Produkt |
+| footer.resources | Resources | Zasoby |
+| footer.contact | Connect | Kontakt |
+| footer.docs | Documentation | Dokumentacja |
+| footer.api | API (coming soon) | API (wkrótce) |
+| footer.status | System status | Status systemu |
+| footer.contactForm | Contact form | Formularz kontaktowy |
+
+### Bottom Bar
+
+| Key | EN | PL |
+|------|-----|-----|
+| footer.copyright | © 2025 Truvalue.co | © 2025 Truvalue.co |
+| footer.backToTop | Back to top | Wróć na górę |
+
+---
+
+## STRUKTURA SEKCJI NA STRONIE
+
+1. **Navigation** (fixed)
+2. **Hero** + Blockchain visualization + Trust Stats
+3. **Problem & Solution**
+4. **How It Works** (timeline)
+5. **Use Cases** (categories)
+6. **For Manufacturers** (B2B)
+7. **Security** (Stolen Flag)
+8. **Constantly Evolving** (rozwój platformy)
+9. **Roadmap** (4 phases)
+10. **FAQ** (accordion)
+11. **Final CTA**
+12. **Contact** (email + newsletter)
+13. **Footer**
