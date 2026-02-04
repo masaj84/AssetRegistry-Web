@@ -77,9 +77,9 @@ export function AppLayout() {
         <div className="h-16 flex items-center gap-3 px-6 border-b border-border dark:border-border/50">
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-9 h-9 border-2 border-foreground dark:border-orange/60 flex items-center justify-center group-hover:bg-foreground dark:group-hover:bg-orange/20 transition-colors dark:group-hover:border-orange dark:group-hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]">
-              <span className="text-xs font-bold group-hover:text-background dark:group-hover:text-orange transition-colors">TV</span>
+              <span className="text-[10px] font-mono font-bold group-hover:text-background dark:group-hover:text-orange transition-colors dark:text-orange/90">T_</span>
             </div>
-            <span className="text-sm font-medium tracking-widest dark:text-orange/90">TRUVALUE</span>
+            <span className="text-sm font-mono font-medium tracking-widest dark:text-foreground/90">TRVE<span className="dark:text-orange">_</span></span>
           </Link>
           <span className="ml-auto text-[10px] font-mono text-muted-foreground border border-border dark:border-purple/30 dark:text-purple-light/70 px-2 py-0.5">
             MVP
@@ -108,7 +108,7 @@ export function AppLayout() {
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-8 bg-foreground dark:bg-gradient-to-b dark:from-orange dark:to-magenta" />
                 )}
                 <span className={cn(isActive && 'dark:text-orange')}>{item.icon}</span>
-                {item.name}
+                <span className="font-mono">{item.name}</span>
               </Link>
             );
           })}
@@ -121,7 +121,7 @@ export function AppLayout() {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path d="M12 4v16m8-8H4" />
               </svg>
-              {t('app.newAsset')}
+              <span className="font-mono">{t('app.newAsset')}</span>
             </button>
           </Link>
           {user?.role === 'ADMIN' && (
@@ -131,7 +131,7 @@ export function AppLayout() {
                   <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                   <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                {t('app.adminPanel')}
+                <span className="font-mono">{t('app.adminPanel')}</span>
               </button>
             </Link>
           )}
@@ -146,8 +146,8 @@ export function AppLayout() {
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate dark:text-foreground/90">{user?.username || 'User'}</p>
-              <p className="text-xs text-muted-foreground dark:text-purple-light/60 truncate">{user?.email}</p>
+              <p className="text-sm font-medium font-mono truncate dark:text-foreground/90">{user?.username || 'User'}</p>
+              <p className="text-xs font-mono text-muted-foreground dark:text-purple-light/60 truncate">{user?.email}</p>
             </div>
           </div>
           <button
@@ -157,7 +157,7 @@ export function AppLayout() {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
             </svg>
-            {t('app.signOut')}
+            <span className="font-mono">{t('app.signOut')}</span>
           </button>
         </div>
       </aside>
@@ -178,7 +178,7 @@ export function AppLayout() {
 
           {/* Breadcrumb / Page title */}
           <div className="flex-1">
-            <nav className="text-sm text-muted-foreground">
+            <nav className="text-sm text-muted-foreground font-mono">
               <ol className="flex items-center gap-2">
                 <li>
                   <Link to="/app" className="hover:text-foreground transition-colors">

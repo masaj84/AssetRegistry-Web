@@ -108,9 +108,9 @@ export function RegisterPage() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 border-2 border-background flex items-center justify-center group-hover:bg-background transition-colors">
-              <span className="text-sm font-bold group-hover:text-foreground transition-colors">TV</span>
+              <span className="text-xs font-mono font-bold group-hover:text-foreground transition-colors">T_</span>
             </div>
-            <span className="text-sm font-medium tracking-widest">TRUVALUE</span>
+            <span className="text-sm font-mono font-medium tracking-widest">TRVE<span className="opacity-70">_</span></span>
           </Link>
 
           {/* Center content */}
@@ -138,7 +138,7 @@ export function RegisterPage() {
 
           {/* Bottom */}
           <div className="flex items-center justify-between text-sm text-background/40">
-            <span>© 2025 Truvalue.co</span>
+            <span>© 2025 TRVE.io</span>
             <span className="font-mono">v0.1 Early Access</span>
           </div>
         </div>
@@ -151,9 +151,9 @@ export function RegisterPage() {
           <div className="lg:hidden text-center mb-12">
             <Link to="/" className="inline-flex items-center gap-3">
               <div className="w-10 h-10 border-2 border-foreground flex items-center justify-center">
-                <span className="text-sm font-bold">TV</span>
+                <span className="text-xs font-mono font-bold">T_</span>
               </div>
-              <span className="text-sm font-medium tracking-widest">TRUVALUE</span>
+              <span className="text-sm font-mono font-medium tracking-widest">TRVE<span className="opacity-70">_</span></span>
             </Link>
           </div>
 

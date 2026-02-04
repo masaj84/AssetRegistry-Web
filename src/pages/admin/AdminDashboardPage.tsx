@@ -177,7 +177,7 @@ export function AdminDashboardPage() {
       </div>
 
       {/* Quick Links */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         <Link
           to="/app/admin/users"
           className="border border-border p-4 flex items-center gap-3 hover:border-foreground transition-colors group"
@@ -235,6 +235,36 @@ export function AdminDashboardPage() {
           <div>
             <p className="font-medium text-sm">{t('admin.newsletter')}</p>
             <p className="text-xs text-muted-foreground">{t('admin.dashboard.viewSubscribers')}</p>
+          </div>
+        </Link>
+
+        <Link
+          to="/app/admin/blockchain"
+          className="border border-border p-4 flex items-center gap-3 hover:border-foreground transition-colors group"
+        >
+          <div className="w-10 h-10 border border-border flex items-center justify-center group-hover:border-foreground transition-colors">
+            <svg className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+            </svg>
+          </div>
+          <div>
+            <p className="font-medium text-sm">Blockchain</p>
+            <p className="text-xs text-muted-foreground">Anchoring & verification</p>
+          </div>
+        </Link>
+
+        <Link
+          to="/app/admin/audit"
+          className="border border-border p-4 flex items-center gap-3 hover:border-foreground transition-colors group"
+        >
+          <div className="w-10 h-10 border border-border flex items-center justify-center group-hover:border-foreground transition-colors">
+            <svg className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+            </svg>
+          </div>
+          <div>
+            <p className="font-medium text-sm">Audit Log</p>
+            <p className="text-xs text-muted-foreground">System activity history</p>
           </div>
         </Link>
       </div>

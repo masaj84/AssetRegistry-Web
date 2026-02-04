@@ -136,3 +136,93 @@ export interface PagedResponse<T> {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 }
+
+// Blockchain / Merkle Batch
+export interface MerkleBatch {
+  id: number;
+  merkleRoot: string;
+  recordCount: number;
+  transactionHash?: string;
+  blockNumber?: number;
+  chainId: number;
+  status: 'Pending' | 'Anchored' | 'Failed';
+  createdAt: string;
+  anchoredAt?: string;
+  errorMessage?: string;
+}
+
+export interface AnchoringStats {
+  totalBatches: number;
+  anchoredBatches: number;
+  pendingBatches: number;
+  failedBatches: number;
+  totalRecordsAnchored: number;
+  blockchain: {
+    totalBatches: number;
+    totalRecords: number;
+  };
+}
+
+export interface BlockchainHealth {
+  status: 'healthy' | 'unhealthy';
+  blockchain: 'connected' | 'disconnected';
+}
+
+export interface VerificationResponse {
+  isVerified: boolean;
+  recordHash: string;
+  merkleRoot?: string;
+  batchId?: number;
+  transactionHash?: string;
+  blockNumber?: number;
+  chainId?: number;
+  anchoredAt?: string;
+  blockchainVerified?: boolean;
+  status: string;
+  error?: string;
+}
+
+export interface BatchInfoResponse {
+  batchId: number;
+  merkleRoot: string;
+  recordCount: number;
+  status: string;
+  transactionHash?: string;
+  blockNumber?: number;
+  chainId?: number;
+  createdAt: string;
+  anchoredAt?: string;
+}
+
+// Audit Log
+export interface AuditLogEntry {
+  id: number;
+  userId?: string;
+  username?: string;
+  action: string;
+  entityType: string;
+  entityId?: string;
+  details?: string;
+  ipAddress?: string;
+  userAgent?: string;
+  createdAt: string;
+}
+
+export interface AuditLogListRequest {
+  pageNumber?: number;
+  pageSize?: number;
+  userId?: string;
+  action?: string;
+  entityType?: string;
+  startDate?: string;
+  endDate?: string;
+}
+
+// Asset Detail (extended)
+export interface AdminAssetDetail extends AdminAsset {
+  metadata?: Record<string, unknown>;
+  recordHash?: string;
+  merkleBatchId?: number;
+  merkleProof?: string;
+  anchoredAt?: string;
+}

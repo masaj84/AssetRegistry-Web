@@ -261,10 +261,10 @@ export function LandingPage() {
   ];
 
   const roadmapItems = [
-    { phase: 'Phase 1', title: t('roadmap.phase1'), items: [t('roadmap.phase1.item1'), t('roadmap.phase1.item2'), t('roadmap.phase1.item3'), t('roadmap.phase1.item4')] },
-    { phase: 'Phase 2', title: t('roadmap.phase2'), items: [t('roadmap.phase2.item1'), t('roadmap.phase2.item2'), t('roadmap.phase2.item3'), t('roadmap.phase2.item4')] },
-    { phase: 'Phase 3', title: t('roadmap.phase3'), items: [t('roadmap.phase3.item1'), t('roadmap.phase3.item2'), t('roadmap.phase3.item3'), t('roadmap.phase3.item4')] },
-    { phase: 'Phase 4', title: t('roadmap.phase4'), items: [t('roadmap.phase4.item1'), t('roadmap.phase4.item2'), t('roadmap.phase4.item3'), t('roadmap.phase4.item4')] },
+    { phase: 'Phase 1', title: t('roadmap.phase1'), items: [t('roadmap.phase1.item1'), t('roadmap.phase1.item2'), t('roadmap.phase1.item3'), t('roadmap.phase1.item4'), t('roadmap.phase1.item5')] },
+    { phase: 'Phase 2', title: t('roadmap.phase2'), items: [t('roadmap.phase2.item1'), t('roadmap.phase2.item2'), t('roadmap.phase2.item3'), t('roadmap.phase2.item4'), t('roadmap.phase2.item5')] },
+    { phase: 'Phase 3', title: t('roadmap.phase3'), items: [t('roadmap.phase3.item1'), t('roadmap.phase3.item2'), t('roadmap.phase3.item3'), t('roadmap.phase3.item4'), t('roadmap.phase3.item5')] },
+    { phase: 'Phase 4', title: t('roadmap.phase4'), items: [t('roadmap.phase4.item1'), t('roadmap.phase4.item2'), t('roadmap.phase4.item3'), t('roadmap.phase4.item4'), t('roadmap.phase4.item5')] },
   ];
 
   return (
@@ -289,33 +289,34 @@ export function LandingPage() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href="#" className="flex items-center gap-3 group">
-              <div className="w-9 h-9 border-2 border-foreground flex items-center justify-center group-hover:bg-foreground transition-colors">
-                <span className="text-xs font-bold tracking-tighter group-hover:text-background transition-colors">TV</span>
+              <div className="w-9 h-9 border-2 border-foreground dark:border-orange/60 flex items-center justify-center group-hover:bg-foreground dark:group-hover:bg-orange/20 transition-colors dark:group-hover:shadow-[0_0_15px_rgba(251,146,60,0.3)]">
+                <span className="text-[10px] font-mono font-bold tracking-tighter group-hover:text-background dark:group-hover:text-orange transition-colors dark:text-orange/90">T_</span>
               </div>
-              <span className="text-sm font-medium tracking-widest hidden sm:block">TRUVALUE</span>
+              <span className="text-sm font-mono font-medium tracking-widest hidden sm:block dark:text-foreground/90">TRVE<span className="dark:text-orange">_</span></span>
             </a>
 
             {/* Desktop nav links */}
-            <div className="hidden lg:flex items-center gap-8 text-sm">
-              <a href="#problem" className="text-muted-foreground hover:text-foreground transition-colors">{t('nav.problem')}</a>
-              <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">{t('nav.howItWorks')}</a>
-              <a href="#use-cases" className="text-muted-foreground hover:text-foreground transition-colors">{t('nav.useCases')}</a>
-              <a href="#faq" className="text-muted-foreground hover:text-foreground transition-colors">{t('nav.faq')}</a>
-              <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">Kontakt</a>
+            <div className="hidden lg:flex items-center gap-8 text-sm font-mono">
+              <a href="#problem" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">{t('nav.problem')}</a>
+              <a href="#how-it-works" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">{t('nav.howItWorks')}</a>
+              <a href="#use-cases" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">{t('nav.useCases')}</a>
+              <a href="#faq" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">{t('nav.faq')}</a>
+              <Link to="/whitepaper" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">{t('nav.whitepaper')}</Link>
+              <a href="#contact" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">Kontakt</a>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 font-mono">
               <ThemeToggleButton />
               <LanguageToggle />
-              <Button variant="ghost" className="text-sm hidden sm:inline-flex" onClick={handleDemo} disabled={isDemoLoading}>
+              <Button variant="ghost" className="text-sm hidden sm:inline-flex font-mono" onClick={handleDemo} disabled={isDemoLoading}>
                 {isDemoLoading ? '...' : t('nav.demo')}
               </Button>
               <Link to="/login" className="hidden sm:block">
-                <Button variant="ghost" className="text-sm">{t('nav.login')}</Button>
+                <Button variant="ghost" className="text-sm font-mono">{t('nav.login')}</Button>
               </Link>
               <Link to="/register">
-                <Button className="text-sm">{t('nav.getStarted')}</Button>
+                <Button className="text-sm font-mono">{t('nav.getStarted')}</Button>
               </Link>
             </div>
           </div>
@@ -882,10 +883,10 @@ export function LandingPage() {
             <div className="max-w-md">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 border-2 border-foreground dark:border-orange/50 flex items-center justify-center group hover:bg-foreground dark:hover:bg-orange/20 transition-colors dark:hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]">
-                  <span className="text-sm font-bold tracking-tighter group-hover:text-background dark:group-hover:text-orange transition-colors">TV</span>
+                  <span className="text-sm font-mono font-bold tracking-tighter group-hover:text-background dark:group-hover:text-orange transition-colors dark:text-orange/90">T_</span>
                 </div>
                 <div>
-                  <span className="text-sm font-medium tracking-widest block dark:text-gradient-hero">TRUVALUE</span>
+                  <span className="text-sm font-mono font-medium tracking-widest block dark:text-gradient-hero">TRVE<span className="dark:text-orange">_</span></span>
                   <span className="text-xs text-muted-foreground">{t('footer.version')}</span>
                 </div>
               </div>
@@ -940,9 +941,9 @@ export function LandingPage() {
                 </h4>
                 <ul className="space-y-3 text-sm text-muted-foreground">
                   <li>
-                    <a href="mailto:hello@truvalue.co" className="hover:text-foreground dark:hover:text-purple-light transition-colors inline-flex items-center gap-2 group">
+                    <a href="mailto:hello@trve.io" className="hover:text-foreground dark:hover:text-purple-light transition-colors inline-flex items-center gap-2 group">
                       <span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-purple transition-all" />
-                      hello@truvalue.co
+                      hello@trve.io
                     </a>
                   </li>
                   <li>

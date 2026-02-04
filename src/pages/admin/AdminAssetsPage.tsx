@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
@@ -56,8 +57,6 @@ export function AdminAssetsPage() {
 
   const totalPages = Math.ceil(totalCount / pageSize);
 
-  // Get unique types from assets for filter
-  const assetTypes = [...new Set(assets.map(a => a.type))];
 
   if (error) {
     return (
@@ -139,12 +138,13 @@ export function AdminAssetsPage() {
               <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Status</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Created</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Token ID</th>
+              <th className="px-4 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">{t('admin.actions')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
             {isLoading ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
+                <td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">
                   <div className="flex items-center justify-center gap-2">
                     <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -156,7 +156,7 @@ export function AdminAssetsPage() {
               </tr>
             ) : assets.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
+                <td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">
                   {t('admin.assets.noAssets')}
                 </td>
               </tr>
@@ -203,6 +203,17 @@ export function AdminAssetsPage() {
                   </td>
                   <td className="px-4 py-4 text-sm text-muted-foreground font-mono">
                     {asset.tokenId || '-'}
+                  </td>
+                  <td className="px-4 py-4 text-right">
+                    <Link
+                      to={`/app/admin/assets/${asset.id}`}
+                      className="p-2 hover:bg-foreground/5 rounded transition-colors inline-flex"
+                    >
+                      <svg className="w-4 h-4 text-muted-foreground hover:text-foreground" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                        <path d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </Link>
                   </td>
                 </tr>
               ))

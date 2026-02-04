@@ -6,6 +6,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminRoute } from './components/AdminRoute';
 
 import { LandingPage } from './pages/LandingPage';
+import { WhitepaperPage } from './pages/WhitepaperPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
 import { AppLayout } from './components/layout/AppLayout';
@@ -22,8 +23,11 @@ import { AdminUserDetailPage } from './pages/admin/AdminUserDetailPage';
 import { AdminOrganizationsPage } from './pages/admin/AdminOrganizationsPage';
 import { AdminOrganizationDetailPage } from './pages/admin/AdminOrganizationDetailPage';
 import { AdminAssetsPage } from './pages/admin/AdminAssetsPage';
+import { AdminAssetDetailPage } from './pages/admin/AdminAssetDetailPage';
 import { AdminNewsletterPage } from './pages/admin/AdminNewsletterPage';
 import { AdminSecurityPage } from './pages/admin/AdminSecurityPage';
+import { AdminBlockchainPage } from './pages/admin/AdminBlockchainPage';
+import { AdminAuditLogPage } from './pages/admin/AdminAuditLogPage';
 
 function App() {
   return (
@@ -34,6 +38,7 @@ function App() {
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<LandingPage />} />
+          <Route path="/whitepaper" element={<WhitepaperPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
@@ -68,8 +73,11 @@ function App() {
             <Route path="organizations" element={<AdminOrganizationsPage />} />
             <Route path="organizations/:id" element={<AdminOrganizationDetailPage />} />
             <Route path="assets" element={<AdminAssetsPage />} />
+            <Route path="assets/:id" element={<AdminAssetDetailPage />} />
             <Route path="newsletter" element={<AdminNewsletterPage />} />
             <Route path="security" element={<AdminSecurityPage />} />
+            <Route path="blockchain" element={<AdminBlockchainPage />} />
+            <Route path="audit" element={<AdminAuditLogPage />} />
           </Route>
 
           {/* Catch all - redirect to home */}

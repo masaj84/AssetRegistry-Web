@@ -8,10 +8,17 @@ import type {
   AdminOrganizationListRequest,
   AdminUpdateOrganizationRequest,
   AdminAsset,
+  AdminAssetDetail,
   AdminAssetListRequest,
   NewsletterSubscriber,
   LockedUser,
   PagedResponse,
+  AnchoringStats,
+  BlockchainHealth,
+  BatchInfoResponse,
+  VerificationResponse,
+  AuditLogEntry,
+  AuditLogListRequest,
 } from '../types/admin';
 
 export const adminService = {
@@ -105,5 +112,43 @@ export const adminService = {
 
   async setLockoutEnabled(id: string, enabled: boolean): Promise<void> {
     await api.post(`/admin/security/users/${id}/set-lockout`, { enabled });
+  },
+
+  // Asset Detail
+  async getAssetById(id: number): Promise<AdminAssetDetail> {
+    const response = await api.get<AdminAssetDetail>(`/assets/${id}`);
+    return response.data;
+  },
+
+  // Blockchain / Verification
+  async getAnchoringStats(): Promise<AnchoringStats> {
+    const response = await api.get<AnchoringStats>('/verification/stats');
+    return response.data;
+  },
+
+  async getBlockchainHealth(): Promise<BlockchainHealth> {
+    const response = await api.get<BlockchainHealth>('/verification/health');
+    return response.data;
+  },
+
+  async getBatchInfo(batchId: number): Promise<BatchInfoResponse> {
+    const response = await api.get<BatchInfoResponse>(`/verification/batch/${batchId}`);
+    return response.data;
+  },
+
+  async verifyAsset(assetId: number): Promise<VerificationResponse> {
+    const response = await api.get<VerificationResponse>(`/verification/asset/${assetId}`);
+    return response.data;
+  },
+
+  async verifyHash(recordHash: string): Promise<VerificationResponse> {
+    const response = await api.get<VerificationResponse>(`/verification/hash/${recordHash}`);
+    return response.data;
+  },
+
+  // Audit Log (if backend supports it)
+  async getAuditLogs(params?: AuditLogListRequest): Promise<PagedResponse<AuditLogEntry>> {
+    const response = await api.get<PagedResponse<AuditLogEntry>>('/admin/audit-logs', { params });
+    return response.data;
   },
 };

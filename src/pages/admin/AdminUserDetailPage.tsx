@@ -6,10 +6,10 @@ import { Input } from '../../components/ui/Input';
 import { adminService } from '../../services/adminService';
 import { getErrorMessage } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
-import type { AdminUser, AdminOrganization, PagedResponse } from '../../types/admin';
+import type { AdminUser, AdminOrganization } from '../../types/admin';
 
 export function AdminUserDetailPage() {
-  const { t } = useLanguage();
+  useLanguage();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [user, setUser] = useState<AdminUser | null>(null);

@@ -60,6 +60,24 @@ const getNavigation = (t: (key: string) => string) => [
       </svg>
     ),
   },
+  {
+    name: 'Blockchain',
+    href: '/app/admin/blockchain',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Audit Log',
+    href: '/app/admin/audit',
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+      </svg>
+    ),
+  },
 ];
 
 export function AdminLayout() {
@@ -111,9 +129,9 @@ export function AdminLayout() {
         <div className="h-16 flex items-center gap-3 px-6 border-b border-border dark:border-border/50">
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-9 h-9 border-2 border-foreground dark:border-orange/60 flex items-center justify-center group-hover:bg-foreground dark:group-hover:bg-orange/20 transition-colors dark:group-hover:border-orange dark:group-hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]">
-              <span className="text-xs font-bold group-hover:text-background dark:group-hover:text-orange transition-colors">TV</span>
+              <span className="text-[10px] font-mono font-bold group-hover:text-background dark:group-hover:text-orange transition-colors dark:text-orange/90">T_</span>
             </div>
-            <span className="text-sm font-medium tracking-widest dark:text-orange/90">TRUVALUE</span>
+            <span className="text-sm font-mono font-medium tracking-widest dark:text-foreground/90">TRVE<span className="dark:text-orange">_</span></span>
           </Link>
           <span className="ml-auto text-[10px] font-mono text-amber-500 dark:text-orange border border-amber-500 dark:border-orange/60 px-2 py-0.5">
             ADMIN
@@ -141,7 +159,7 @@ export function AdminLayout() {
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-8 bg-amber-500 dark:bg-gradient-to-b dark:from-orange dark:to-magenta" />
                 )}
                 <span className={cn(active && 'dark:text-orange')}>{item.icon}</span>
-                {item.name}
+                <span className="font-mono">{item.name}</span>
               </Link>
             );
           })}
@@ -154,7 +172,7 @@ export function AdminLayout() {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
               </svg>
-              {t('admin.backToApp')}
+              <span className="font-mono">{t('admin.backToApp')}</span>
             </button>
           </Link>
         </div>
@@ -168,8 +186,8 @@ export function AdminLayout() {
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate dark:text-foreground/90">{user?.username || 'Admin'}</p>
-              <p className="text-xs text-amber-500 dark:text-orange/70 truncate">Administrator</p>
+              <p className="text-sm font-medium font-mono truncate dark:text-foreground/90">{user?.username || 'Admin'}</p>
+              <p className="text-xs font-mono text-amber-500 dark:text-orange/70 truncate">Administrator</p>
             </div>
           </div>
           <button
@@ -179,7 +197,7 @@ export function AdminLayout() {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
             </svg>
-            {t('app.signOut')}
+            <span className="font-mono">{t('app.signOut')}</span>
           </button>
         </div>
       </aside>
@@ -200,7 +218,7 @@ export function AdminLayout() {
 
           {/* Breadcrumb / Page title */}
           <div className="flex-1">
-            <nav className="text-sm text-muted-foreground">
+            <nav className="text-sm text-muted-foreground font-mono">
               <ol className="flex items-center gap-2">
                 <li>
                   <Link to="/app/admin" className="hover:text-foreground dark:hover:text-orange transition-colors">
@@ -219,9 +237,12 @@ export function AdminLayout() {
                        location.pathname.includes('/users') ? 'Users' :
                        location.pathname.includes('/organizations/') ? 'Organization Details' :
                        location.pathname.includes('/organizations') ? 'Organizations' :
+                       location.pathname.includes('/assets/') ? 'Asset Details' :
                        location.pathname.includes('/assets') ? 'Assets' :
                        location.pathname.includes('/newsletter') ? 'Newsletter' :
-                       location.pathname.includes('/security') ? 'Security' : ''}
+                       location.pathname.includes('/security') ? 'Security' :
+                       location.pathname.includes('/blockchain') ? 'Blockchain' :
+                       location.pathname.includes('/audit') ? 'Audit Log' : ''}
                     </li>
                   </>
                 )}
@@ -256,11 +277,11 @@ export function AdminLayout() {
           </button>
 
           {/* Admin badge */}
-          <div className="flex items-center gap-2 text-xs text-amber-500 dark:text-orange border border-amber-500 dark:border-orange/60 dark:bg-orange/10 px-3 py-1">
+          <div className="flex items-center gap-2 text-xs font-mono text-amber-500 dark:text-orange border border-amber-500 dark:border-orange/60 dark:bg-orange/10 px-3 py-1">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
             </svg>
-            {t('admin.adminPanel')}
+            <span className="font-mono">{t('admin.adminPanel')}</span>
           </div>
         </header>
 

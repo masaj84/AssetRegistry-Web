@@ -9,7 +9,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import type { AdminOrganization } from '../../types/admin';
 
 export function AdminOrganizationDetailPage() {
-  const { t } = useLanguage();
+  useLanguage();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [organization, setOrganization] = useState<AdminOrganization | null>(null);

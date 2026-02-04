@@ -1,4 +1,4 @@
-# Truvalue - Robots.txt
+# TRVE - Robots.txt
 User-agent: *
 Allow: /
 Disallow: /app/
@@ -6,4 +6,4 @@ Disallow: /login
 Disallow: /register
 
 # Sitemap
-Sitemap: https://truvalue.co/sitemap.xml
+Sitemap: https://trve.io/sitemap.xml

@@ -1,7 +1,278 @@
-# Truvalue — Landing Page Content (MVP)
+# TRVE — Landing Page Content (MVP)
 
 Plik do pracy nad tekstami marketingowymi.
 Po zmianach zaktualizuj `src/context/LanguageContext.tsx`.
+
+---
+
+## BRAND IDENTITY — TRVE
+
+### Nazwa i wymowa
+- **Nazwa:** TRVE (z podkreśleniem: TRVE_)
+- **Wymowa:** jak angielskie "TRUE" (prawda)
+- **Domena:** trve.io
+- **Email:** hello@trve.io
+
+### Estetyka wizualna
+- **Styl:** Digital Brutalism / Terminal Core
+- **Fonty:** Monospace (terminal aesthetic)
+- **Kolory:** Czarny, biały, cyan/orange akcenty
+
+### Znaczenie podkreślenia "_"
+Podkreślenie na końcu TRVE_ to nie tylko element wizualny — ma znaczenie:
+- Reprezentuje "kursor terminala" — system gotowy do działania
+- Symbolizuje "placeholder" — miejsce na Twoje dane
+- W programowaniu podkreślenie to zmienna prywatna/wewnętrzna — sugeruje bezpieczeństwo
+- Podkreślenie to "Immutable Base" — fundament, na którym budujesz
+
+### ASCII Logo
+```
+▀█▀ █▀█ █ █ █▀▀
+ █  █▀▄ ▀▄▀ ██▄
+```
+Alternatywnie w terminalu:
+```
+TRVE_
+```
+
+### Taglines / Hasła marketingowe
+
+| Context | EN | PL |
+|---------|----|----|
+| Primary | System ready. Truth secured. | System gotowy. Prawda zabezpieczona. |
+| Short | Immutable truth. | Niezmienna prawda. |
+| Technical | Your data. Verified forever. | Twoje dane. Zweryfikowane na zawsze. |
+| Brand promise | Once recorded, never lost. | Raz zapisane, nigdy nie zginie. |
+
+---
+
+## GENESIS ASSET — WHITEPAPER W BLOCKCHAIN
+
+### Koncept
+
+Pierwszy asset zarejestrowany w TRVE to sam whitepaper (wersja EN + PL). To nie jest tylko symbol — to dowód, że system działa.
+
+> "Naszym pierwszym klientem byliśmy my sami."
+
+### Dlaczego to działa marketingowo
+
+1. **Proof of concept** — Inwestorzy widzą działający produkt, nie prezentację
+2. **Eating our own dog food** — Używamy tego, co sprzedajemy
+3. **Weryfikowalny** — Każdy może sprawdzić: `trve.io/verify/TRVE-GENESIS-001`
+4. **Historia od dnia zero** — Whitepaper ewoluuje, każda wersja jest zapisana
+
+### Struktura Genesis Asset
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  TRVE_ GENESIS ASSET                                                 │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  ASSET_ID:     TRVE-GENESIS-001                                      │
+│  TYPE:         Document                                              │
+│  NAME:         TRVE Whitepaper                                       │
+│  CREATED:      [data pierwszego batcha]                              │
+│                                                                      │
+│  FILES:                                                              │
+│  ├── whitepaper-en.pdf  →  SHA256: 0x7f3a...                        │
+│  └── whitepaper-pl.pdf  →  SHA256: 0x8b2c...                        │
+│                                                                      │
+│  MERKLE_ROOT:  0xabcd...                                             │
+│  TX_HASH:      0x1234... (Polygon)                                   │
+│                                                                      │
+│  STATUS:       ✓ VERIFIED                                            │
+│  INTEGRITY:    BLOCKCHAIN ANCHORED                                   │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### Ewolucja Genesis Asset (zgodnie z roadmapą)
+
+| Faza | Co się dzieje z Genesis Asset |
+|------|-------------------------------|
+| **Faza 1** | Hash whitepaper → Merkle tree → Polygon (anchoring) |
+| **Faza 2** | Pliki uploadowane na IPFS, CID w metadanych |
+| **Faza 3** | Pełna decentralizacja — IPFS + anchoring |
+| **Faza 4** | Mint jako NFT — "Genesis Whitepaper NFT" (kolekcjonerski) |
+
+### Strona weryfikacji Genesis Asset
+
+Specjalna strona: `trve.io/genesis` lub `trve.io/verify/TRVE-GENESIS-001`
+
+**Elementy:**
+- Podgląd whitepaper (EN/PL toggle)
+- Link do transakcji na Polygonscan
+- Historia wersji (jeśli whitepaper był aktualizowany)
+- Przycisk "Verify on blockchain"
+- Badge: "First asset ever registered in TRVE"
+
+### Teksty marketingowe
+
+**EN:**
+> Our whitepaper isn't just a document — it's our first verified asset.
+> Check it yourself: every version, every update, permanently recorded on blockchain.
+
+**PL:**
+> Nasz whitepaper to nie tylko dokument — to nasz pierwszy zweryfikowany asset.
+> Sprawdź sam: każda wersja, każda aktualizacja, zapisana na zawsze w blockchain.
+
+### Pitch dla inwestorów
+
+**EN:**
+> "Before we asked anyone to trust TRVE, we trusted it ourselves.
+> Our whitepaper was the first asset anchored on blockchain.
+> You can verify it right now — that's the point."
+
+**PL:**
+> "Zanim poprosiliśmy kogokolwiek o zaufanie do TRVE, sami mu zaufaliśmy.
+> Nasz whitepaper był pierwszym assetem zakotwiczonym w blockchain.
+> Możesz to zweryfikować teraz — o to właśnie chodzi."
+
+---
+
+### Użycie w marketingu
+
+#### 1. Strona główna / Portal
+- Wybierz stronę główną: TRVE. (gdzie ten podświetlony punkt mrugnął podczas ładowania)
+- Logo z animacją wejścia: Terminal Palety (cyan na czarnym tle)
+- Tagline pod logo: "System gotowy. Prawda zabezpieczona."
+
+#### 2. Social Media (X / Twitter)
+- Username: @TRVE_io
+- Bio format: "TRVE. — Immutable product registry. Your truth, verified forever."
+- Kropka jest w innym kolorze (np. podkreślony cyan)
+- Posty używają monospace/terminal aesthetic
+
+#### 3. Komunikacja tekstowa
+- Kiedy Yeet bot (Claude) + Click + Shield występują razem: używaj jako "prawdę" systemu
+- Używaj skrótów jak terminalu: "TRVE." kończy się kropką
+- "To jest TRVE." = "To jest prawda" (gra słów)
+
+#### 4. Animacje na stronie (User Experience)
+- Kropka powinna "pulsować" jak kursor terminala
+- Wejście strony: efekt "boot systemu"
+- Loading states: monospace counting
+
+### Paleta kolorów
+
+| Element | Light Mode | Dark Mode |
+|---------|------------|-----------|
+| Background | White (#ffffff) | Deep Navy (#0a0a0f) |
+| Text | Black (#000000) | White/Gray (#f0f0f0) |
+| Accent Primary | Cyan (#0ea5e9) | Orange (#fb923c) |
+| Accent Secondary | — | Purple (#a855f7) |
+| Accent Tertiary | — | Magenta (#e879f9) |
+
+### Brand Voice (ton komunikacji)
+- **Techniczny ale przystępny** — nie zakładamy wiedzy o blockchain
+- **Pewny siebie** — "prawda" jest w nazwie
+- **Minimalistyczny** — krótkie zdania, bez nadmiaru słów
+- **Terminal-inspired** — może używać formatowania jak `code` lub → strzałek
+
+---
+
+## RAPORT WERYFIKACJI PRODUKTU
+
+### Format wyświetlania raportu
+
+Gdy użytkownik generuje raport o zabezpieczeniu/weryfikacji assetu, wyświetl w stylu terminala:
+
+```
+┌─────────────────────────────────────┐
+│  TRVE_                              │
+│  ─────────────────────────────────  │
+│                                     │
+│  ASSET_ID:   [ID produktu]          │
+│  VERIFIED:   [timestamp]            │
+│  INTEGRITY:  [hash]                 │
+│                                     │
+│  Status: ✓ VERIFIED                 │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+### Warianty statusu
+
+| Status | EN | PL | Kolor |
+|--------|----|----|-------|
+| Verified | ✓ VERIFIED | ✓ ZWERYFIKOWANY | Green/Cyan |
+| Pending | ◐ PENDING | ◐ OCZEKUJE | Yellow/Orange |
+| Stolen | ⚠ REPORTED STOLEN | ⚠ ZGŁOSZONY JAKO SKRADZIONY | Red |
+| Unverified | ✗ NOT VERIFIED | ✗ NIEZWERYFIKOWANY | Gray |
+
+### Jak to wyświetlać?
+
+1. **Na stronie produktu** — jako "pieczęć" weryfikacji w rogu
+2. **W eksporcie PDF** — pełny raport z QR kodem
+3. **Przy transferze własności** — potwierdzenie zmiany właściciela
+4. **W komunikacji** — skrócona wersja do udostępniania
+
+### Skrócony format (do social media / udostępniania)
+
+```
+TRVE_ ✓
+Asset #[ID] | Verified [date]
+trve.io/verify/[ID]
+```
+
+### Elementy raportu pełnego
+
+| Element | Opis | Przykład |
+|---------|------|----------|
+| ASSET_ID | Unikalny identyfikator produktu | `TVA-2025-00001` |
+| VERIFIED | Data i czas ostatniej weryfikacji | `2025-01-28 12:34:56 UTC` |
+| INTEGRITY | Hash blockchain potwierdzający niezmienność | `0x7f3a...8b2c` |
+| OWNER | Aktualny właściciel (opcjonalnie zasłonięty) | `user***@***.com` |
+| HISTORY | Liczba zdarzeń w historii | `12 events` |
+| CREATED | Data pierwszej rejestracji | `2024-06-15` |
+
+### Użycie w różnych kontekstach
+
+**Terminal / CLI:**
+```bash
+$ trve verify TVA-2025-00001
+✓ Asset verified
+  Integrity: 0x7f3a...8b2c
+  Last update: 2025-01-28
+```
+
+**API Response:**
+```json
+{
+  "status": "verified",
+  "asset_id": "TVA-2025-00001",
+  "integrity": "0x7f3a8b2c...",
+  "verified_at": "2025-01-28T12:34:56Z"
+}
+```
+
+**QR Code** zawiera link: `https://trve.io/v/[ASSET_ID]`
+
+### Stopka raportu (Bot / AI generated)
+
+Kiedy Twój bot (np. Claude, asystent AI) wygeneruje raport o zabezpieczonym aktywie, może go kończyć stopką:
+
+```
+──────────────────────────────────
+ASSET_ID: 0x567...321
+INTEGRITY VERIFIED
+GUARDED BY: TRVE_
+──────────────────────────────────
+```
+
+**Warianty stopki:**
+
+| Kontekst | Format |
+|----------|--------|
+| Pełna weryfikacja | `INTEGRITY VERIFIED` |
+| Częściowa | `INTEGRITY PARTIAL` |
+| Oczekuje | `INTEGRITY PENDING` |
+| Błąd | `INTEGRITY FAILED` |
+
+**Użycie w chatbotach / asystentach:**
+- Dodawaj stopkę na końcu każdego raportu o aktywie
+- "GUARDED BY: TRVE_" = pieczęć autentyczności
+- Format monospace dla spójności wizualnej
 
 ---
 
@@ -25,7 +296,7 @@ Po zmianach zaktualizuj `src/context/LanguageContext.tsx`.
 - **Badge:** Early Access
 - **Title line 1:** Immutable history
 - **Title line 2:** of your products
-- **Subtitle:** Truvalue is a registry for every valuable product, recorded on blockchain forever. Document purchases, services, repairs — once recorded, never lost.
+- **Subtitle:** TRVE is a registry for every valuable product, recorded on blockchain forever. Document purchases, services, repairs — once recorded, never lost.
 - **Primary CTA:** Register for free
 - **Secondary CTA:** See how it works →
 
@@ -33,7 +304,7 @@ Po zmianach zaktualizuj `src/context/LanguageContext.tsx`.
 - **Badge:** Early Access
 - **Tytuł linia 1:** Niezmienna historia
 - **Tytuł linia 2:** Twoich produktów
-- **Podtytuł:** Truvalue to rejestr każdego wartościowego produktu, zapisany w blockchain na zawsze. Dokumentuj zakupy, serwisy, naprawy — raz zapisane, nigdy nie znikną.
+- **Podtytuł:** TRVE to rejestr każdego wartościowego produktu, zapisany w blockchain na zawsze. Dokumentuj zakupy, serwisy, naprawy — raz zapisane, nigdy nie znikną.
 - **CTA główny:** Zarejestruj za darmo
 - **CTA dodatkowy:** Zobacz jak działa →
 
@@ -87,12 +358,12 @@ Wyświetlane jako: ∞ Immutable | 100% Transparent | 24/7 Accessible
 
 **English**
 - **Label:** Solution
-- **Title:** Truvalue: immutable product history
+- **Title:** TRVE: immutable product history
 - **Subtitle:** Every product has a unique ID. Events are recorded on blockchain — they cannot be changed.
 
 **Polski**
 - **Label:** Rozwiązanie
-- **Title:** Truvalue: niezmienna historia produktu
+- **Title:** TRVE: niezmienna historia produktu
 - **Subtitle:** Każdy produkt ma unikalny identyfikator. Zdarzenia są zapisywane w blockchain — nie da się ich zmienić.
 
 #### Solution Points
@@ -132,7 +403,7 @@ Wyświetlane jako: ∞ Immutable | 100% Transparent | 24/7 Accessible
 | EN | PL |
 |----|-----|
 | Use cases | Zastosowania |
-| What products can have a Truvalue history | Jakie produkty mogą mieć historię w Truvalue |
+| What products can have a TRVE history | Jakie produkty mogą mieć historię w TRVE |
 
 ---
 
@@ -181,10 +452,10 @@ Producenci mogą tworzyć tożsamość produktu już na etapie produkcji i dodaw
 ### Summary
 
 **EN:**
-Truvalue becomes a shared product record between manufacturer, owner and service partners.
+TRVE becomes a shared product record between manufacturer, owner and service partners.
 
 **PL:**
-Truvalue staje się wspólnym rejestrem produktu dla producenta, właściciela i serwisów.
+TRVE staje się wspólnym rejestrem produktu dla producenta, właściciela i serwisów.
 
 ---
 
@@ -217,7 +488,7 @@ Właściciel może zgłosić produkt jako skradziony. Status staje się części
 
 | EN | PL |
 |----|-----|
-| Applies to all products registered in Truvalue. | Dotyczy wszystkich produktów zarejestrowanych w Truvalue. |
+| Applies to all products registered in TRVE. | Dotyczy wszystkich produktów zarejestrowanych w TRVE. |
 
 ### Warning Badge
 
@@ -248,51 +519,58 @@ Właściciel może zgłosić produkt jako skradziony. Status staje się części
 
 ---
 
-### Phase 1 — MVP (Product Identity)
+### Phase 1 — Blockchain Anchoring
 
 | EN | PL |
 |----|-----|
-| Product identity | Tożsamość produktu |
+| Blockchain anchoring | Zakotwiczenie w blockchain |
 | Item registration | Rejestracja produktu |
+| Merkle proof verification | Weryfikacja Merkle proof |
 | Blockchain records | Zapis w blockchain |
 | Public verification | Publiczna weryfikacja |
 | QR / product ID | QR / identyfikator produktu |
 
 ---
 
-### Phase 2 — Verified Data Sources
+### Phase 2 — Data & Integrations
 
 | EN | PL |
 |----|-----|
-| Verified sources | Zweryfikowane źródła danych |
+| Data & integrations | Dane i integracje |
 | Manufacturer integrations | Integracje z producentami |
 | Service center partnerships | Partnerstwa z serwisami |
 | Certificates on-chain | Certyfikaty w blockchain |
 | Ownership transfer | Transfer własności |
+| NFT-ready data structure | Struktura danych gotowa na NFT |
 
 ---
 
-### Phase 3 — Market Infrastructure
+### Phase 3 — Decentralized Storage
 
 | EN | PL |
 |----|-----|
-| Market infrastructure | Infrastruktura rynku |
+| Decentralized storage | Zdecentralizowane przechowywanie |
 | Stolen goods registry | Rejestr kradzionych produktów |
 | Insurance integration | Integracje z ubezpieczycielami |
 | Compliance & reporting | Compliance i raportowanie |
 | Public APIs | Publiczne API |
+| IPFS integration | Integracja IPFS |
+| Decentralized asset storage | Zdecentralizowane przechowywanie danych |
 
 ---
 
-### Phase 4 — Scale & Intelligence
+### Phase 4 — NFT & Ownership
 
 | EN | PL |
 |----|-----|
-| Scale & intelligence | Skala i inteligencja |
+| NFT & ownership | NFT i własność |
 | Mobile apps | Aplikacje mobilne |
 | AI verification | Weryfikacja AI |
 | Fraud detection | Wykrywanie nadużyć |
 | Global partnerships | Globalne partnerstwa |
+| NFT for each asset | NFT dla każdego assetu |
+| On-chain ownership transfers | Transfery własności on-chain |
+| Wallet integration (optional) | Integracja z walletami (opcjonalna) |
 
 
 ---
@@ -319,10 +597,10 @@ MVP — tak, całkowicie za darmo. Testuj i dawaj feedback.
 ### Q2
 
 **Do I need to understand blockchain?**
-No. Truvalue works like a normal app. Blockchain runs under the hood.
+No. TRVE works like a normal app. Blockchain runs under the hood.
 
 **Czy muszę znać blockchain?**
-Nie. Truvalue działa jak zwykła aplikacja. Blockchain jest pod spodem.
+Nie. TRVE działa jak zwykła aplikacja. Blockchain jest pod spodem.
 
 ---
 
@@ -380,7 +658,7 @@ Nie. Raz zapisane, nie da się zmienić.
 | contact.questions | Got questions? | Masz pytania? |
 | contact.writeUs | Write to us | Napisz do nas |
 | contact.response | We typically respond within 24 hours. Real humans, real answers. | Odpowiadamy zwykle w ciągu 24 godzin. Prawdziwi ludzie, prawdziwe odpowiedzi. |
-| contact.emailAddress | hello@truvalue.co | hello@truvalue.co |
+| contact.emailAddress | hello@trve.io | hello@trve.io |
 | contact.status | Online and ready to help | Online i gotowi do pomocy |
 
 ### Newsletter Card
@@ -428,7 +706,7 @@ Nie. Raz zapisane, nie da się zmienić.
 
 | Key | EN | PL |
 |------|-----|-----|
-| footer.copyright | © 2025 Truvalue.co | © 2025 Truvalue.co |
+| footer.copyright | © 2025 TRVE.co | © 2025 TRVE.co |
 | footer.backToTop | Back to top | Wróć na górę |
 
 ---

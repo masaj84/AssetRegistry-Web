@@ -1,7 +1,7 @@
-# Truvalue - Kontekst Projektu
+# TRVE - Kontekst Projektu
 
 ## O Projekcie
-Truvalue - rejestr cennych przedmiotów oparty na blockchain. Niezmienna historia rzeczy (samochody, zegarki, elektronika, sztuka). MVP w fazie rozwoju.
+TRVE (wymawiane jak TRUE) - niezmienny rejestr cennych przedmiotów oparty na blockchain. Niezmienna historia rzeczy (samochody, zegarki, elektronika, sztuka). MVP w fazie rozwoju.
 
 ## Stack Technologiczny
 - React 19 + TypeScript

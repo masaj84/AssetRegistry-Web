@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { adminService } from '../../services/adminService';
 import { getErrorMessage } from '../../services/authService';
-import type { LockedUser, AdminUser, PagedResponse } from '../../types/admin';
+import type { LockedUser, AdminUser } from '../../types/admin';
 import { useLanguage } from '../../context/LanguageContext';
 
 export function AdminSecurityPage() {
@@ -39,18 +38,6 @@ export function AdminSecurityPage() {
     setActionLoading(userId);
     try {
       await adminService.unlockUser(userId);
-      await fetchData();
-    } catch (err) {
-      setError(getErrorMessage(err));
-    } finally {
-      setActionLoading(null);
-    }
-  };
-
-  const handleResetFailedCount = async (userId: string) => {
-    setActionLoading(`reset-${userId}`);
-    try {
-      await adminService.resetAccessFailedCount(userId);
       await fetchData();
     } catch (err) {
       setError(getErrorMessage(err));
