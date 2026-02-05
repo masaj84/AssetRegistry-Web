@@ -1,0 +1,22 @@
+{
+  "name": "trve-contracts",
+  "version": "1.0.0",
+  "description": "TRVE Smart Contracts - TruvalueAnchor for Polygon",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network amoy",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network polygon",
+    "verify": "hardhat verify --network amoy",
+    "authorize": "hardhat run scripts/authorize.js --network amoy"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@openzeppelin/contracts": "^5.0.1",
+    "hardhat": "^2.19.4",
+    "dotenv": "^16.3.1"
+  },
+  "keywords": ["ethereum", "polygon", "smart-contracts", "merkle-tree", "anchoring"],
+  "author": "TRVE Team",
+  "license": "MIT"
+}
