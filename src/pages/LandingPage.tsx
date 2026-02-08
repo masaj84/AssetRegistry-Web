@@ -1026,9 +1026,9 @@ export function LandingPage() {
                 </h4>
                 <ul className="space-y-3 text-sm text-muted-foreground">
                   <li>
-                    <a href="mailto:hello@trve.io" className="hover:text-foreground dark:hover:text-purple-light transition-colors inline-flex items-center gap-2 group">
+                    <a href="mailto:contact@trve.io" className="hover:text-foreground dark:hover:text-purple-light transition-colors inline-flex items-center gap-2 group">
                       <span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-purple transition-all" />
-                      hello@trve.io
+                      contact@trve.io
                     </a>
                   </li>
                   <li>
