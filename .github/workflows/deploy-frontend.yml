@@ -1,0 +1,218 @@
+name: Deploy TRVE Frontend to EC2
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'main'
+        type: string
+      environment:
+        description: 'Deployment environment'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+        default: staging
+
+env:
+  NODE_VERSION: '20.x'
+  DEPLOY_PATH: /var/www/trve-frontend
+  BACKUP_PATH: /var/www/backups/trve-frontend
+
+jobs:
+  build:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Create environment file
+        run: |
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            echo "VITE_API_URL=${{ secrets.VITE_API_URL_PRODUCTION }}" > .env.production
+            cat .env.production
+          else
+            echo "VITE_API_URL=${{ secrets.VITE_API_URL_STAGING }}" > .env.staging
+            cat .env.staging
+          fi
+
+      - name: Build application
+        run: npm run build
+
+      - name: Create deployment metadata
+        run: |
+          cat > dist/deployment-info.json << EOF
+          {
+            "branch": "${{ inputs.branch }}",
+            "environment": "${{ inputs.environment }}",
+            "commit": "${{ github.sha }}",
+            "commitShort": "${GITHUB_SHA:0:7}",
+            "deployedBy": "${{ github.actor }}",
+            "deployedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "workflowRun": "${{ github.run_id }}",
+            "workflowUrl": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }
+          EOF
+          cat dist/deployment-info.json
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build-${{ inputs.environment }}-${{ github.sha }}
+          path: dist/
+          retention-days: 30
+          if-no-files-found: error
+
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    needs: build
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build-${{ inputs.environment }}-${{ github.sha }}
+          path: dist/
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Add EC2 to known hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Verify SSH connectivity
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "echo 'SSH connection successful'"
+
+      - name: Create backup of current deployment
+        run: |
+          BACKUP_NAME="backup-$(date +%Y%m%d-%H%M%S)-${{ inputs.environment }}"
+          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << EOF
+            set -e
+            if [ -d "${{ env.DEPLOY_PATH }}" ] && [ "\$(ls -A ${{ env.DEPLOY_PATH }})" ]; then
+              echo "Creating backup: \$BACKUP_NAME"
+              sudo mkdir -p ${{ env.BACKUP_PATH }}
+              sudo cp -r ${{ env.DEPLOY_PATH }} ${{ env.BACKUP_PATH }}/\$BACKUP_NAME
+              echo "Backup created successfully"
+            else
+              echo "No existing deployment to backup"
+            fi
+          EOF
+
+      - name: Prepare deployment directory
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            set -e
+            sudo mkdir -p ${{ env.DEPLOY_PATH }}
+            sudo chown -R ${{ secrets.EC2_USER }}:nginx ${{ env.DEPLOY_PATH }}
+            sudo chmod -R 755 ${{ env.DEPLOY_PATH }}
+          EOF
+
+      - name: Deploy files via rsync
+        run: |
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
+            dist/ \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:${{ env.DEPLOY_PATH }}/
+
+      - name: Set correct permissions
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            set -e
+            sudo chown -R nginx:nginx ${{ env.DEPLOY_PATH }}
+            sudo find ${{ env.DEPLOY_PATH }} -type f -exec chmod 644 {} \;
+            sudo find ${{ env.DEPLOY_PATH }} -type d -exec chmod 755 {} \;
+            echo "Permissions set successfully"
+          EOF
+
+      - name: Reload Nginx
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            set -e
+            sudo nginx -t
+            sudo systemctl reload nginx
+            echo "Nginx reloaded successfully"
+          EOF
+
+      - name: Cleanup old backups
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            set -e
+            cd ${{ env.BACKUP_PATH }}
+            # Keep only the 5 most recent backups for this environment
+            ls -t | grep "${{ inputs.environment }}" | tail -n +6 | xargs -r sudo rm -rf
+            echo "Old backups cleaned up"
+            echo "Remaining backups:"
+            ls -lht | grep "${{ inputs.environment }}" || echo "No backups found for ${{ inputs.environment }}"
+          EOF
+
+      - name: Display deployment info
+        run: |
+          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "cat ${{ env.DEPLOY_PATH }}/deployment-info.json"
+
+  health-check:
+    name: Health Check
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Wait for deployment to settle
+        run: sleep 10
+
+      - name: Check deployment health
+        run: |
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            echo "Checking production: https://trve.io"
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -L https://trve.io)
+          else
+            echo "Checking staging: http://${{ secrets.EC2_HOST }}"
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -L http://${{ secrets.EC2_HOST }})
+          fi
+
+          echo "HTTP Response Code: $HTTP_CODE"
+
+          if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "301" ] || [ "$HTTP_CODE" = "302" ]; then
+            echo "✓ Health check passed"
+            exit 0
+          else
+            echo "✗ Health check failed with HTTP $HTTP_CODE"
+            exit 1
+          fi
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "======================================"
+          echo "⚠️  DEPLOYMENT HEALTH CHECK FAILED"
+          echo "======================================"
+          echo ""
+          echo "To rollback, SSH to EC2 and run:"
+          echo "  ssh -i trve-key.pem ec2-user@${{ secrets.EC2_HOST }}"
+          echo "  sudo /usr/local/bin/rollback-frontend.sh"
+          echo ""
+          echo "This will show available backups. Then run:"
+          echo "  sudo /usr/local/bin/rollback-frontend.sh <backup-name>"
+          echo ""
+          echo "======================================"
