@@ -157,24 +157,57 @@ git push origin landing-teaser
 
 ## 🚀 Pierwszy Deployment
 
-### Web UI (Łatwiejsze)
+### Metoda 1: npm scripts (Najłatwiejsza! ⭐)
+
+**Deploy do staging:**
+```bash
+cd D:\AI\Cargoo_v1\AssetRegistry-Web
+npm run deploy:staging
+```
+
+**Deploy do production:**
+```bash
+npm run deploy:production
+```
+
+**Obserwuj deployment:**
+```bash
+npm run deploy:watch
+```
+
+**To wszystko!** Workflow uruchomi się automatycznie i zobaczysz logi.
+
+---
+
+### Metoda 2: GitHub Web UI
 
 1. Otwórz: https://github.com/masaj84/AssetRegistry-Web/actions
 2. Kliknij: **"Deploy TRVE Frontend to EC2"**
 3. Kliknij: **"Run workflow"**
 4. Wybierz:
-   - Branch: `landing-teaser` (lub `main`)
-   - Environment: `staging`
+   - Branch: `master`
+   - Environment: `staging` lub `production`
 5. Kliknij: **"Run workflow"** (zielony przycisk)
 6. Obserwuj logi (3-5 min)
-7. Test: http://63.182.249.47
+7. Test: http://63.182.249.47 (staging) lub https://trve.io (production)
 
-### CLI (Szybsze)
+---
 
+### Metoda 3: GitHub CLI
+
+**Staging:**
 ```bash
-gh workflow run "Deploy TRVE Frontend to EC2" \
-  -f branch=landing-teaser \
-  -f environment=staging
+gh workflow run deploy-frontend.yml -f branch=master -f environment=staging
+```
+
+**Production:**
+```bash
+gh workflow run deploy-frontend.yml -f branch=master -f environment=production
+```
+
+**Obserwuj:**
+```bash
+gh run watch
 ```
 
 ---
@@ -302,3 +335,104 @@ Po wykonaniu tych 3 kroków masz działający CI/CD dla frontendu z:
 **Czas:** ~30-45 min setup + 3-5 min per deployment
 
 **Gotowy?** Uruchom pierwszy deployment! 🚀
+
+---
+
+## 🔄 Regularne Użycie (Po Setupie)
+
+### Typowy Workflow Developmentu:
+
+```bash
+# 1. Praca nad kodem
+git checkout -b feature/new-feature
+# ... edytuj pliki ...
+git add .
+git commit -m "feat: Add new feature"
+git push origin feature/new-feature
+
+# 2. Test na staging
+npm run deploy:staging
+npm run deploy:watch  # Obserwuj deployment
+
+# 3. Sprawdź w przeglądarce
+# http://63.182.249.47
+
+# 4. Jak działa - merge do master
+git checkout master
+git merge feature/new-feature
+git push origin master
+
+# 5. Deploy do production
+npm run deploy:production
+npm run deploy:watch
+```
+
+### Szybki Hotfix:
+
+```bash
+# 1. Popraw błąd
+git add .
+git commit -m "fix: Quick hotfix"
+git push origin master
+
+# 2. Deploy od razu
+npm run deploy:staging    # Test najpierw!
+# Sprawdź czy działa...
+npm run deploy:production # Potem production
+```
+
+### Deploy Brancha Feature (bez merge):
+
+```bash
+# Test feature branch bez merge do master
+gh workflow run deploy-frontend.yml \
+  -f branch=feature/new-ui \
+  -f environment=staging
+```
+
+---
+
+## 📊 Monitoring Deploymentów
+
+### Sprawdź ostatnie deploymenty:
+```bash
+gh run list --workflow=deploy-frontend.yml --limit 5
+```
+
+### Zobacz logi konkretnego deploymentu:
+```bash
+gh run view <run-id> --log
+```
+
+### Sprawdź co jest obecnie na serwerze:
+```bash
+ssh -i trve-key.pem ec2-user@63.182.249.47 \
+  "cat /var/www/trve-frontend/deployment-info.json"
+```
+
+---
+
+## 🎓 Best Practices
+
+1. **Zawsze testuj na staging przed production!**
+   ```bash
+   npm run deploy:staging    # Najpierw
+   # Test...
+   npm run deploy:production # Potem
+   ```
+
+2. **Commituj często, deployuj świadomie**
+   - Commit po każdej zmianie
+   - Deploy gdy feature gotowy
+
+3. **Używaj opisowych commit messages**
+   ```bash
+   git commit -m "feat: Add user profile page"
+   git commit -m "fix: Fix login validation"
+   ```
+
+4. **Sprawdzaj logi po deploymencie**
+   ```bash
+   npm run deploy:staging
+   npm run deploy:watch  # Zawsze sprawdzaj!
+   ```
