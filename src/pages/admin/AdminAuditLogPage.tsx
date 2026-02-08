@@ -74,9 +74,10 @@ export function AdminAuditLogPage() {
       setLogs(response.items);
       setTotalCount(response.totalCount);
       setNotImplemented(false);
-    } catch (err: any) {
+    } catch (err: unknown) {
       // Check if it's a 404 (not implemented yet)
-      if (err?.response?.status === 404 || err?.message?.includes('404')) {
+      const error = err as { response?: { status?: number }; message?: string };
+      if (error?.response?.status === 404 || error?.message?.includes('404')) {
         setNotImplemented(true);
       } else {
         setError(getErrorMessage(err));
@@ -88,6 +89,7 @@ export function AdminAuditLogPage() {
 
   useEffect(() => {
     fetchLogs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber, actionFilter, entityFilter]);
 
   const handleSearch = (e: React.FormEvent) => {

@@ -47,6 +47,7 @@ export function AdminAssetsPage() {
 
   useEffect(() => {
     fetchAssets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber, typeFilter, statusFilter]);
 
   const handleSearch = (e: React.FormEvent) => {

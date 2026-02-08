@@ -58,8 +58,8 @@ export function AdminSecurityPage() {
     }
   };
 
-  // Users with failed login attempts (but not necessarily locked)
-  const usersWithFailedAttempts = allUsers.filter(u => (u as any).accessFailedCount > 0);
+  // Users with failed login attempts (from locked users data)
+  const usersWithFailedAttempts = lockedUsers.filter(u => u.accessFailedCount > 0);
 
   // Users without confirmed email
   const usersWithoutEmailConfirmation = allUsers.filter(u => !u.emailConfirmed);

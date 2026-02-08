@@ -41,6 +41,7 @@ export function AdminOrganizationsPage() {
 
   useEffect(() => {
     fetchOrganizations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber, typeFilter, verifiedFilter]);
 
   const handleSearch = (e: React.FormEvent) => {

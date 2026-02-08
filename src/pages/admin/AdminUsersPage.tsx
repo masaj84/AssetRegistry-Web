@@ -39,6 +39,7 @@ export function AdminUsersPage() {
 
   useEffect(() => {
     fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber, roleFilter]);
 
   const handleSearch = (e: React.FormEvent) => {
