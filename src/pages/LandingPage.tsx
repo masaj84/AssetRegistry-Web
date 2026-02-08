@@ -6,6 +6,52 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { ContactSection } from '../components/ContactSection';
 
+// TEASER MODE - Set to false when ready to launch
+const TEASER_MODE = true;
+
+// Coming Soon Toast Component
+function ComingSoonToast({ show, onClose }: { show: boolean; onClose: () => void }) {
+  if (!show) return null;
+  
+  return (
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-4 fade-in duration-300">
+      <div className="bg-background border border-orange/50 dark:border-orange/30 px-6 py-4 rounded-lg shadow-lg dark:shadow-[0_0_30px_rgba(251,146,60,0.15)] flex items-center gap-4">
+        <div className="w-10 h-10 rounded-full bg-orange/10 dark:bg-orange/20 flex items-center justify-center">
+          <span className="text-xl">🚀</span>
+        </div>
+        <div>
+          <p className="font-medium dark:text-orange-light">Coming Soon!</p>
+          <p className="text-sm text-muted-foreground">Sign up for our newsletter to be notified when we launch.</p>
+        </div>
+        <button onClick={onClose} className="text-muted-foreground hover:text-foreground ml-2">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// Coming Soon Banner
+function ComingSoonBanner() {
+  const { language } = useLanguage();
+  if (!TEASER_MODE) return null;
+  
+  return (
+    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-orange/90 via-magenta/90 to-purple/90 text-white py-2 px-4 text-center text-sm">
+      <span className="font-medium">
+        {language === 'pl' 
+          ? '🚀 MVP już wkrótce! Zapisz się do newslettera, aby być na bieżąco.' 
+          : '🚀 MVP coming soon! Subscribe to our newsletter to stay updated.'}
+      </span>
+      <a href="#contact" className="ml-2 underline hover:no-underline font-semibold">
+        {language === 'pl' ? 'Zapisz się →' : 'Subscribe →'}
+      </a>
+    </div>
+  );
+}
+
 // Section Header component - Palantir style
 function SectionHeader({ title, subtitle, centered = false }: { title: string; subtitle?: string; centered?: boolean }) {
   return (
@@ -223,11 +269,21 @@ const Icons = {
 export function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isDemoLoading, setIsDemoLoading] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
   const { t } = useLanguage();
   const { loginAsDemo } = useAuth();
   const navigate = useNavigate();
 
+  const handleComingSoon = () => {
+    setShowComingSoon(true);
+    setTimeout(() => setShowComingSoon(false), 5000);
+  };
+
   const handleDemo = async () => {
+    if (TEASER_MODE) {
+      handleComingSoon();
+      return;
+    }
     setIsDemoLoading(true);
     try {
       await loginAsDemo();
@@ -269,6 +325,10 @@ export function LandingPage() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* Coming Soon Banner & Toast */}
+      <ComingSoonBanner />
+      <ComingSoonToast show={showComingSoon} onClose={() => setShowComingSoon(false)} />
+      
       {/* Dark mode ambient background effects */}
       <div className="dark:block hidden fixed inset-0 pointer-events-none">
         {/* Top-left orange glow */}
@@ -284,7 +344,7 @@ export function LandingPage() {
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 dark:bg-background/80 backdrop-blur-md border-b border-border dark:border-border/50">
+      <nav className={`fixed left-0 right-0 z-40 bg-background/95 dark:bg-background/80 backdrop-blur-md border-b border-border dark:border-border/50 ${TEASER_MODE ? 'top-10' : 'top-0'}`}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -312,19 +372,32 @@ export function LandingPage() {
               <Button variant="ghost" className="text-sm hidden sm:inline-flex font-mono" onClick={handleDemo} disabled={isDemoLoading}>
                 {isDemoLoading ? '...' : t('nav.demo')}
               </Button>
-              <Link to="/login" className="hidden sm:block">
-                <Button variant="ghost" className="text-sm font-mono">{t('nav.login')}</Button>
-              </Link>
-              <Link to="/register">
-                <Button className="text-sm font-mono">{t('nav.getStarted')}</Button>
-              </Link>
+              {TEASER_MODE ? (
+                <>
+                  <Button variant="ghost" className="text-sm hidden sm:inline-flex font-mono" onClick={handleComingSoon}>
+                    {t('nav.login')}
+                  </Button>
+                  <Button className="text-sm font-mono" onClick={handleComingSoon}>
+                    {t('nav.getStarted')}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="hidden sm:block">
+                    <Button variant="ghost" className="text-sm font-mono">{t('nav.login')}</Button>
+                  </Link>
+                  <Link to="/register">
+                    <Button className="text-sm font-mono">{t('nav.getStarted')}</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-6 relative">
+      <section className={`pb-16 px-6 relative ${TEASER_MODE ? 'pt-40' : 'pt-32'}`}>
         <div className="max-w-7xl mx-auto">
           {/* Main hero content */}
           <div className="text-center mb-16 relative">
@@ -340,11 +413,17 @@ export function LandingPage() {
               {t('hero.subtitle')}
             </p>
             <div className="flex items-center justify-center gap-4 flex-wrap">
-              <Link to="/register">
-                <Button size="lg" className="px-8 h-14 text-base dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] dark:transition-shadow">
+              {TEASER_MODE ? (
+                <Button size="lg" className="px-8 h-14 text-base dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] dark:transition-shadow" onClick={handleComingSoon}>
                   {t('hero.cta')}
                 </Button>
-              </Link>
+              ) : (
+                <Link to="/register">
+                  <Button size="lg" className="px-8 h-14 text-base dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] dark:transition-shadow">
+                    {t('hero.cta')}
+                  </Button>
+                </Link>
+              )}
               <a href="#how-it-works">
                 <Button variant="ghost" size="lg" className="h-14 text-base dark:border-purple/30 dark:hover:border-purple dark:hover:bg-purple/10 dark:hover:text-purple-light">
                   {t('hero.ctaSecondary')}
@@ -845,11 +924,17 @@ export function LandingPage() {
                 {t('cta.subtitle')}
               </p>
               <div className="flex items-center justify-center gap-4 flex-wrap">
-                <Link to="/register">
-                  <Button size="lg" className="px-10 h-14 text-base dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] dark:transition-shadow">
+                {TEASER_MODE ? (
+                  <Button size="lg" className="px-10 h-14 text-base dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] dark:transition-shadow" onClick={handleComingSoon}>
                     {t('cta.primary')}
                   </Button>
-                </Link>
+                ) : (
+                  <Link to="/register">
+                    <Button size="lg" className="px-10 h-14 text-base dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] dark:transition-shadow">
+                      {t('cta.primary')}
+                    </Button>
+                  </Link>
+                )}
                 <Button variant="ghost" size="lg" className="h-14 text-base dark:border-purple/30 dark:hover:border-purple dark:hover:bg-purple/10 dark:hover:text-purple-light" onClick={handleDemo} disabled={isDemoLoading}>
                   {isDemoLoading ? '...' : t('cta.secondary')}
                 </Button>
@@ -941,9 +1026,9 @@ export function LandingPage() {
                 </h4>
                 <ul className="space-y-3 text-sm text-muted-foreground">
                   <li>
-                    <a href="mailto:hello@trve.io" className="hover:text-foreground dark:hover:text-purple-light transition-colors inline-flex items-center gap-2 group">
+                    <a href="mailto:contact@trve.io" className="hover:text-foreground dark:hover:text-purple-light transition-colors inline-flex items-center gap-2 group">
                       <span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-purple transition-all" />
-                      hello@trve.io
+                      contact@trve.io
                     </a>
                   </li>
                   <li>
