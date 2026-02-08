@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:staging": "gh workflow run deploy-frontend.yml -f branch=master -f environment=staging",
+    "deploy:production": "gh workflow run deploy-frontend.yml -f branch=master -f environment=production",
+    "deploy:watch": "gh run watch"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
