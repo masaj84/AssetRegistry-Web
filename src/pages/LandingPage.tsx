@@ -7,7 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 import { ContactSection } from '../components/ContactSection';
 
 // TEASER MODE - Set to false when ready to launch
-const TEASER_MODE = true;
+const TEASER_MODE = false;
 
 // Coming Soon Toast Component
 function ComingSoonToast({ show, onClose }: { show: boolean; onClose: () => void }) {
