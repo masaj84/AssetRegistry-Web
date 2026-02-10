@@ -16,10 +16,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('theme') as Theme;
       if (stored) return stored;
-      // Default to dark (Palantir style)
-      return 'dark';
+      // Default to light
+      return 'light';
     }
-    return 'dark';
+    return 'light';
   });
 
   useEffect(() => {
