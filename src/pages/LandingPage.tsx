@@ -6,8 +6,8 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { ContactSection } from '../components/ContactSection';
 
-// TEASER MODE - Set to false when ready to launch
-const TEASER_MODE = false;
+// TEASER MODE - Controlled by VITE_TEASER_MODE env variable
+const TEASER_MODE = import.meta.env.VITE_TEASER_MODE === 'true';
 
 // Coming Soon Toast Component
 function ComingSoonToast({ show, onClose }: { show: boolean; onClose: () => void }) {

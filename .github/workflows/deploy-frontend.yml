@@ -19,8 +19,6 @@ on:
 
 env:
   NODE_VERSION: '20.x'
-  DEPLOY_PATH: /var/www/trve-frontend
-  BACKUP_PATH: /var/www/backups/trve-frontend
 
 jobs:
   build:
@@ -48,9 +46,11 @@ jobs:
         run: |
           if [ "${{ inputs.environment }}" = "production" ]; then
             echo "VITE_API_URL=${{ secrets.VITE_API_URL_PRODUCTION }}" > .env.production
+            echo "VITE_TEASER_MODE=true" >> .env.production
             cat .env.production
           else
             echo "VITE_API_URL=${{ secrets.VITE_API_URL_STAGING }}" > .env.staging
+            echo "VITE_TEASER_MODE=false" >> .env.staging
             cat .env.staging
           fi
 
@@ -86,6 +86,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment: ${{ inputs.environment }}
+    env:
+      DEPLOY_PATH: ${{ inputs.environment == 'production' && '/var/www/trve-production' || '/var/www/trve-staging' }}
+      BACKUP_PATH: ${{ inputs.environment == 'production' && '/var/www/backups/trve-production' || '/var/www/backups/trve-staging' }}
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
