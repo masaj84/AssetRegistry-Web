@@ -15,12 +15,12 @@ function ComingSoonToast({ show, onClose }: { show: boolean; onClose: () => void
   
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-4 fade-in duration-300">
-      <div className="bg-background border border-orange/50 dark:border-orange/30 px-6 py-4 rounded-lg shadow-lg dark:shadow-[0_0_30px_rgba(251,146,60,0.15)] flex items-center gap-4">
-        <div className="w-10 h-10 rounded-full bg-orange/10 dark:bg-orange/20 flex items-center justify-center">
+      <div className="bg-background border border-orange/50 border-orange/30 px-6 py-4 rounded-lg shadow-lg shadow-[0_0_30px_rgba(251,146,60,0.15)] flex items-center gap-4">
+        <div className="w-10 h-10 rounded-full bg-orange/10 bg-orange/20 flex items-center justify-center">
           <span className="text-xl">🚀</span>
         </div>
         <div>
-          <p className="font-medium dark:text-orange-light">Coming Soon!</p>
+          <p className="font-medium text-orange-light">Coming Soon!</p>
           <p className="text-sm text-muted-foreground">Sign up for our newsletter to be notified when we launch.</p>
         </div>
         <button onClick={onClose} className="text-muted-foreground hover:text-foreground ml-2">
@@ -57,11 +57,11 @@ function SectionHeader({ title, subtitle, centered = false }: { title: string; s
   return (
     <div className={`mb-16 ${centered ? 'text-center' : ''}`}>
       <div className={`flex items-center gap-6 mb-6 ${centered ? 'justify-center' : ''}`}>
-        {centered && <div className="flex-1 h-px bg-border dark:bg-gradient-to-r dark:from-transparent dark:to-orange/30 max-w-24" />}
-        <h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground dark:text-orange/70">
+        {centered && <div className="flex-1 h-px bg-border bg-gradient-to-r to-orange/30 max-w-24" />}
+        <h2 className="text-sm font-medium tracking-widest uppercase text-muted-foreground text-orange/70">
           {title}
         </h2>
-        <div className={`flex-1 h-px bg-border dark:bg-gradient-to-r dark:from-purple/30 dark:to-transparent ${centered ? 'max-w-24' : ''}`} />
+        <div className={`flex-1 h-px bg-border bg-gradient-to-r from-purple/30 ${centered ? 'max-w-24' : ''}`} />
       </div>
       {subtitle && (
         <p className={`text-3xl md:text-4xl font-light ${centered ? 'mx-auto' : ''} max-w-3xl dark:text-foreground/90`}>
@@ -75,11 +75,11 @@ function SectionHeader({ title, subtitle, centered = false }: { title: string; s
 // Animated blockchain visualization for hero
 function BlockchainVisual() {
   const blockColors = [
-    'dark:border-orange/40 dark:hover:border-orange dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.3)]',
-    'dark:border-orange-dark/40 dark:hover:border-orange-light dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.25)]',
-    'dark:border-magenta/40 dark:hover:border-magenta dark:hover:shadow-[0_0_30px_rgba(232,121,249,0.3)]',
-    'dark:border-purple/40 dark:hover:border-purple-light dark:hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]',
-    'dark:border-purple-dark/40 dark:hover:border-purple dark:hover:shadow-[0_0_30px_rgba(147,51,234,0.25)]',
+    'border-orange/40 hover:border-orange hover:shadow-[0_0_30px_rgba(251,146,60,0.3)]',
+    'border-orange-dark/40 hover:border-orange-light hover:shadow-[0_0_30px_rgba(251,146,60,0.25)]',
+    'border-magenta/40 hover:border-magenta hover:shadow-[0_0_30px_rgba(232,121,249,0.3)]',
+    'border-purple/40 hover:border-purple-light hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]',
+    'border-purple-dark/40 hover:border-purple hover:shadow-[0_0_30px_rgba(147,51,234,0.25)]',
   ];
 
   return (
@@ -90,21 +90,21 @@ function BlockchainVisual() {
           <div key={i} className="flex items-center gap-2 md:gap-4">
             {/* Block */}
             <div
-              className={`w-16 h-16 md:w-24 md:h-24 border-2 border-foreground/20 bg-background dark:bg-background/50 flex items-center justify-center relative group hover:border-foreground transition-all duration-300 ${blockColors[i]}`}
+              className={`w-16 h-16 md:w-24 md:h-24 border-2 border-foreground/20 bg-background flex items-center justify-center relative group hover:border-foreground transition-all duration-300 ${blockColors[i]}`}
               style={{ animationDelay: `${i * 0.2}s` }}
             >
-              <div className="absolute inset-2 border border-foreground/10 dark:border-orange/10" />
-              <span className="text-xs md:text-sm font-mono text-muted-foreground group-hover:text-foreground dark:group-hover:text-orange-light transition-colors">
+              <div className="absolute inset-2 border border-orange/10" />
+              <span className="text-xs md:text-sm font-mono text-muted-foreground group-hover:text-orange-light transition-colors">
                 {['#001', '#002', '#003', '#004', '#005'][i]}
               </span>
               {/* Glow on hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-foreground/5 dark:bg-gradient-to-br dark:from-orange/10 dark:to-purple/10" />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-orange/10 to-purple/10" />
             </div>
             {/* Connector */}
             {i < 4 && (
               <div className="flex items-center gap-1">
-                <div className={`w-4 md:w-8 h-0.5 bg-foreground/20 ${i < 2 ? 'dark:bg-gradient-to-r dark:from-orange/40 dark:to-magenta/40' : 'dark:bg-gradient-to-r dark:from-magenta/40 dark:to-purple/40'}`} />
-                <div className={`w-1.5 h-1.5 rotate-45 bg-foreground/40 ${i < 2 ? 'dark:bg-orange/60' : 'dark:bg-purple/60'}`} />
+                <div className={`w-4 md:w-8 h-0.5 bg-foreground/20 ${i < 2 ? 'bg-gradient-to-r from-orange/40 to-magenta/40' : 'bg-gradient-to-r from-magenta/40 to-purple/40'}`} />
+                <div className={`w-1.5 h-1.5 rotate-45 bg-foreground/40 ${i < 2 ? 'bg-orange/60' : 'bg-purple/60'}`} />
               </div>
             )}
           </div>
@@ -112,7 +112,7 @@ function BlockchainVisual() {
       </div>
       {/* Subtle grid overlay */}
       <div
-        className="absolute inset-0 opacity-5 dark:opacity-[0.03]"
+        className="absolute inset-0 opacity-5 opacity-[0.03]"
         style={{
           backgroundImage: 'linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)',
           backgroundSize: '40px 40px'
@@ -126,19 +126,19 @@ function BlockchainVisual() {
 function TrustStats() {
   const { t } = useLanguage();
   const stats = [
-    { value: '∞', label: t('stats.immutable'), color: 'dark:text-orange' },
-    { value: '100%', label: t('stats.transparent'), color: 'dark:text-magenta' },
-    { value: '24/7', label: t('stats.accessible'), color: 'dark:text-purple-light' },
+    { value: '∞', label: t('stats.immutable'), color: 'text-orange' },
+    { value: '100%', label: t('stats.transparent'), color: 'text-magenta' },
+    { value: '24/7', label: t('stats.accessible'), color: 'text-purple-light' },
   ];
 
   return (
     <div className="grid grid-cols-3 gap-8 py-12 border-t border-b border-border dark:border-border/50 relative">
       {/* Gradient line at top in dark mode */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange/50 to-transparent dark:block hidden" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple/50 to-transparent dark:block hidden" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange/50 to-transparent block" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple/50 to-transparent block" />
       {stats.map((stat, i) => (
         <div key={i} className="text-center group">
-          <div className={`text-3xl md:text-4xl font-light mb-2 transition-all duration-300 ${stat.color} dark:group-hover:drop-shadow-[0_0_8px_currentColor]`}>{stat.value}</div>
+          <div className={`text-3xl md:text-4xl font-light mb-2 transition-all duration-300 ${stat.color} group-hover:drop-shadow-[0_0_8px_currentColor]`}>{stat.value}</div>
           <div className="text-sm text-muted-foreground uppercase tracking-wider">{stat.label}</div>
         </div>
       ))}
@@ -330,7 +330,7 @@ export function LandingPage() {
       <ComingSoonToast show={showComingSoon} onClose={() => setShowComingSoon(false)} />
       
       {/* Dark mode ambient background effects */}
-      <div className="dark:block hidden fixed inset-0 pointer-events-none">
+      <div className="block fixed inset-0 pointer-events-none">
         {/* Top-left orange glow */}
         <div className="absolute -top-40 -left-40 w-96 h-96 bg-orange/20 rounded-full blur-[128px] animate-pulse" style={{ animationDuration: '8s' }} />
         {/* Top-right purple glow */}
@@ -344,25 +344,25 @@ export function LandingPage() {
       </div>
 
       {/* Navigation */}
-      <nav className={`fixed left-0 right-0 z-40 bg-background/95 dark:bg-background/80 backdrop-blur-md border-b border-border dark:border-border/50 ${TEASER_MODE ? 'top-10' : 'top-0'}`}>
+      <nav className={`fixed left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-b border-border dark:border-border/50 ${TEASER_MODE ? 'top-10' : 'top-0'}`}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <a href="#" className="flex items-center gap-3 group">
-              <div className="w-9 h-9 border-2 border-foreground dark:border-orange/60 flex items-center justify-center group-hover:bg-foreground dark:group-hover:bg-orange/20 transition-colors dark:group-hover:shadow-[0_0_15px_rgba(251,146,60,0.3)]">
-                <span className="text-[10px] font-mono font-bold tracking-tighter group-hover:text-background dark:group-hover:text-orange transition-colors dark:text-orange/90">T_</span>
+              <div className="w-9 h-9 border-2 border-orange/60 flex items-center justify-center group-hover:bg-orange/20 transition-colors group-hover:shadow-[0_0_15px_rgba(251,146,60,0.3)]">
+                <span className="text-[10px] font-mono font-bold tracking-tighter text-orange/90 group-hover:text-orange transition-colors">T_</span>
               </div>
-              <span className="text-sm font-mono font-medium tracking-widest hidden sm:block dark:text-foreground/90">TRVE<span className="dark:text-orange">_</span></span>
+              <span className="text-sm font-mono font-medium tracking-widest hidden sm:block">TRVE<span className="text-orange">_</span></span>
             </a>
 
             {/* Desktop nav links */}
             <div className="hidden lg:flex items-center gap-8 text-sm font-mono">
-              <a href="#problem" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">{t('nav.problem')}</a>
-              <a href="#how-it-works" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">{t('nav.howItWorks')}</a>
-              <a href="#use-cases" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">{t('nav.useCases')}</a>
-              <a href="#faq" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">{t('nav.faq')}</a>
-              <Link to="/whitepaper" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">{t('nav.whitepaper')}</Link>
-              <a href="#contact" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">Kontakt</a>
+              <a href="#problem" className="text-muted-foreground hover:text-orange transition-colors">{t('nav.problem')}</a>
+              <a href="#how-it-works" className="text-muted-foreground hover:text-orange transition-colors">{t('nav.howItWorks')}</a>
+              <a href="#use-cases" className="text-muted-foreground hover:text-orange transition-colors">{t('nav.useCases')}</a>
+              <a href="#faq" className="text-muted-foreground hover:text-orange transition-colors">{t('nav.faq')}</a>
+              <Link to="/whitepaper" className="text-muted-foreground hover:text-orange transition-colors">{t('nav.whitepaper')}</Link>
+              <a href="#contact" className="text-muted-foreground hover:text-orange transition-colors">Kontakt</a>
             </div>
 
             {/* Actions */}
@@ -402,30 +402,30 @@ export function LandingPage() {
           {/* Main hero content */}
           <div className="text-center mb-16 relative">
             <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-6 inline-flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-500 dark:bg-orange rounded-full animate-pulse dark:shadow-[0_0_12px_rgba(251,146,60,0.6)]" />
+              <span className="w-2 h-2 bg-orange rounded-full animate-pulse shadow-[0_0_12px_rgba(251,146,60,0.6)]" />
               {t('hero.badge')}
             </p>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-light mb-8 leading-[1.05]">
-              <span className="dark:text-gradient-hero">{t('hero.title1')}</span><br />
-              <span className="font-normal dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-orange-light dark:via-magenta dark:to-purple-light">{t('hero.title2')}</span>
+              <span className="text-gradient-hero">{t('hero.title1')}</span><br />
+              <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-orange-light via-magenta to-purple-light">{t('hero.title2')}</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground dark:text-muted-foreground/80 mb-12 max-w-3xl mx-auto font-light">
               {t('hero.subtitle')}
             </p>
             <div className="flex items-center justify-center gap-4 flex-wrap">
               {TEASER_MODE ? (
-                <Button size="lg" className="px-8 h-14 text-base dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] dark:transition-shadow" onClick={handleComingSoon}>
+                <Button size="lg" className="px-8 h-14 text-base bg-gradient-to-r from-orange to-orange-dark text-white border-0 hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] transition-shadow" onClick={handleComingSoon}>
                   {t('hero.cta')}
                 </Button>
               ) : (
                 <Link to="/register">
-                  <Button size="lg" className="px-8 h-14 text-base dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] dark:transition-shadow">
+                  <Button size="lg" className="px-8 h-14 text-base bg-gradient-to-r from-orange to-orange-dark text-white border-0 hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] transition-shadow">
                     {t('hero.cta')}
                   </Button>
                 </Link>
               )}
               <a href="#how-it-works">
-                <Button variant="ghost" size="lg" className="h-14 text-base dark:border-purple/30 dark:hover:border-purple dark:hover:bg-purple/10 dark:hover:text-purple-light">
+                <Button variant="ghost" size="lg" className="h-14 text-base border-purple/30 hover:border-purple hover:bg-purple/10 hover:text-purple-light">
                   {t('hero.ctaSecondary')}
                 </Button>
               </a>
@@ -443,15 +443,15 @@ export function LandingPage() {
       {/* Problem & Solution Section */}
       <section className="py-24 px-6 border-t border-border dark:border-border/50 relative" id="problem">
         {/* Section background glow */}
-        <div className="absolute inset-0 dark:bg-gradient-to-b dark:from-transparent dark:via-purple/5 dark:to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b via-purple/5 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
           <SectionHeader title={t('problemSolution.title')} centered />
 
           <div className="relative">
             {/* Arrow between - desktop only */}
             <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-              <div className="w-12 h-12 bg-background border border-foreground dark:border-orange/50 dark:bg-background/80 flex items-center justify-center dark:shadow-[0_0_20px_rgba(251,146,60,0.2)]">
-                <svg className="w-5 h-5 dark:text-orange" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-background border border-orange/50 flex items-center justify-center shadow-[0_0_20px_rgba(251,146,60,0.2)]">
+                <svg className="w-5 h-5 text-orange" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </div>
@@ -459,13 +459,13 @@ export function LandingPage() {
 
             <div className="grid md:grid-cols-2 gap-8 md:gap-0 items-stretch">
               {/* Problem - Left */}
-              <div className="border border-border md:border-r-0 p-8 md:p-12 relative bg-gradient-to-br from-red-500/[0.02] to-transparent dark:from-orange/[0.03] dark:to-transparent dark:border-orange/20">
+              <div className="border border-border md:border-r-0 p-8 md:p-12 relative bg-gradient-to-br from-orange/[0.03] border-orange/20">
                 {/* Red/Orange accent line */}
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-red-500/50 dark:from-orange/60 to-transparent" />
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-orange/60 to-transparent" />
 
                 <div className="flex items-center gap-3 mb-8">
-                  <div className="w-3 h-3 bg-red-500/20 dark:bg-orange/20 border border-red-500/50 dark:border-orange/50" />
-                  <p className="text-sm font-medium tracking-widest uppercase text-red-500/70 dark:text-orange/70">
+                  <div className="w-3 h-3 bg-orange/20 border border-orange/50" />
+                  <p className="text-sm font-medium tracking-widest uppercase text-orange/70">
                     {t('problem.label')}
                   </p>
                 </div>
@@ -501,13 +501,13 @@ export function LandingPage() {
               </div>
 
               {/* Solution - Right */}
-              <div className="border border-foreground dark:border-purple/40 p-8 md:p-12 relative bg-gradient-to-br from-green-500/[0.02] to-transparent dark:from-purple/[0.05] dark:to-transparent dark:shadow-[0_0_40px_rgba(168,85,247,0.1)]">
+              <div className="border border-purple/40 p-8 md:p-12 relative bg-gradient-to-br from-purple/[0.05] shadow-[0_0_40px_rgba(168,85,247,0.1)]">
                 {/* Green/Purple accent line */}
-                <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-green-500/50 dark:from-purple/60 to-transparent" />
+                <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-purple/60 to-transparent" />
 
                 <div className="flex items-center gap-3 mb-8">
-                  <div className="w-3 h-3 bg-green-500/20 dark:bg-purple/20 border border-green-500/50 dark:border-purple/50" />
-                  <p className="text-sm font-medium tracking-widest uppercase text-green-500/70 dark:text-purple-light/80">
+                  <div className="w-3 h-3 bg-purple/20 border border-purple/50" />
+                  <p className="text-sm font-medium tracking-widest uppercase text-purple-light/80">
                     {t('solution.label')}
                   </p>
                 </div>
@@ -549,7 +549,7 @@ export function LandingPage() {
       {/* How It Works Section */}
       <section className="py-24 px-6 border-t border-border dark:border-border/50 relative" id="how-it-works">
         {/* Background glow */}
-        <div className="absolute inset-0 dark:bg-gradient-to-br dark:from-orange/5 dark:via-transparent dark:to-purple/5 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-orange/5 to-purple/5 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
           <SectionHeader
             title={t('howItWorks.title')}
@@ -560,23 +560,23 @@ export function LandingPage() {
           {/* Steps as connected timeline */}
           <div className="relative">
             {/* Connection line - desktop */}
-            <div className="hidden md:block absolute top-16 left-[16.67%] right-[16.67%] h-0.5 bg-border dark:bg-gradient-to-r dark:from-orange/40 dark:via-magenta/40 dark:to-purple/40" />
+            <div className="hidden md:block absolute top-16 left-[16.67%] right-[16.67%] h-0.5 bg-border bg-gradient-to-r from-orange/40 via-magenta/40 to-purple/40" />
 
             <div className="grid md:grid-cols-3 gap-8 md:gap-12">
               {steps.map((step, i) => {
                 const stepColors = [
-                  'dark:border-orange/30 dark:group-hover:border-orange dark:group-hover:shadow-[0_0_40px_rgba(251,146,60,0.2)]',
-                  'dark:border-magenta/30 dark:group-hover:border-magenta dark:group-hover:shadow-[0_0_40px_rgba(232,121,249,0.2)]',
-                  'dark:border-purple/30 dark:group-hover:border-purple dark:group-hover:shadow-[0_0_40px_rgba(168,85,247,0.2)]',
+                  'border-orange/30 group-hover:border-orange group-hover:shadow-[0_0_40px_rgba(251,146,60,0.2)]',
+                  'border-magenta/30 group-hover:border-magenta group-hover:shadow-[0_0_40px_rgba(232,121,249,0.2)]',
+                  'border-purple/30 group-hover:border-purple group-hover:shadow-[0_0_40px_rgba(168,85,247,0.2)]',
                 ];
-                const textColors = ['dark:group-hover:text-orange', 'dark:group-hover:text-magenta', 'dark:group-hover:text-purple-light'];
-                const cornerColors = ['dark:border-orange', 'dark:border-magenta', 'dark:border-purple'];
+                const textColors = ['group-hover:text-orange', 'group-hover:text-magenta', 'group-hover:text-purple-light'];
+                const cornerColors = ['border-orange', 'border-magenta', 'border-purple'];
 
                 return (
                 <div key={step.num} className="relative group">
                   {/* Step number circle */}
                   <div className="flex justify-center mb-8">
-                    <div className={`w-32 h-32 border-2 border-border group-hover:border-foreground transition-all duration-300 flex items-center justify-center relative bg-background dark:bg-background/50 ${stepColors[i]}`}>
+                    <div className={`w-32 h-32 border-2 border-border group-hover:border-foreground transition-all duration-300 flex items-center justify-center relative bg-background ${stepColors[i]}`}>
                       <span className={`text-5xl font-light text-muted-foreground group-hover:text-foreground transition-colors ${textColors[i]}`}>
                         {step.num}
                       </span>
@@ -613,7 +613,7 @@ export function LandingPage() {
       {/* Use Cases Section */}
       <section className="py-24 px-6 border-t border-border dark:border-border/50 relative" id="use-cases">
         {/* Background effects */}
-        <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-purple/5 dark:via-transparent dark:to-orange/5 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-purple/5 to-orange/5 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
           <SectionHeader
             title={t('useCases.title')}
@@ -625,20 +625,20 @@ export function LandingPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
             {useCases.map((useCase, idx) => {
               const cardGlows = [
-                'dark:hover:border-orange/50 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.15)]',
-                'dark:hover:border-orange-dark/50 dark:hover:shadow-[0_0_30px_rgba(234,88,12,0.15)]',
-                'dark:hover:border-magenta/50 dark:hover:shadow-[0_0_30px_rgba(232,121,249,0.15)]',
-                'dark:hover:border-purple/50 dark:hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]',
-                'dark:hover:border-purple-light/50 dark:hover:shadow-[0_0_30px_rgba(192,132,252,0.15)]',
+                'hover:border-orange/50 hover:shadow-[0_0_30px_rgba(251,146,60,0.15)]',
+                'hover:border-orange-dark/50 hover:shadow-[0_0_30px_rgba(234,88,12,0.15)]',
+                'hover:border-magenta/50 hover:shadow-[0_0_30px_rgba(232,121,249,0.15)]',
+                'hover:border-purple/50 hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]',
+                'hover:border-purple-light/50 hover:shadow-[0_0_30px_rgba(192,132,252,0.15)]',
               ];
-              const iconColors = ['dark:group-hover:text-orange', 'dark:group-hover:text-orange-light', 'dark:group-hover:text-magenta', 'dark:group-hover:text-purple-light', 'dark:group-hover:text-purple'];
+              const iconColors = ['group-hover:text-orange', 'group-hover:text-orange-light', 'group-hover:text-magenta', 'group-hover:text-purple-light', 'group-hover:text-purple'];
 
               return (
               <div
                 key={useCase.title}
                 className="group relative"
               >
-                <div className={`border border-border dark:border-border/50 p-6 md:p-8 h-full hover:border-foreground transition-all duration-300 bg-background dark:bg-background/30 relative overflow-hidden ${cardGlows[idx]}`}>
+                <div className={`border border-border dark:border-border/50 p-6 md:p-8 h-full hover:border-foreground transition-all duration-300 bg-background relative overflow-hidden ${cardGlows[idx]}`}>
                   {/* Background pattern on hover */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -659,7 +659,7 @@ export function LandingPage() {
                   </div>
 
                   {/* Corner accent */}
-                  <div className="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-transparent group-hover:border-foreground/20 dark:group-hover:border-purple/30 transition-colors duration-300" />
+                  <div className="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-transparent group-hover:border-foreground/20 group-hover:border-purple/30 transition-colors duration-300" />
                 </div>
               </div>
               );
@@ -669,11 +669,11 @@ export function LandingPage() {
           {/* For Manufacturers */}
           <div className="mt-24 pt-16 border-t border-border dark:border-border/50">
             <div className="flex items-center gap-6 mb-6">
-              <div className="flex-1 h-px bg-border dark:bg-gradient-to-r dark:from-transparent dark:to-orange/30" />
-              <span className="text-sm font-medium tracking-widest uppercase text-muted-foreground dark:text-orange/60">
+              <div className="flex-1 h-px bg-border bg-gradient-to-r to-orange/30" />
+              <span className="text-sm font-medium tracking-widest uppercase text-muted-foreground text-orange/60">
                 B2B
               </span>
-              <div className="flex-1 h-px bg-border dark:bg-gradient-to-r dark:from-purple/30 dark:to-transparent" />
+              <div className="flex-1 h-px bg-border bg-gradient-to-r from-purple/30" />
             </div>
 
             <div className="text-center mb-12">
@@ -693,8 +693,8 @@ export function LandingPage() {
                 { title: t('manufacturers.item4.title'), desc: t('manufacturers.item4.desc'), num: '04' },
                 { title: t('manufacturers.item5.title'), desc: t('manufacturers.item5.desc'), num: '05' },
               ].map((item, idx) => {
-                const numColors = ['dark:text-orange/40 dark:group-hover:text-orange/70', 'dark:text-orange-dark/40 dark:group-hover:text-orange-dark/70', 'dark:text-magenta/40 dark:group-hover:text-magenta/70', 'dark:text-purple/40 dark:group-hover:text-purple/70', 'dark:text-purple-light/40 dark:group-hover:text-purple-light/70'];
-                const borderHovers = ['dark:hover:border-orange/40', 'dark:hover:border-orange-dark/40', 'dark:hover:border-magenta/40', 'dark:hover:border-purple/40', 'dark:hover:border-purple-light/40'];
+                const numColors = ['text-orange/40 group-hover:text-orange/70', 'text-orange-dark/40 group-hover:text-orange-dark/70', 'text-magenta/40 group-hover:text-magenta/70', 'text-purple/40 group-hover:text-purple/70', 'text-purple-light/40 group-hover:text-purple-light/70'];
+                const borderHovers = ['hover:border-orange/40', 'hover:border-orange-dark/40', 'hover:border-magenta/40', 'hover:border-purple/40', 'hover:border-purple-light/40'];
                 return (
                 <div key={item.num} className={`border border-border dark:border-border/50 p-6 hover:border-foreground transition-colors group ${borderHovers[idx]}`}>
                   <span className={`text-3xl font-light text-muted-foreground/30 group-hover:text-muted-foreground/50 transition-colors ${numColors[idx]}`}>{item.num}</span>
@@ -713,11 +713,11 @@ export function LandingPage() {
           {/* Security - Stolen Flag */}
           <div className="mt-24 pt-16 border-t border-border dark:border-border/50">
             <div className="flex items-center gap-6 mb-6">
-              <div className="flex-1 h-px bg-border dark:bg-gradient-to-r dark:from-transparent dark:to-purple/30" />
-              <span className="text-sm font-medium tracking-widest uppercase text-muted-foreground dark:text-purple-light/70">
+              <div className="flex-1 h-px bg-border bg-gradient-to-r to-purple/30" />
+              <span className="text-sm font-medium tracking-widest uppercase text-muted-foreground text-purple-light/70">
                 Security
               </span>
-              <div className="flex-1 h-px bg-border dark:bg-gradient-to-r dark:from-orange/30 dark:to-transparent" />
+              <div className="flex-1 h-px bg-border bg-gradient-to-r from-orange/30" />
             </div>
 
             <div className="text-center mb-12">
@@ -729,21 +729,21 @@ export function LandingPage() {
             {/* Cards grid */}
             <div className="grid md:grid-cols-3 gap-6">
               {/* Card 1 - Description */}
-              <div className="border border-border dark:border-purple/30 p-8 hover:border-foreground dark:hover:border-purple transition-colors relative overflow-hidden group dark:hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-foreground/20 dark:via-purple/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="mb-6 text-foreground dark:text-purple-light">{Icons.flag}</div>
+              <div className="border border-border border-purple/30 p-8 hover:border-purple transition-colors relative overflow-hidden group hover:shadow-[0_0_30px_rgba(168,85,247,0.15)]">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="mb-6 text-purple-light">{Icons.flag}</div>
                 <p className="text-muted-foreground">
                   {t('security.flag.desc')}
                 </p>
               </div>
 
               {/* Card 2 - Benefits */}
-              <div className="border border-border dark:border-border/50 p-8 hover:border-foreground dark:hover:border-magenta/50 transition-colors dark:hover:shadow-[0_0_30px_rgba(232,121,249,0.1)]">
+              <div className="border border-border dark:border-border/50 p-8 hover:border-magenta/50 transition-colors hover:shadow-[0_0_30px_rgba(232,121,249,0.1)]">
                 <ul className="space-y-4">
                   {[t('security.benefit1'), t('security.benefit2'), t('security.benefit3')].map((benefit, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-6 h-6 border border-foreground dark:border-magenta/50 flex items-center justify-center mt-0.5">
-                        <svg className="w-3 h-3 dark:text-magenta" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                      <span className="flex-shrink-0 w-6 h-6 border border-magenta/50 flex items-center justify-center mt-0.5">
+                        <svg className="w-3 h-3 text-magenta" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
                           <path d="M5 13l4 4L19 7" />
                         </svg>
                       </span>
@@ -755,9 +755,9 @@ export function LandingPage() {
               </div>
 
               {/* Card 3 - Warning preview */}
-              <div className="border border-red-500/30 dark:border-orange/40 p-8 bg-red-500/[0.02] dark:bg-orange/[0.05] relative overflow-hidden dark:shadow-[0_0_30px_rgba(251,146,60,0.1)]">
-                <div className="absolute top-0 left-0 w-1 h-full bg-red-500/50 dark:bg-gradient-to-b dark:from-orange dark:to-orange-dark" />
-                <div className="inline-flex items-center gap-2 px-3 py-2 bg-red-500/10 dark:bg-orange/20 border border-red-500/30 dark:border-orange/50 text-red-500 dark:text-orange text-sm font-medium mb-6">
+              <div className="border border-orange/40 p-8 bg-orange/[0.05] relative overflow-hidden shadow-[0_0_30px_rgba(251,146,60,0.1)]">
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-orange to-orange-dark" />
+                <div className="inline-flex items-center gap-2 px-3 py-2 bg-orange/20 border border-orange/50 text-orange text-sm font-medium mb-6">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                     <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
@@ -770,22 +770,22 @@ export function LandingPage() {
 
           {/* Constantly evolving notice */}
           <div className="mt-24 pt-16 border-t border-border dark:border-border/50">
-            <div className="border border-dashed border-border dark:border-purple/30 p-8 md:p-10 text-center relative overflow-hidden group hover:border-foreground/50 dark:hover:border-orange/40 transition-colors">
+            <div className="border border-dashed border-border border-purple/30 p-8 md:p-10 text-center relative overflow-hidden group hover:border-foreground/50 hover:border-orange/40 transition-colors">
               {/* Animated gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/[0.02] dark:via-orange/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-orange/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
               <div className="relative flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
                 <div className="flex items-center gap-3">
                   <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-foreground/20 dark:bg-orange/40 rounded-full animate-pulse" />
-                    <span className="w-2 h-2 bg-foreground/40 dark:bg-magenta/50 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
-                    <span className="w-2 h-2 bg-foreground/60 dark:bg-purple/60 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+                    <span className="w-2 h-2 bg-orange/40 rounded-full animate-pulse" />
+                    <span className="w-2 h-2 bg-magenta/50 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+                    <span className="w-2 h-2 bg-purple/60 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
                   </div>
-                  <span className="text-sm font-medium tracking-wider uppercase text-muted-foreground dark:text-orange/70">
+                  <span className="text-sm font-medium tracking-wider uppercase text-muted-foreground text-orange/70">
                     {t('useCases.evolving')}
                   </span>
                 </div>
-                <div className="hidden md:block w-px h-6 bg-border dark:bg-purple/30" />
+                <div className="hidden md:block w-px h-6 bg-border bg-purple/30" />
                 <p className="text-muted-foreground text-sm md:text-base">
                   {t('useCases.evolvingDesc')}
                 </p>
@@ -807,15 +807,15 @@ export function LandingPage() {
           {/* Timeline */}
           <div className="relative">
             {/* Horizontal line - desktop */}
-            <div className="hidden lg:block absolute top-6 left-0 right-0 h-px bg-border dark:bg-gradient-to-r dark:from-orange/50 dark:via-magenta/30 dark:to-purple/50" />
+            <div className="hidden lg:block absolute top-6 left-0 right-0 h-px bg-border bg-gradient-to-r from-orange/50 via-magenta/30 to-purple/50" />
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {roadmapItems.map((item, i) => {
                 const phaseColors = [
-                  { border: 'dark:border-orange', text: 'dark:text-orange', bullet: 'dark:bg-orange', glow: 'dark:shadow-[0_0_20px_rgba(251,146,60,0.3)]' },
-                  { border: 'dark:border-orange-dark/50', text: 'dark:text-orange-dark', bullet: 'dark:bg-orange-dark/50', glow: '' },
-                  { border: 'dark:border-magenta/50', text: 'dark:text-magenta/70', bullet: 'dark:bg-magenta/50', glow: '' },
-                  { border: 'dark:border-purple/50', text: 'dark:text-purple/70', bullet: 'dark:bg-purple/50', glow: '' },
+                  { border: 'border-orange', text: 'text-orange', bullet: 'bg-orange', glow: 'shadow-[0_0_20px_rgba(251,146,60,0.3)]' },
+                  { border: 'border-orange-dark/50', text: 'text-orange-dark', bullet: 'bg-orange-dark/50', glow: '' },
+                  { border: 'border-magenta/50', text: 'text-magenta/70', bullet: 'bg-magenta/50', glow: '' },
+                  { border: 'border-purple/50', text: 'text-purple/70', bullet: 'bg-purple/50', glow: '' },
                 ];
                 const pc = phaseColors[i];
 
@@ -823,7 +823,7 @@ export function LandingPage() {
                 <div key={item.phase} className="relative">
                   {/* Timeline dot */}
                   <div className="hidden lg:flex items-center justify-start mb-8">
-                    <div className={`w-12 h-12 border-2 flex items-center justify-center bg-background dark:bg-background/50 ${i === 0 ? 'border-foreground ' + pc.border + ' ' + pc.glow : 'border-border ' + pc.border}`}>
+                    <div className={`w-12 h-12 border-2 flex items-center justify-center bg-background ${i === 0 ? 'border-foreground ' + pc.border + ' ' + pc.glow : 'border-border ' + pc.border}`}>
                       <span className={`text-sm font-medium ${i === 0 ? 'text-foreground ' + pc.text : 'text-muted-foreground ' + pc.text}`}>
                         {String(i + 1).padStart(2, '0')}
                       </span>
@@ -856,7 +856,7 @@ export function LandingPage() {
       {/* FAQ Section */}
       <section className="py-24 px-6 border-t border-border dark:border-border/50 relative" id="faq">
         {/* Background glow */}
-        <div className="absolute inset-0 dark:bg-gradient-to-b dark:from-purple/5 dark:via-transparent dark:to-orange/5 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-purple/5 to-orange/5 pointer-events-none" />
         <div className="max-w-7xl mx-auto">
           <SectionHeader
             title={t('faq.title')}
@@ -869,14 +869,14 @@ export function LandingPage() {
               {faqs.map((faq, i) => (
                 <div
                   key={i}
-                  className={`border transition-all duration-300 ${openFaq === i ? 'border-foreground dark:border-purple dark:shadow-[0_0_20px_rgba(168,85,247,0.15)]' : 'border-border dark:border-border/50 hover:border-foreground/50 dark:hover:border-purple/40'}`}
+                  className={`border transition-all duration-300 ${openFaq === i ? 'border-purple shadow-[0_0_20px_rgba(168,85,247,0.15)]' : 'border-border dark:border-border/50 hover:border-foreground/50 hover:border-purple/40'}`}
                 >
                   <button
                     className="w-full p-6 text-left flex items-center justify-between gap-4"
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   >
                     <h3 className="font-medium text-lg">{faq.q}</h3>
-                    <span className={`flex-shrink-0 w-8 h-8 border flex items-center justify-center transition-all duration-300 ${openFaq === i ? 'border-foreground dark:border-orange dark:text-orange rotate-45' : 'border-border dark:border-border/50'}`}>
+                    <span className={`flex-shrink-0 w-8 h-8 border flex items-center justify-center transition-all duration-300 ${openFaq === i ? 'border-orange text-orange rotate-45' : 'border-border dark:border-border/50'}`}>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                         <path d="M12 5v14M5 12h14" />
                       </svg>
@@ -895,29 +895,29 @@ export function LandingPage() {
       {/* CTA Section */}
       <section className="py-24 px-6 border-t border-border dark:border-border/50 relative">
         {/* Background glow */}
-        <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-purple/10 dark:via-magenta/5 dark:to-orange/10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-purple/10 via-magenta/5 to-orange/10 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
-          <div className="relative border border-foreground dark:border-transparent p-8 md:p-16 dark:bg-gradient-to-br dark:from-background/80 dark:to-background/60 overflow-hidden">
+          <div className="relative border border-orange/30 p-8 md:p-16 bg-gradient-to-br from-background/80 to-background/60 overflow-hidden">
             {/* Gradient border effect for dark mode */}
-            <div className="absolute inset-0 dark:bg-gradient-to-br dark:from-orange/20 dark:via-magenta/10 dark:to-purple/20 opacity-0 dark:opacity-100 -z-10" />
-            <div className="absolute inset-[1px] dark:bg-background/95 -z-10" />
+            <div className="absolute inset-0 bg-gradient-to-br from-orange/20 via-magenta/10 to-purple/20 opacity-0 opacity-100 -z-10" />
+            <div className="absolute inset-[1px] -z-10" />
 
             {/* Corner accents */}
-            <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-foreground dark:border-orange" />
-            <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-foreground dark:border-purple" />
-            <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-foreground dark:border-purple" />
-            <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-foreground dark:border-orange" />
+            <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-orange" />
+            <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-purple" />
+            <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-purple" />
+            <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-orange" />
 
             {/* Glow effects */}
-            <div className="absolute -top-20 -left-20 w-40 h-40 bg-orange/20 rounded-full blur-[80px] dark:block hidden" />
-            <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple/20 rounded-full blur-[80px] dark:block hidden" />
+            <div className="absolute -top-20 -left-20 w-40 h-40 bg-orange/20 rounded-full blur-[80px] block" />
+            <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple/20 rounded-full blur-[80px] block" />
 
             <div className="text-center max-w-3xl mx-auto relative">
               <p className="text-sm font-medium tracking-widest uppercase text-muted-foreground mb-6 inline-flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-500 dark:bg-orange rounded-full animate-pulse dark:shadow-[0_0_10px_rgba(251,146,60,0.6)]" />
+                <span className="w-2 h-2 bg-orange rounded-full animate-pulse shadow-[0_0_10px_rgba(251,146,60,0.6)]" />
                 {t('cta.badge')}
               </p>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6 dark:text-gradient-hero">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6 text-gradient-hero">
                 {t('cta.title')}
               </h2>
               <p className="text-xl md:text-2xl text-muted-foreground mb-10 font-light">
@@ -925,17 +925,17 @@ export function LandingPage() {
               </p>
               <div className="flex items-center justify-center gap-4 flex-wrap">
                 {TEASER_MODE ? (
-                  <Button size="lg" className="px-10 h-14 text-base dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] dark:transition-shadow" onClick={handleComingSoon}>
+                  <Button size="lg" className="px-10 h-14 text-base bg-gradient-to-r from-orange to-orange-dark text-white border-0 hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] transition-shadow" onClick={handleComingSoon}>
                     {t('cta.primary')}
                   </Button>
                 ) : (
                   <Link to="/register">
-                    <Button size="lg" className="px-10 h-14 text-base dark:bg-gradient-to-r dark:from-orange dark:to-orange-dark dark:text-white dark:border-0 dark:hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] dark:transition-shadow">
+                    <Button size="lg" className="px-10 h-14 text-base bg-gradient-to-r from-orange to-orange-dark text-white border-0 hover:shadow-[0_0_30px_rgba(251,146,60,0.4)] transition-shadow">
                       {t('cta.primary')}
                     </Button>
                   </Link>
                 )}
-                <Button variant="ghost" size="lg" className="h-14 text-base dark:border-purple/30 dark:hover:border-purple dark:hover:bg-purple/10 dark:hover:text-purple-light" onClick={handleDemo} disabled={isDemoLoading}>
+                <Button variant="ghost" size="lg" className="h-14 text-base border-purple/30 hover:border-purple hover:bg-purple/10 hover:text-purple-light" onClick={handleDemo} disabled={isDemoLoading}>
                   {isDemoLoading ? '...' : t('cta.secondary')}
                 </Button>
               </div>
@@ -951,15 +951,15 @@ export function LandingPage() {
       <footer className="py-20 px-6 border-t border-border dark:border-border/50 relative overflow-hidden">
         {/* Background pattern */}
         <div
-          className="absolute inset-0 opacity-[0.015] dark:opacity-[0.02]"
+          className="absolute inset-0 opacity-[0.015] opacity-[0.02]"
           style={{
             backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)',
             backgroundSize: '32px 32px'
           }}
         />
         {/* Dark mode ambient glows */}
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange/10 rounded-full blur-[100px] dark:block hidden" />
-        <div className="absolute top-0 right-0 w-64 h-64 bg-purple/10 rounded-full blur-[100px] dark:block hidden" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange/10 rounded-full blur-[100px] block" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-purple/10 rounded-full blur-[100px] block" />
 
         <div className="max-w-7xl mx-auto relative">
           {/* Top section with brand and tech badge */}
@@ -967,11 +967,11 @@ export function LandingPage() {
             {/* Brand */}
             <div className="max-w-md">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 border-2 border-foreground dark:border-orange/50 flex items-center justify-center group hover:bg-foreground dark:hover:bg-orange/20 transition-colors dark:hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]">
-                  <span className="text-sm font-mono font-bold tracking-tighter group-hover:text-background dark:group-hover:text-orange transition-colors dark:text-orange/90">T_</span>
+                <div className="w-12 h-12 border-2 border-orange/50 flex items-center justify-center group hover:bg-orange/20 transition-colors hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]">
+                  <span className="text-sm font-mono font-bold tracking-tighter text-orange/90 group-hover:text-orange transition-colors">T_</span>
                 </div>
                 <div>
-                  <span className="text-sm font-mono font-medium tracking-widest block dark:text-gradient-hero">TRVE<span className="dark:text-orange">_</span></span>
+                  <span className="text-sm font-mono font-medium tracking-widest block">TRVE<span className="text-orange">_</span></span>
                   <span className="text-xs text-muted-foreground">{t('footer.version')}</span>
                 </div>
               </div>
@@ -980,12 +980,12 @@ export function LandingPage() {
               </p>
 
               {/* Tech stack badge */}
-              <div className="inline-flex items-center gap-3 px-4 py-2 border border-border dark:border-purple/30 bg-background/50 dark:bg-background/30">
+              <div className="inline-flex items-center gap-3 px-4 py-2 border border-border border-purple/30 bg-background/50">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 dark:bg-orange rounded-full animate-pulse dark:shadow-[0_0_8px_rgba(251,146,60,0.5)]" />
+                  <div className="w-2 h-2 bg-orange rounded-full animate-pulse shadow-[0_0_8px_rgba(251,146,60,0.5)]" />
                   <span className="text-xs font-mono text-muted-foreground">{t('footer.tech')}</span>
                 </div>
-                <div className="w-px h-4 bg-border dark:bg-purple/30" />
+                <div className="w-px h-4 bg-border bg-purple/30" />
                 <span className="text-xs font-mono text-muted-foreground/60">{t('footer.slogan')}</span>
               </div>
             </div>
@@ -995,45 +995,45 @@ export function LandingPage() {
               {/* Product links */}
               <div>
                 <h4 className="font-medium mb-5 text-sm tracking-wider uppercase flex items-center gap-2">
-                  <span className="w-4 h-px bg-foreground dark:bg-gradient-to-r dark:from-orange dark:to-transparent" />
-                  <span className="dark:text-orange/80">{t('footer.product')}</span>
+                  <span className="w-4 h-px bg-gradient-to-r from-orange" />
+                  <span className="text-orange/80">{t('footer.product')}</span>
                 </h4>
                 <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li><a href="#how-it-works" className="hover:text-foreground dark:hover:text-orange transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-orange transition-all" />{t('nav.howItWorks')}</a></li>
-                  <li><a href="#use-cases" className="hover:text-foreground dark:hover:text-orange transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-orange transition-all" />{t('nav.useCases')}</a></li>
-                  <li><a href="#faq" className="hover:text-foreground dark:hover:text-orange transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-orange transition-all" />{t('nav.faq')}</a></li>
+                  <li><a href="#how-it-works" className="hover:text-orange transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-orange transition-all" />{t('nav.howItWorks')}</a></li>
+                  <li><a href="#use-cases" className="hover:text-orange transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-orange transition-all" />{t('nav.useCases')}</a></li>
+                  <li><a href="#faq" className="hover:text-orange transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-orange transition-all" />{t('nav.faq')}</a></li>
                 </ul>
               </div>
 
               {/* Resources */}
               <div>
                 <h4 className="font-medium mb-5 text-sm tracking-wider uppercase flex items-center gap-2">
-                  <span className="w-4 h-px bg-foreground dark:bg-gradient-to-r dark:from-magenta dark:to-transparent" />
-                  <span className="dark:text-magenta/80">{t('footer.resources')}</span>
+                  <span className="w-4 h-px bg-gradient-to-r from-magenta" />
+                  <span className="text-magenta/80">{t('footer.resources')}</span>
                 </h4>
                 <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li><a href="#" className="hover:text-foreground dark:hover:text-magenta transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-magenta transition-all" />{t('footer.docs')}</a></li>
-                  <li><a href="#" className="hover:text-foreground dark:hover:text-magenta transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-magenta transition-all" />{t('footer.api')}</a></li>
-                  <li><a href="#" className="hover:text-foreground dark:hover:text-magenta transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-magenta transition-all" />{t('footer.status')}</a></li>
+                  <li><a href="#" className="hover:text-magenta transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-magenta transition-all" />{t('footer.docs')}</a></li>
+                  <li><a href="#" className="hover:text-magenta transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-magenta transition-all" />{t('footer.api')}</a></li>
+                  <li><a href="#" className="hover:text-magenta transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-magenta transition-all" />{t('footer.status')}</a></li>
                 </ul>
               </div>
 
               {/* Contact */}
               <div>
                 <h4 className="font-medium mb-5 text-sm tracking-wider uppercase flex items-center gap-2">
-                  <span className="w-4 h-px bg-foreground dark:bg-gradient-to-r dark:from-purple dark:to-transparent" />
-                  <span className="dark:text-purple-light/80">{t('footer.contact')}</span>
+                  <span className="w-4 h-px bg-gradient-to-r from-purple" />
+                  <span className="text-purple-light/80">{t('footer.contact')}</span>
                 </h4>
                 <ul className="space-y-3 text-sm text-muted-foreground">
                   <li>
-                    <a href="mailto:contact@trve.io" className="hover:text-foreground dark:hover:text-purple-light transition-colors inline-flex items-center gap-2 group">
-                      <span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-purple transition-all" />
+                    <a href="mailto:contact@trve.io" className="hover:text-purple-light transition-colors inline-flex items-center gap-2 group">
+                      <span className="w-0 group-hover:w-2 h-px bg-purple transition-all" />
                       contact@trve.io
                     </a>
                   </li>
                   <li>
-                    <a href="#contact" className="hover:text-foreground dark:hover:text-purple-light transition-colors inline-flex items-center gap-2 group">
-                      <span className="w-0 group-hover:w-2 h-px bg-foreground dark:bg-purple transition-all" />
+                    <a href="#contact" className="hover:text-purple-light transition-colors inline-flex items-center gap-2 group">
+                      <span className="w-0 group-hover:w-2 h-px bg-purple transition-all" />
                       {t('footer.contactForm')}
                     </a>
                   </li>
@@ -1047,19 +1047,19 @@ export function LandingPage() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-6 text-sm text-muted-foreground">
                 <p>{t('footer.copyright')}</p>
-                <span className="hidden md:block w-px h-4 bg-border dark:bg-purple/30" />
-                <a href="#" className="hover:text-foreground dark:hover:text-orange transition-colors">Privacy</a>
-                <a href="#" className="hover:text-foreground dark:hover:text-orange transition-colors">Terms</a>
+                <span className="hidden md:block w-px h-4 bg-border bg-purple/30" />
+                <a href="#" className="hover:text-orange transition-colors">Privacy</a>
+                <a href="#" className="hover:text-orange transition-colors">Terms</a>
               </div>
 
               {/* Scroll to top */}
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors"
+                className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-orange transition-colors"
               >
                 <span>{t('footer.backToTop')}</span>
-                <div className="w-8 h-8 border border-border dark:border-orange/30 group-hover:border-foreground dark:group-hover:border-orange flex items-center justify-center transition-all dark:group-hover:shadow-[0_0_15px_rgba(251,146,60,0.3)]">
-                  <svg className="w-4 h-4 transform group-hover:-translate-y-0.5 transition-transform dark:group-hover:text-orange" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <div className="w-8 h-8 border border-border border-orange/30 group-hover:border-foreground group-hover:border-orange flex items-center justify-center transition-all group-hover:shadow-[0_0_15px_rgba(251,146,60,0.3)]">
+                  <svg className="w-4 h-4 transform group-hover:-translate-y-0.5 transition-transform group-hover:text-orange" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                     <path d="M5 10l7-7m0 0l7 7m-7-7v18" />
                   </svg>
                 </div>

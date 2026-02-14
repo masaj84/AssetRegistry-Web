@@ -128,12 +128,12 @@ export function AdminLayout() {
         {/* Logo */}
         <div className="h-16 flex items-center gap-3 px-6 border-b border-border dark:border-border/50">
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 border-2 border-foreground dark:border-orange/60 flex items-center justify-center group-hover:bg-foreground dark:group-hover:bg-orange/20 transition-colors dark:group-hover:border-orange dark:group-hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]">
-              <span className="text-[10px] font-mono font-bold group-hover:text-background dark:group-hover:text-orange transition-colors dark:text-orange/90">T_</span>
+            <div className="w-9 h-9 border-2 border-orange/60 flex items-center justify-center group-hover:bg-orange/20 transition-colors group-hover:border-orange group-hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]">
+              <span className="text-[10px] font-mono font-bold text-orange/90 group-hover:text-orange transition-colors">T_</span>
             </div>
-            <span className="text-sm font-mono font-medium tracking-widest dark:text-foreground/90">TRVE<span className="dark:text-orange">_</span></span>
+            <span className="text-sm font-mono font-medium tracking-widest">TRVE<span className="text-orange">_</span></span>
           </Link>
-          <span className="ml-auto text-[10px] font-mono text-amber-500 dark:text-orange border border-amber-500 dark:border-orange/60 px-2 py-0.5">
+          <span className="ml-auto text-[10px] font-mono text-orange border border-orange/60 px-2 py-0.5">
             ADMIN
           </span>
         </div>
@@ -150,15 +150,15 @@ export function AdminLayout() {
                 className={cn(
                   'flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all relative group',
                   active
-                    ? 'text-foreground dark:text-orange bg-foreground/5 dark:bg-orange/10'
-                    : 'text-muted-foreground hover:text-foreground dark:hover:text-orange/90 hover:bg-foreground/[0.02] dark:hover:bg-orange/5'
+                    ? 'text-orange bg-orange/10'
+                    : 'text-muted-foreground hover:text-orange/90 hover:bg-orange/5'
                 )}
               >
                 {/* Active indicator */}
                 {active && (
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-8 bg-amber-500 dark:bg-gradient-to-b dark:from-orange dark:to-magenta" />
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-8 bg-gradient-to-b from-orange to-magenta" />
                 )}
-                <span className={cn(active && 'dark:text-orange')}>{item.icon}</span>
+                <span className={cn(active && 'text-orange')}>{item.icon}</span>
                 <span className="font-mono">{item.name}</span>
               </Link>
             );
@@ -168,7 +168,7 @@ export function AdminLayout() {
         {/* Back to app */}
         <div className="p-4 border-t border-border dark:border-border/50">
           <Link to="/app">
-            <button className="w-full flex items-center justify-center gap-2 h-10 border border-dashed border-border dark:border-purple/40 hover:border-foreground dark:hover:border-purple text-muted-foreground hover:text-foreground dark:hover:text-purple-light transition-colors text-sm dark:hover:bg-purple/10 dark:hover:shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+            <button className="w-full flex items-center justify-center gap-2 h-10 border border-dashed border-purple/40 hover:border-purple text-muted-foreground hover:text-purple-light transition-colors text-sm hover:bg-purple/10 hover:shadow-[0_0_15px_rgba(168,85,247,0.2)]">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
               </svg>
@@ -180,19 +180,19 @@ export function AdminLayout() {
         {/* User */}
         <div className="p-4 border-t border-border dark:border-border/50">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 border border-amber-500 dark:border-orange/60 flex items-center justify-center bg-amber-500/10 dark:bg-orange/10">
-              <span className="text-sm font-medium text-amber-500 dark:text-orange">
+            <div className="w-10 h-10 border border-orange/60 flex items-center justify-center bg-orange/10">
+              <span className="text-sm font-medium text-orange">
                 {user?.username?.charAt(0).toUpperCase() || 'A'}
               </span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium font-mono truncate dark:text-foreground/90">{user?.username || 'Admin'}</p>
-              <p className="text-xs font-mono text-amber-500 dark:text-orange/70 truncate">Administrator</p>
+              <p className="text-xs font-mono text-orange/70 truncate">Administrator</p>
             </div>
           </div>
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-foreground dark:hover:text-magenta hover:bg-foreground/[0.02] dark:hover:bg-magenta/10 transition-colors"
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-magenta hover:bg-magenta/10 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
@@ -208,7 +208,7 @@ export function AdminLayout() {
         <header className="h-16 flex items-center gap-4 px-6 border-b border-border dark:border-border/50 bg-background/95 dark:bg-background/80 backdrop-blur-md sticky top-0 z-30">
           {/* Mobile menu button */}
           <button
-            className="lg:hidden w-10 h-10 flex items-center justify-center border border-border dark:border-purple/30 hover:border-foreground dark:hover:border-purple transition-colors"
+            className="lg:hidden w-10 h-10 flex items-center justify-center border border-purple/30 hover:border-purple transition-colors"
             onClick={() => setSidebarOpen(true)}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
@@ -221,7 +221,7 @@ export function AdminLayout() {
             <nav className="text-sm text-muted-foreground font-mono">
               <ol className="flex items-center gap-2">
                 <li>
-                  <Link to="/app/admin" className="hover:text-foreground dark:hover:text-orange transition-colors">
+                  <Link to="/app/admin" className="hover:text-orange transition-colors">
                     Admin
                   </Link>
                 </li>
@@ -232,7 +232,7 @@ export function AdminLayout() {
                         <path d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                       </svg>
                     </li>
-                    <li className="text-foreground dark:text-orange font-medium">
+                    <li className="text-orange font-medium">
                       {location.pathname.includes('/users/') ? 'User Details' :
                        location.pathname.includes('/users') ? 'Users' :
                        location.pathname.includes('/organizations/') ? 'Organization Details' :
@@ -253,7 +253,7 @@ export function AdminLayout() {
           {/* Language toggle */}
           <button
             onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}
-            className="h-10 px-3 flex items-center justify-center border border-border dark:border-purple/30 hover:border-foreground dark:hover:border-purple text-muted-foreground hover:text-foreground dark:hover:text-purple-light transition-colors text-sm font-medium dark:hover:bg-purple/10"
+            className="h-10 px-3 flex items-center justify-center border border-purple/30 hover:border-purple text-muted-foreground hover:text-purple-light transition-colors text-sm font-medium hover:bg-purple/10"
             aria-label="Toggle language"
           >
             {language === 'en' ? 'PL' : 'EN'}
@@ -262,7 +262,7 @@ export function AdminLayout() {
           {/* Theme toggle */}
           <button
             onClick={toggleTheme}
-            className="w-10 h-10 flex items-center justify-center border border-border dark:border-orange/40 hover:border-foreground dark:hover:border-orange text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors dark:hover:bg-orange/10 dark:hover:shadow-[0_0_15px_rgba(251,146,60,0.2)]"
+            className="w-10 h-10 flex items-center justify-center border border-orange/40 hover:border-orange text-muted-foreground hover:text-orange transition-colors hover:bg-orange/10 hover:shadow-[0_0_15px_rgba(251,146,60,0.2)]"
             aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
           >
             {theme === 'light' ? (
@@ -270,14 +270,14 @@ export function AdminLayout() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
               </svg>
             ) : (
-              <svg className="w-5 h-5 dark:text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
             )}
           </button>
 
           {/* Admin badge */}
-          <div className="flex items-center gap-2 text-xs font-mono text-amber-500 dark:text-orange border border-amber-500 dark:border-orange/60 dark:bg-orange/10 px-3 py-1">
+          <div className="flex items-center gap-2 text-xs font-mono text-orange border border-orange/60 bg-orange/10 px-3 py-1">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
             </svg>

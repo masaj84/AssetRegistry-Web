@@ -51,8 +51,8 @@ export function AppLayout() {
 
   return (
     <div className="min-h-screen flex bg-background relative">
-      {/* Dark mode ambient background effects */}
-      <div className="dark:block hidden fixed inset-0 pointer-events-none overflow-hidden">
+      {/* Ambient background effects */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -top-40 -left-40 w-96 h-96 bg-orange/10 rounded-full blur-[128px]" />
         <div className="absolute top-1/4 -right-20 w-80 h-80 bg-purple/15 rounded-full blur-[100px]" />
         <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-magenta/10 rounded-full blur-[120px]" />
@@ -76,12 +76,12 @@ export function AppLayout() {
         {/* Logo */}
         <div className="h-16 flex items-center gap-3 px-6 border-b border-border dark:border-border/50">
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 border-2 border-foreground dark:border-orange/60 flex items-center justify-center group-hover:bg-foreground dark:group-hover:bg-orange/20 transition-colors dark:group-hover:border-orange dark:group-hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]">
-              <span className="text-[10px] font-mono font-bold group-hover:text-background dark:group-hover:text-orange transition-colors dark:text-orange/90">T_</span>
+            <div className="w-9 h-9 border-2 border-orange/60 flex items-center justify-center group-hover:bg-orange/20 transition-colors group-hover:border-orange group-hover:shadow-[0_0_20px_rgba(251,146,60,0.3)]">
+              <span className="text-[10px] font-mono font-bold text-orange/90 group-hover:text-orange transition-colors">T_</span>
             </div>
-            <span className="text-sm font-mono font-medium tracking-widest dark:text-foreground/90">TRVE<span className="dark:text-orange">_</span></span>
+            <span className="text-sm font-mono font-medium tracking-widest">TRVE<span className="text-orange">_</span></span>
           </Link>
-          <span className="ml-auto text-[10px] font-mono text-muted-foreground border border-border dark:border-purple/30 dark:text-purple-light/70 px-2 py-0.5">
+          <span className="ml-auto text-[10px] font-mono text-purple-light/70 border border-purple/30 px-2 py-0.5">
             MVP
           </span>
         </div>

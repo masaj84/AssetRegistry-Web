@@ -49,7 +49,7 @@ function Divider() {
   return (
     <div className="my-12 relative">
       <hr className="border-border dark:border-border/50" />
-      <div className="absolute inset-0 h-px bg-gradient-to-r from-transparent via-orange/30 dark:via-orange/50 to-transparent" />
+      <div className="absolute inset-0 h-px bg-gradient-to-r from-transparent via-orange/30 via-orange/50 to-transparent" />
     </div>
   );
 }
@@ -332,26 +332,26 @@ export function WhitepaperPage() {
     <div className="min-h-screen bg-background relative">
       {/* Subtle background effects */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-orange/5 dark:bg-orange/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple/5 dark:bg-purple/10 rounded-full blur-[150px]" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-orange/5 bg-orange/10 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple/5 bg-purple/10 rounded-full blur-[150px]" />
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 dark:bg-background/80 backdrop-blur-md border-b border-border dark:border-border/50">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border dark:border-border/50">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-9 h-9 border-2 border-foreground dark:border-orange/60 flex items-center justify-center group-hover:bg-foreground dark:group-hover:bg-orange/20 transition-colors">
-                <span className="text-[10px] font-mono font-bold tracking-tighter group-hover:text-background dark:group-hover:text-orange transition-colors dark:text-orange/90">T_</span>
+              <div className="w-9 h-9 border-2 border-orange/60 flex items-center justify-center group-hover:bg-foreground group-hover:bg-orange/20 transition-colors">
+                <span className="text-[10px] font-mono font-bold tracking-tighter group-hover:text-background group-hover:text-orange transition-colors text-orange/90">T_</span>
               </div>
-              <span className="text-sm font-mono font-medium tracking-widest hidden sm:block dark:text-foreground/90">TRVE<span className="dark:text-orange">_</span></span>
+              <span className="text-sm font-mono font-medium tracking-widest hidden sm:block">TRVE<span className="text-orange">_</span></span>
             </Link>
 
             <div className="hidden md:flex items-center gap-8 text-sm font-mono">
-              <a href="#vision" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">Vision</a>
-              <a href="#solution" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">Solution</a>
-              <a href="#tech" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">Tech</a>
-              <a href="#roadmap" className="text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">Roadmap</a>
+              <a href="#vision" className="text-muted-foreground hover:text-orange transition-colors">Vision</a>
+              <a href="#solution" className="text-muted-foreground hover:text-orange transition-colors">Solution</a>
+              <a href="#tech" className="text-muted-foreground hover:text-orange transition-colors">Tech</a>
+              <a href="#roadmap" className="text-muted-foreground hover:text-orange transition-colors">Roadmap</a>
             </div>
 
             <div className="flex items-center gap-4 font-mono">
@@ -371,12 +371,12 @@ export function WhitepaperPage() {
 
           {/* Header */}
           <header className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 border border-border dark:border-orange/30 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 border border-border border-orange/30 mb-6">
               <span className="w-2 h-2 bg-orange rounded-full animate-pulse" />
               <span className="text-sm font-mono text-muted-foreground">{content.badge}</span>
             </div>
             <h1 className="text-5xl md:text-6xl font-light mb-4">
-              <span className="bg-gradient-to-r from-foreground to-foreground/80 dark:from-white dark:to-orange bg-clip-text text-transparent">TRVE</span>
+              <span className="bg-gradient-to-r from-foreground to-foreground/80 from-white to-orange bg-clip-text text-transparent">TRVE</span>
               <span className="text-orange">_</span>
             </h1>
             <p className="text-xl text-muted-foreground">
@@ -394,7 +394,7 @@ export function WhitepaperPage() {
               <span>{content.vision.title}</span>
             </h2>
 
-            <h3 className="text-lg font-medium mb-3 dark:text-orange/90">{content.vision.whatIs}</h3>
+            <h3 className="text-lg font-medium mb-3 text-orange/90">{content.vision.whatIs}</h3>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               {content.vision.whatIsText}
             </p>
@@ -446,13 +446,13 @@ export function WhitepaperPage() {
               <span>{content.solution.title}</span>
             </h2>
 
-            <p className="font-medium mb-4 text-lg dark:text-purple-light">{content.solution.headline}</p>
+            <p className="font-medium mb-4 text-lg text-purple-light">{content.solution.headline}</p>
 
             <p className="text-muted-foreground mb-8 leading-relaxed">
               {content.solution.text}
             </p>
 
-            <h3 className="text-lg font-medium mb-4 dark:text-purple-light/90">{content.solution.benefits}</h3>
+            <h3 className="text-lg font-medium mb-4 text-purple-light/90">{content.solution.benefits}</h3>
 
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <div className="border-l-2 border-orange/50 pl-4">
@@ -481,7 +481,7 @@ export function WhitepaperPage() {
               </div>
             </div>
 
-            <h3 className="text-lg font-medium mb-4 dark:text-purple-light/90">{content.solution.howItWorks}</h3>
+            <h3 className="text-lg font-medium mb-4 text-purple-light/90">{content.solution.howItWorks}</h3>
 
             <div className="space-y-4">
               {content.solution.steps.map((step, i) => (
@@ -518,7 +518,7 @@ export function WhitepaperPage() {
               ))}
             </div>
 
-            <h3 className="text-lg font-medium mb-4 dark:text-orange/90">{content.useCases.b2b}</h3>
+            <h3 className="text-lg font-medium mb-4 text-orange/90">{content.useCases.b2b}</h3>
 
             <p className="text-muted-foreground mb-4">{content.useCases.b2bText}</p>
 
@@ -544,7 +544,7 @@ export function WhitepaperPage() {
               <span>{content.security.title}</span>
             </h2>
 
-            <h3 className="text-lg font-medium mb-4 dark:text-magenta/90">{content.security.theftTitle}</h3>
+            <h3 className="text-lg font-medium mb-4 text-magenta/90">{content.security.theftTitle}</h3>
 
             <p className="text-muted-foreground mb-4 leading-relaxed">
               {content.security.theftText}
@@ -571,8 +571,8 @@ export function WhitepaperPage() {
               <span>{content.tech.title}</span>
             </h2>
 
-            <h3 className="text-lg font-medium mb-3 dark:text-purple-light/90">{content.tech.architecture}</h3>
-            <div className="font-mono text-sm text-muted-foreground mb-6 p-4 border border-border/50 dark:border-purple/20 bg-muted/20">
+            <h3 className="text-lg font-medium mb-3 text-purple-light/90">{content.tech.architecture}</h3>
+            <div className="font-mono text-sm text-muted-foreground mb-6 p-4 border border-border/50 border-purple/20 bg-muted/20">
               <span className="text-orange">{content.tech.frontend} (React)</span>
               <span className="mx-2">→</span>
               <span className="text-magenta">{content.tech.backend} (ASP.NET)</span>
@@ -609,7 +609,7 @@ export function WhitepaperPage() {
               </div>
             </div>
 
-            <h3 className="text-lg font-medium mb-3 dark:text-purple-light/90">{content.tech.whyPolygon}</h3>
+            <h3 className="text-lg font-medium mb-3 text-purple-light/90">{content.tech.whyPolygon}</h3>
             <ul className="text-muted-foreground space-y-2">
               {content.tech.polygonReasons.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
@@ -635,7 +635,7 @@ export function WhitepaperPage() {
             </p>
 
             {/* Evolution Diagram */}
-            <div className="mb-10 p-4 border border-border/50 dark:border-purple/20 bg-muted/20 font-mono text-sm overflow-x-auto">
+            <div className="mb-10 p-4 border border-border/50 border-purple/20 bg-muted/20 font-mono text-sm overflow-x-auto">
               <div className="text-muted-foreground mb-2">{content.roadmap.evolutionLabel}</div>
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="px-3 py-1 bg-orange/20 text-orange border border-orange/30">{language === 'en' ? 'Phase 1: Anchoring' : 'Faza 1: Anchoring'}</span>
@@ -738,7 +738,7 @@ export function WhitepaperPage() {
             </div>
 
             {/* Genesis Asset Callout */}
-            <div className="mt-10 p-6 border border-orange/30 bg-orange/5 dark:bg-orange/10">
+            <div className="mt-10 p-6 border border-orange/30 bg-orange/5 bg-orange/10">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 border border-orange/50 flex items-center justify-center flex-shrink-0">
                   <span className="text-orange text-lg">01</span>
