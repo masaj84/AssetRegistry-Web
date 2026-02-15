@@ -6,7 +6,7 @@ import { Input } from '../../components/ui/Input';
 import { adminService } from '../../services/adminService';
 import { getErrorMessage } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
-import type { AnchoringStats, BlockchainHealth, BatchInfoResponse, VerificationResponse, AnchoringActivity } from '../../types/admin';
+import type { AnchoringStats, BlockchainHealth, BatchInfoResponse, VerificationResponse, AnchoringActivity, AssetAnchoringStates } from '../../types/admin';
 import { blockchainConfig } from '../../lib/blockchainConfig';
 
 export function AdminBlockchainPage() {
@@ -26,18 +26,26 @@ export function AdminBlockchainPage() {
   const [isAnchoring, setIsAnchoring] = useState(false);
   const [anchoringResult, setAnchoringResult] = useState<string | null>(null);
   const [activity, setActivity] = useState<AnchoringActivity | null>(null);
+  const [assetStates, setAssetStates] = useState<AssetAnchoringStates | null>(null);
+  const [isFixing, setIsFixing] = useState(false);
+
+  const refreshAll = async () => {
+    const [statsData, healthData, activityData, assetStatesData] = await Promise.all([
+      adminService.getAnchoringStats(),
+      adminService.getBlockchainHealth(),
+      adminService.getAnchoringActivity(),
+      adminService.getAssetAnchoringStates(),
+    ]);
+    setStats(statsData);
+    setHealth(healthData);
+    setActivity(activityData);
+    setAssetStates(assetStatesData);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [statsData, healthData, activityData] = await Promise.all([
-          adminService.getAnchoringStats(),
-          adminService.getBlockchainHealth(),
-          adminService.getAnchoringActivity(),
-        ]);
-        setStats(statsData);
-        setHealth(healthData);
-        setActivity(activityData);
+        await refreshAll();
 
         // If batch param in URL, fetch that batch
         const batchParam = searchParams.get('batch');
@@ -97,15 +105,7 @@ export function AdminBlockchainPage() {
       const result = await adminService.triggerAnchoring();
       if (result.triggered) {
         setAnchoringResult(`Batch #${result.batchId} anchored (${result.recordCount} records). TX: ${result.transactionHash?.slice(0, 18)}...`);
-        // Refresh stats + activity
-        const [statsData, healthData, activityData] = await Promise.all([
-          adminService.getAnchoringStats(),
-          adminService.getBlockchainHealth(),
-          adminService.getAnchoringActivity(),
-        ]);
-        setStats(statsData);
-        setHealth(healthData);
-        setActivity(activityData);
+        await refreshAll();
       } else {
         setAnchoringResult(result.message);
       }
@@ -123,14 +123,7 @@ export function AdminBlockchainPage() {
     try {
       const result = await adminService.retryFailedBatches();
       setAnchoringResult(result.message);
-      const [statsData, healthData, activityData] = await Promise.all([
-        adminService.getAnchoringStats(),
-        adminService.getBlockchainHealth(),
-        adminService.getAnchoringActivity(),
-      ]);
-      setStats(statsData);
-      setHealth(healthData);
-      setActivity(activityData);
+      await refreshAll();
     } catch (err) {
       setError(getErrorMessage(err));
     } finally {
@@ -162,21 +155,25 @@ export function AdminBlockchainPage() {
         </div>
         <div className="flex items-center gap-3">
           <Button
-            variant="secondary"
+            variant="primary"
             size="sm"
             onClick={handleTriggerAnchoring}
             disabled={isAnchoring || health?.blockchain !== 'connected'}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white"
           >
             {isAnchoring ? 'Anchoring...' : 'Trigger Anchoring'}
           </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={handleRetryFailed}
-            disabled={isAnchoring || health?.blockchain !== 'connected' || (stats?.failedBatches ?? 0) === 0}
-          >
-            {isAnchoring ? 'Retrying...' : `Retry Failed (${stats?.failedBatches ?? 0})`}
-          </Button>
+          {(stats?.failedBatches ?? 0) > 0 && (
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={handleRetryFailed}
+              disabled={isAnchoring || health?.blockchain !== 'connected'}
+              className="bg-amber-600 hover:bg-amber-700 text-white"
+            >
+              {isAnchoring ? 'Retrying...' : `Retry Failed (${stats?.failedBatches})`}
+            </Button>
+          )}
           <Badge variant={health?.status === 'healthy' ? 'success' : 'destructive'}>
             {health?.status === 'healthy' ? 'System Healthy' : 'System Unhealthy'}
           </Badge>
@@ -559,6 +556,166 @@ export function AdminBlockchainPage() {
 
           {activity.batches.length === 0 && activity.recentErrors.length === 0 && (
             <p className="text-muted-foreground text-sm">No anchoring activity yet.</p>
+          )}
+        </div>
+      )}
+
+      {/* Asset Anchoring States */}
+      {assetStates && (
+        <div className="border border-border p-6">
+          <h3 className="font-medium mb-4 flex items-center gap-2">
+            <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+            </svg>
+            Asset Anchoring States
+          </h3>
+
+          {/* Summary grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
+            <div className="border border-border/50 p-4 text-center">
+              <p className="text-2xl font-light">{assetStates.summary.unanchored}</p>
+              <p className="text-xs text-muted-foreground mt-1">Awaiting</p>
+            </div>
+            <div className="border border-emerald-500/30 bg-emerald-500/5 p-4 text-center">
+              <p className="text-2xl font-light text-emerald-500">{assetStates.summary.anchored}</p>
+              <p className="text-xs text-muted-foreground mt-1">Anchored</p>
+            </div>
+            <div className="border border-blue-500/30 bg-blue-500/5 p-4 text-center">
+              <p className="text-2xl font-light text-blue-500">{assetStates.summary.inProgress}</p>
+              <p className="text-xs text-muted-foreground mt-1">In Progress</p>
+            </div>
+            <div className="border border-red-500/30 bg-red-500/5 p-4 text-center">
+              <p className="text-2xl font-light text-red-500">{assetStates.summary.orphaned}</p>
+              <p className="text-xs text-muted-foreground mt-1">Orphaned</p>
+            </div>
+            <div className="border border-amber-500/30 bg-amber-500/5 p-4 text-center">
+              <p className="text-2xl font-light text-amber-500">{assetStates.summary.inconsistent}</p>
+              <p className="text-xs text-muted-foreground mt-1">Inconsistent</p>
+            </div>
+          </div>
+
+          {/* Orphaned assets */}
+          {assetStates.orphanedAssets.length > 0 && (
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-sm font-medium text-red-500">Orphaned Assets (stuck in failed batches)</h4>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={async () => {
+                    setIsFixing(true);
+                    try {
+                      const result = await adminService.fixOrphanedAssets();
+                      setAnchoringResult(result.message);
+                      await refreshAll();
+                    } catch (err) {
+                      setError(getErrorMessage(err));
+                    } finally {
+                      setIsFixing(false);
+                    }
+                  }}
+                  disabled={isFixing}
+                  className="bg-red-600 hover:bg-red-700 text-white"
+                >
+                  {isFixing ? 'Fixing...' : 'Detach & Reset'}
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mb-2">
+                These assets are assigned to failed/abandoned batches. "Detach & Reset" will clear their hash and batch reference so they get re-anchored in the next run.
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border text-left text-muted-foreground">
+                      <th className="pb-2 pr-4">Asset ID</th>
+                      <th className="pb-2 pr-4">Type</th>
+                      <th className="pb-2 pr-4">Status</th>
+                      <th className="pb-2 pr-4">Batch</th>
+                      <th className="pb-2 pr-4">Batch Status</th>
+                      <th className="pb-2 pr-4">Created</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {assetStates.orphanedAssets.map(asset => (
+                      <tr key={asset.id} className="border-b border-border/50">
+                        <td className="py-2 pr-4 font-mono">#{asset.id}</td>
+                        <td className="py-2 pr-4">{asset.type}</td>
+                        <td className="py-2 pr-4">{asset.status}</td>
+                        <td className="py-2 pr-4 font-mono">#{asset.merkleBatchId}</td>
+                        <td className="py-2 pr-4">
+                          <Badge variant="destructive">{asset.batchStatus}</Badge>
+                        </td>
+                        <td className="py-2 pr-4 text-muted-foreground">
+                          {new Date(asset.createdAt).toLocaleDateString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* Inconsistent assets */}
+          {assetStates.inconsistentAssets.length > 0 && (
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-sm font-medium text-amber-500">Inconsistent Assets (hash without batch)</h4>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={async () => {
+                    setIsFixing(true);
+                    try {
+                      const result = await adminService.fixInconsistentAssets();
+                      setAnchoringResult(result.message);
+                      await refreshAll();
+                    } catch (err) {
+                      setError(getErrorMessage(err));
+                    } finally {
+                      setIsFixing(false);
+                    }
+                  }}
+                  disabled={isFixing}
+                  className="bg-amber-600 hover:bg-amber-700 text-white"
+                >
+                  {isFixing ? 'Fixing...' : 'Reset Hashes'}
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mb-2">
+                These assets have a record hash but no batch assignment. "Reset Hashes" will clear the hash so they get re-computed in the next batch.
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border text-left text-muted-foreground">
+                      <th className="pb-2 pr-4">Asset ID</th>
+                      <th className="pb-2 pr-4">Type</th>
+                      <th className="pb-2 pr-4">Status</th>
+                      <th className="pb-2 pr-4">Record Hash</th>
+                      <th className="pb-2 pr-4">Created</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {assetStates.inconsistentAssets.map(asset => (
+                      <tr key={asset.id} className="border-b border-border/50">
+                        <td className="py-2 pr-4 font-mono">#{asset.id}</td>
+                        <td className="py-2 pr-4">{asset.type}</td>
+                        <td className="py-2 pr-4">{asset.status}</td>
+                        <td className="py-2 pr-4 font-mono text-xs">{asset.recordHash.slice(0, 14)}...</td>
+                        <td className="py-2 pr-4 text-muted-foreground">
+                          {new Date(asset.createdAt).toLocaleDateString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {assetStates.summary.orphaned === 0 && assetStates.summary.inconsistent === 0 && (
+            <p className="text-emerald-500 text-sm">All assets are in a healthy state.</p>
           )}
         </div>
       )}

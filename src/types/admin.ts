@@ -251,6 +251,36 @@ export interface AnchoringActivity {
   unanchoredAssetCount: number;
 }
 
+// Asset Anchoring States
+export interface AssetAnchoringStates {
+  summary: {
+    unanchored: number;
+    anchored: number;
+    inProgress: number;
+    orphaned: number;
+    inconsistent: number;
+  };
+  orphanedAssets: OrphanedAsset[];
+  inconsistentAssets: InconsistentAsset[];
+}
+
+export interface OrphanedAsset {
+  id: number;
+  type: string;
+  status: string;
+  merkleBatchId: number;
+  batchStatus: string;
+  createdAt: string;
+}
+
+export interface InconsistentAsset {
+  id: number;
+  type: string;
+  status: string;
+  recordHash: string;
+  createdAt: string;
+}
+
 export interface AdminAssetDetail extends AdminAsset {
   metadata?: Record<string, unknown>;
   recordHash?: string;

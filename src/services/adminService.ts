@@ -20,6 +20,7 @@ import type {
   AuditLogEntry,
   AuditLogListRequest,
   AnchoringActivity,
+  AssetAnchoringStates,
 } from '../types/admin';
 
 export const adminService = {
@@ -160,6 +161,22 @@ export const adminService = {
 
   async retryFailedBatches(): Promise<{ message: string; retriedCount: number }> {
     const response = await api.post('/admin/anchoring/retry');
+    return response.data;
+  },
+
+  // Asset Anchoring States
+  async getAssetAnchoringStates(): Promise<AssetAnchoringStates> {
+    const response = await api.get<AssetAnchoringStates>('/admin/anchoring/asset-states');
+    return response.data;
+  },
+
+  async fixOrphanedAssets(): Promise<{ message: string; fixedCount: number }> {
+    const response = await api.post('/admin/anchoring/fix-orphaned');
+    return response.data;
+  },
+
+  async fixInconsistentAssets(): Promise<{ message: string; fixedCount: number }> {
+    const response = await api.post('/admin/anchoring/fix-inconsistent');
     return response.data;
   },
 
