@@ -179,18 +179,15 @@ function StatusMessage({ type, message }: { type: 'success' | 'error'; message: 
 // --- Confirm Email ---
 
 function ConfirmEmailContent({ t, searchParams }: { t: Record<string, string>; searchParams: URLSearchParams }) {
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
-  const [error, setError] = useState('');
+  const userId = searchParams.get('userId');
+  const token = searchParams.get('token');
+  const hasParams = Boolean(userId && token);
+
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>(hasParams ? 'loading' : 'error');
+  const [error, setError] = useState(hasParams ? '' : t.confirmError);
 
   useEffect(() => {
-    const userId = searchParams.get('userId');
-    const token = searchParams.get('token');
-
-    if (!userId || !token) {
-      setStatus('error');
-      setError(t.confirmError);
-      return;
-    }
+    if (!userId || !token) return;
 
     authService.confirmEmail(userId, token)
       .then(() => setStatus('success'))
@@ -198,7 +195,7 @@ function ConfirmEmailContent({ t, searchParams }: { t: Record<string, string>; s
         setStatus('error');
         setError(getErrorMessage(err) || t.confirmError);
       });
-  }, []);
+  }, [userId, token, t.confirmError]);
 
   return (
     <div>
