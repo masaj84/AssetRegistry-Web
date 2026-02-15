@@ -6,7 +6,7 @@ import { Input } from '../../components/ui/Input';
 import { adminService } from '../../services/adminService';
 import { getErrorMessage } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
-import type { AnchoringStats, BlockchainHealth, BatchInfoResponse, VerificationResponse } from '../../types/admin';
+import type { AnchoringStats, BlockchainHealth, BatchInfoResponse, VerificationResponse, AnchoringActivity } from '../../types/admin';
 import { blockchainConfig } from '../../lib/blockchainConfig';
 
 export function AdminBlockchainPage() {
@@ -25,16 +25,19 @@ export function AdminBlockchainPage() {
   const [isSearching, setIsSearching] = useState(false);
   const [isAnchoring, setIsAnchoring] = useState(false);
   const [anchoringResult, setAnchoringResult] = useState<string | null>(null);
+  const [activity, setActivity] = useState<AnchoringActivity | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [statsData, healthData] = await Promise.all([
+        const [statsData, healthData, activityData] = await Promise.all([
           adminService.getAnchoringStats(),
           adminService.getBlockchainHealth(),
+          adminService.getAnchoringActivity(),
         ]);
         setStats(statsData);
         setHealth(healthData);
+        setActivity(activityData);
 
         // If batch param in URL, fetch that batch
         const batchParam = searchParams.get('batch');
@@ -94,13 +97,15 @@ export function AdminBlockchainPage() {
       const result = await adminService.triggerAnchoring();
       if (result.triggered) {
         setAnchoringResult(`Batch #${result.batchId} anchored (${result.recordCount} records). TX: ${result.transactionHash?.slice(0, 18)}...`);
-        // Refresh stats
-        const [statsData, healthData] = await Promise.all([
+        // Refresh stats + activity
+        const [statsData, healthData, activityData] = await Promise.all([
           adminService.getAnchoringStats(),
           adminService.getBlockchainHealth(),
+          adminService.getAnchoringActivity(),
         ]);
         setStats(statsData);
         setHealth(healthData);
+        setActivity(activityData);
       } else {
         setAnchoringResult(result.message);
       }
@@ -118,12 +123,14 @@ export function AdminBlockchainPage() {
     try {
       const result = await adminService.retryFailedBatches();
       setAnchoringResult(result.message);
-      const [statsData, healthData] = await Promise.all([
+      const [statsData, healthData, activityData] = await Promise.all([
         adminService.getAnchoringStats(),
         adminService.getBlockchainHealth(),
+        adminService.getAnchoringActivity(),
       ]);
       setStats(statsData);
       setHealth(healthData);
+      setActivity(activityData);
     } catch (err) {
       setError(getErrorMessage(err));
     } finally {
@@ -459,6 +466,99 @@ export function AdminBlockchainPage() {
             <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded text-red-500 text-sm">
               {verification.error}
             </div>
+          )}
+        </div>
+      )}
+
+      {/* Activity Log */}
+      {activity && (
+        <div className="border border-border p-6">
+          <h3 className="font-medium mb-4 flex items-center gap-2">
+            <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Activity Log
+            {activity.unanchoredAssetCount > 0 && (
+              <Badge variant="warning">{activity.unanchoredAssetCount} awaiting anchoring</Badge>
+            )}
+          </h3>
+
+          {/* Batches table */}
+          {activity.batches.length > 0 && (
+            <div className="overflow-x-auto mb-6">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-border text-left text-muted-foreground">
+                    <th className="pb-2 pr-4">Batch</th>
+                    <th className="pb-2 pr-4">Status</th>
+                    <th className="pb-2 pr-4">Records</th>
+                    <th className="pb-2 pr-4">Created</th>
+                    <th className="pb-2 pr-4">TX Hash</th>
+                    <th className="pb-2 pr-4">Retries</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {activity.batches.map(batch => (
+                    <tr key={batch.id} className="border-b border-border/50">
+                      <td className="py-2 pr-4 font-mono">#{batch.id}</td>
+                      <td className="py-2 pr-4">
+                        <Badge
+                          variant={
+                            batch.status === 'Anchored' ? 'success' :
+                            batch.status === 'Failed' ? 'destructive' : 'warning'
+                          }
+                        >
+                          {batch.status}
+                        </Badge>
+                      </td>
+                      <td className="py-2 pr-4">{batch.recordCount}</td>
+                      <td className="py-2 pr-4 text-muted-foreground">
+                        {new Date(batch.createdAt).toLocaleString()}
+                      </td>
+                      <td className="py-2 pr-4 font-mono text-xs">
+                        {batch.transactionHash ? (
+                          <a
+                            href={`${blockchainConfig.explorerUrl}/tx/${batch.transactionHash}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:underline"
+                          >
+                            {batch.transactionHash.slice(0, 10)}...{batch.transactionHash.slice(-6)}
+                          </a>
+                        ) : '-'}
+                      </td>
+                      <td className="py-2 pr-4">{batch.retryCount}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* Recent Errors */}
+          {activity.recentErrors.length > 0 && (
+            <div>
+              <h4 className="text-sm font-medium text-red-500 mb-2">Recent Errors</h4>
+              <div className="space-y-2">
+                {activity.recentErrors.map(err => (
+                  <div key={err.id} className="p-3 border border-red-500/20 bg-red-500/5 text-sm">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="font-mono text-xs text-muted-foreground">
+                        Batch #{err.batchId} &middot; Attempt {err.retryAttempt} &middot; {err.errorType}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {new Date(err.createdAt).toLocaleString()}
+                      </span>
+                    </div>
+                    <p className="text-red-500 text-xs break-all">{err.errorMessage}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activity.batches.length === 0 && activity.recentErrors.length === 0 && (
+            <p className="text-muted-foreground text-sm">No anchoring activity yet.</p>
           )}
         </div>
       )}

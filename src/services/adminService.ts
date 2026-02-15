@@ -19,6 +19,7 @@ import type {
   VerificationResponse,
   AuditLogEntry,
   AuditLogListRequest,
+  AnchoringActivity,
 } from '../types/admin';
 
 export const adminService = {
@@ -147,6 +148,11 @@ export const adminService = {
   },
 
   // Anchoring
+  async getAnchoringActivity(limit = 20): Promise<AnchoringActivity> {
+    const response = await api.get<AnchoringActivity>('/admin/anchoring/activity', { params: { limit } });
+    return response.data;
+  },
+
   async triggerAnchoring(): Promise<{ message: string; triggered: boolean; batchId?: number; status?: string; transactionHash?: string; recordCount?: number }> {
     const response = await api.post('/admin/anchoring/trigger');
     return response.data;

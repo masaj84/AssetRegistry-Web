@@ -219,6 +219,38 @@ export interface AuditLogListRequest {
 }
 
 // Asset Detail (extended)
+// Anchoring Activity
+export interface AnchoringActivityBatch {
+  id: number;
+  status: string;
+  recordCount: number;
+  merkleRoot: string;
+  transactionHash?: string;
+  blockNumber?: number;
+  chainId: number;
+  createdAt: string;
+  anchoredAt?: string;
+  errorMessage?: string;
+  retryCount: number;
+  needsReview: boolean;
+}
+
+export interface AnchoringActivityError {
+  id: number;
+  batchId: number;
+  errorType: string;
+  errorMessage: string;
+  retryAttempt: number;
+  transactionHash?: string;
+  createdAt: string;
+}
+
+export interface AnchoringActivity {
+  batches: AnchoringActivityBatch[];
+  recentErrors: AnchoringActivityError[];
+  unanchoredAssetCount: number;
+}
+
 export interface AdminAssetDetail extends AdminAsset {
   metadata?: Record<string, unknown>;
   recordHash?: string;
