@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { assetsService } from '../../services/assetsService';
 import { getErrorMessage } from '../../services/authService';
 import { useAuth } from '../../context/AuthContext';
+import { useLanguage } from '../../context/LanguageContext';
+import type { AssetDocument } from '../../types';
 
 const typeOptions = [
   { value: 'vehicle', label: 'Vehicle', icon: 'M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12' },
@@ -33,9 +35,13 @@ export function AssetFormPage() {
     description: '',
   });
 
+  const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState('');
+  const [documents, setDocuments] = useState<AssetDocument[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (id) {
@@ -59,6 +65,9 @@ export function AssetFormPage() {
         purchaseCurrency: asset.metadata.purchaseCurrency || 'EUR',
         description: asset.metadata.description || '',
       });
+      if (asset.documents) {
+        setDocuments(asset.documents);
+      }
     } catch (err) {
       setError(getErrorMessage(err));
     } finally {
@@ -105,6 +114,37 @@ export function AssetFormPage() {
     }
   };
 
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !id) return;
+
+    setIsUploading(true);
+    try {
+      const doc = await assetsService.uploadDocument(parseInt(id), file);
+      setDocuments((prev) => [...prev, doc]);
+    } catch (err) {
+      setError(getErrorMessage(err));
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  const handleDeleteDocument = async (docId: number) => {
+    try {
+      await assetsService.deleteDocument(docId);
+      setDocuments((prev) => prev.filter((d) => d.id !== docId));
+    } catch (err) {
+      setError(getErrorMessage(err));
+    }
+  };
+
+  const formatFileSize = (bytes: number): string => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
+
   if (isFetching) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -125,7 +165,7 @@ export function AssetFormPage() {
       <div className="flex items-center gap-4">
         <button
           onClick={() => navigate(-1)}
-          className="w-10 h-10 border border-border hover:border-foreground flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+          className="w-10 h-10 border border-border dark:border-border/50 hover:border-foreground dark:hover:border-orange/60 flex items-center justify-center text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
             <path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -153,8 +193,8 @@ export function AssetFormPage() {
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Asset Type */}
-        <div className="border border-border">
-          <div className="px-6 py-4 border-b border-border">
+        <div className="border border-border dark:border-border/50 card-hover-glow">
+          <div className="px-6 py-4 border-b border-border dark:border-border/50">
             <h2 className="font-medium">Asset Type</h2>
             <p className="text-sm text-muted-foreground mt-1">Select the category of your product</p>
           </div>
@@ -167,14 +207,14 @@ export function AssetFormPage() {
                   onClick={() => setFormData({ ...formData, type: option.value })}
                   className={`p-4 border transition-all text-left ${
                     formData.type === option.value
-                      ? 'border-foreground bg-foreground/5'
-                      : 'border-border hover:border-foreground/50'
+                      ? 'border-foreground dark:border-orange/60 bg-foreground/5 dark:bg-orange/10'
+                      : 'border-border dark:border-border/50 hover:border-foreground/50 dark:hover:border-orange/40'
                   }`}
                 >
-                  <svg className={`w-5 h-5 mb-2 ${formData.type === option.value ? 'text-foreground' : 'text-muted-foreground'}`} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                  <svg className={`w-5 h-5 mb-2 ${formData.type === option.value ? 'text-foreground dark:text-orange' : 'text-muted-foreground'}`} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                     <path d={option.icon} />
                   </svg>
-                  <p className={`text-sm font-medium ${formData.type === option.value ? 'text-foreground' : 'text-muted-foreground'}`}>
+                  <p className={`text-sm font-medium ${formData.type === option.value ? 'text-foreground dark:text-orange' : 'text-muted-foreground'}`}>
                     {option.label}
                   </p>
                 </button>
@@ -184,8 +224,8 @@ export function AssetFormPage() {
         </div>
 
         {/* Basic Information */}
-        <div className="border border-border">
-          <div className="px-6 py-4 border-b border-border">
+        <div className="border border-border dark:border-border/50 card-hover-glow">
+          <div className="px-6 py-4 border-b border-border dark:border-border/50">
             <h2 className="font-medium">Basic Information</h2>
             <p className="text-sm text-muted-foreground mt-1">Primary details about the product</p>
           </div>
@@ -200,7 +240,7 @@ export function AssetFormPage() {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
-                className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
+                className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
               />
             </div>
 
@@ -212,7 +252,7 @@ export function AssetFormPage() {
                   placeholder="e.g. Rolex"
                   value={formData.brand}
                   onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                  className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
+                  className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
                 />
               </div>
 
@@ -223,7 +263,7 @@ export function AssetFormPage() {
                   placeholder="e.g. Submariner Date"
                   value={formData.model}
                   onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-                  className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
+                  className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
                 />
               </div>
             </div>
@@ -236,7 +276,7 @@ export function AssetFormPage() {
                   placeholder="e.g. SN-12345678"
                   value={formData.serialNumber}
                   onChange={(e) => setFormData({ ...formData, serialNumber: e.target.value })}
-                  className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors font-mono"
+                  className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors font-mono"
                 />
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
                   Unique ID
@@ -247,8 +287,8 @@ export function AssetFormPage() {
         </div>
 
         {/* Purchase Details */}
-        <div className="border border-border">
-          <div className="px-6 py-4 border-b border-border">
+        <div className="border border-border dark:border-border/50 card-hover-glow">
+          <div className="px-6 py-4 border-b border-border dark:border-border/50">
             <h2 className="font-medium">Purchase Details</h2>
             <p className="text-sm text-muted-foreground mt-1">Origin and acquisition information</p>
           </div>
@@ -261,7 +301,7 @@ export function AssetFormPage() {
                   placeholder="e.g. 2023"
                   value={formData.year}
                   onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-                  className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
+                  className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
                 />
               </div>
 
@@ -271,7 +311,7 @@ export function AssetFormPage() {
                   type="date"
                   value={formData.purchaseDate}
                   onChange={(e) => setFormData({ ...formData, purchaseDate: e.target.value })}
-                  className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
+                  className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
                 />
               </div>
             </div>
@@ -284,7 +324,7 @@ export function AssetFormPage() {
                   placeholder="0.00"
                   value={formData.purchasePrice}
                   onChange={(e) => setFormData({ ...formData, purchasePrice: e.target.value })}
-                  className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
+                  className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
                 />
               </div>
               <div>
@@ -292,7 +332,7 @@ export function AssetFormPage() {
                 <select
                   value={formData.purchaseCurrency}
                   onChange={(e) => setFormData({ ...formData, purchaseCurrency: e.target.value })}
-                  className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
+                  className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
                 >
                   <option value="EUR">EUR</option>
                   <option value="USD">USD</option>
@@ -310,7 +350,7 @@ export function AssetFormPage() {
                 placeholder="Additional information about the product..."
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-4 py-3 border border-border bg-background focus:border-foreground focus:outline-none transition-colors resize-none"
+                className="w-full px-4 py-3 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors resize-none"
               />
               <p className="text-xs text-muted-foreground mt-2">
                 Include condition, provenance, or any relevant details
@@ -319,16 +359,107 @@ export function AssetFormPage() {
           </div>
         </div>
 
-        {/* Blockchain Notice */}
-        <div className="border border-border bg-foreground/[0.02] p-6">
-          <div className="flex items-start gap-4">
-            <div className="w-10 h-10 border border-border flex items-center justify-center flex-shrink-0">
+        {/* Documents */}
+        <div className="border border-border dark:border-border/50 card-hover-glow">
+          <div className="px-6 py-4 border-b border-border dark:border-border/50 flex items-center justify-between">
+            <div className="flex items-center gap-3">
               <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                <path d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
+              </svg>
+              <div>
+                <h2 className="font-medium">{t('documents.title')}</h2>
+                <p className="text-sm text-muted-foreground mt-0.5">{t('documents.blockchainNote')}</p>
+              </div>
+            </div>
+            {isEditing && (
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  className="hidden"
+                  onChange={handleFileUpload}
+                  accept=".pdf,.png,.jpg,.jpeg,.gif,.webp,.doc,.docx,.xls,.xlsx"
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isUploading}
+                  className="h-9 px-4 text-sm border border-border dark:border-border/50 hover:border-foreground dark:hover:border-orange/40 text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 disabled:opacity-50"
+                >
+                  {isUploading ? (
+                    <>
+                      <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                      {t('documents.uploading')}
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                        <path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                      </svg>
+                      {t('documents.upload')}
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="p-6">
+            {!isEditing ? (
+              <p className="text-sm text-muted-foreground text-center py-4">{t('documents.saveFirst')}</p>
+            ) : documents.length === 0 ? (
+              <p className="text-sm text-muted-foreground text-center py-4">{t('documents.empty')}</p>
+            ) : (
+              <div className="space-y-3">
+                {documents.map((doc) => (
+                  <div key={doc.id} className="flex items-center justify-between p-3 border border-border dark:border-border/50 hover:border-foreground/20 dark:hover:border-orange/20 transition-colors">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <svg className="w-5 h-5 text-muted-foreground flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                        <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                      </svg>
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium truncate">{doc.originalFileName}</p>
+                        <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5">
+                          <span>{formatFileSize(doc.fileSize)}</span>
+                          <span className="font-mono" title={doc.fileHash}>{t('documents.hash')}: {doc.fileHash.slice(0, 10)}...{doc.fileHash.slice(-6)}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0 ml-4">
+                      <button
+                        type="button"
+                        onClick={() => assetsService.downloadDocument(doc.id)}
+                        className="h-8 px-3 text-xs border border-border dark:border-border/50 hover:border-foreground dark:hover:border-orange/40 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {t('documents.download')}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteDocument(doc.id)}
+                        className="h-8 px-3 text-xs border border-red-500/30 hover:border-red-500 text-red-500/70 hover:text-red-500 transition-colors"
+                      >
+                        {t('documents.delete')}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Blockchain Notice */}
+        <div className="border border-border dark:border-purple/30 bg-foreground/[0.02] dark:bg-purple/5 p-6">
+          <div className="flex items-start gap-4">
+            <div className="w-10 h-10 border border-border dark:border-purple/40 flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5 text-muted-foreground dark:text-purple-light" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                 <path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
               </svg>
             </div>
             <div>
-              <p className="font-medium">Blockchain Record</p>
+              <p className="font-medium dark:text-purple-light">Blockchain Record</p>
               <p className="text-sm text-muted-foreground mt-1">
                 Once saved, this information will be prepared for blockchain verification.
                 The record becomes immutable after minting.
@@ -338,11 +469,11 @@ export function AssetFormPage() {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-between pt-4 border-t border-border">
+        <div className="flex items-center justify-between pt-4 border-t border-border dark:border-border/50">
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="h-12 px-6 border border-border hover:border-foreground text-muted-foreground hover:text-foreground transition-colors"
+            className="h-12 px-6 border border-border dark:border-border/50 hover:border-foreground dark:hover:border-orange/40 text-muted-foreground hover:text-foreground transition-colors"
           >
             Cancel
           </button>

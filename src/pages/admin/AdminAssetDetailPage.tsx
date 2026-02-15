@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { adminService } from '../../services/adminService';
+import { assetsService } from '../../services/assetsService';
 import { getErrorMessage } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
 import type { AdminAssetDetail, VerificationResponse } from '../../types/admin';
@@ -299,6 +300,44 @@ export function AdminAssetDetailPage() {
           </div>
         )}
       </div>
+
+      {/* Documents */}
+      {asset?.documents && asset.documents.length > 0 && (
+        <div className="border border-border p-6">
+          <h3 className="font-medium mb-4 flex items-center gap-2">
+            <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
+            </svg>
+            {t('documents.title')} ({asset.documents.length})
+          </h3>
+          <div className="space-y-2">
+            {asset.documents.map((doc) => (
+              <div key={doc.id} className="flex items-center justify-between p-3 bg-foreground/5 text-sm">
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <svg className="w-4 h-4 text-muted-foreground flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                  <span className="truncate">{doc.originalFileName}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {doc.fileSize < 1024 * 1024
+                      ? `${(doc.fileSize / 1024).toFixed(1)} KB`
+                      : `${(doc.fileSize / (1024 * 1024)).toFixed(1)} MB`}
+                  </span>
+                  <span className="font-mono text-xs text-muted-foreground" title={doc.fileHash}>
+                    {doc.fileHash.slice(0, 10)}...
+                  </span>
+                </div>
+                <button
+                  onClick={() => assetsService.downloadDocument(doc.id)}
+                  className="text-xs text-primary hover:underline flex-shrink-0 ml-4"
+                >
+                  {t('documents.download')}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Metadata */}
       {asset?.metadata && Object.keys(asset.metadata).length > 0 && (

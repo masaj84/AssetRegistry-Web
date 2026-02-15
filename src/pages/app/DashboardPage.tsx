@@ -104,10 +104,10 @@ export function DashboardPage() {
       {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total */}
-        <div className="border border-border p-6 relative group hover:border-foreground transition-colors">
-          <div className="absolute top-0 left-0 w-1 h-full bg-foreground" />
+        <div className="border border-border dark:border-border/50 p-6 relative group hover:border-foreground dark:hover:border-orange/40 transition-all card-hover-glow">
+          <div className="absolute top-0 left-0 w-1 h-full bg-foreground dark:bg-gradient-to-b dark:from-orange dark:to-magenta" />
           <p className="text-sm text-muted-foreground mb-1">Total Assets</p>
-          <p className="text-4xl font-light">{stats.total}</p>
+          <p className="text-4xl font-light dark:text-orange">{stats.total}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
@@ -117,7 +117,7 @@ export function DashboardPage() {
         </div>
 
         {/* Draft */}
-        <div className="border border-border p-6 group hover:border-foreground transition-colors">
+        <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-purple/40 transition-all card-hover-glow">
           <p className="text-sm text-muted-foreground mb-1">Draft</p>
           <p className="text-4xl font-light text-muted-foreground">{stats.draft}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
@@ -127,7 +127,7 @@ export function DashboardPage() {
         </div>
 
         {/* Verified */}
-        <div className="border border-border p-6 group hover:border-foreground transition-colors">
+        <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-amber-500/40 transition-all card-hover-glow">
           <p className="text-sm text-muted-foreground mb-1">Verified</p>
           <p className="text-4xl font-light text-amber-500">{stats.verified}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
@@ -137,7 +137,7 @@ export function DashboardPage() {
         </div>
 
         {/* Minted */}
-        <div className="border border-border p-6 group hover:border-foreground transition-colors">
+        <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-emerald-500/40 transition-all card-hover-glow">
           <p className="text-sm text-muted-foreground mb-1">Minted</p>
           <p className="text-4xl font-light text-emerald-500">{stats.minted}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
@@ -150,8 +150,8 @@ export function DashboardPage() {
       {/* Main content grid */}
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Assets by Type */}
-        <div className="border border-border">
-          <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+        <div className="border border-border dark:border-border/50 card-hover-glow">
+          <div className="px-6 py-4 border-b border-border dark:border-border/50 flex items-center justify-between">
             <h2 className="font-medium">Assets by Type</h2>
             <span className="text-xs text-muted-foreground">{Object.keys(assetsByType).length} types</span>
           </div>
@@ -180,9 +180,9 @@ export function DashboardPage() {
                           <span className="capitalize font-medium">{type}</span>
                           <span className="text-muted-foreground">{count}</span>
                         </div>
-                        <div className="h-1 bg-border overflow-hidden">
+                        <div className="h-1 bg-border dark:bg-border/50 overflow-hidden">
                           <div
-                            className="h-full bg-foreground transition-all duration-500"
+                            className="h-full bg-foreground dark:bg-gradient-to-r dark:from-orange dark:to-purple transition-all duration-500"
                             style={{ width: `${percentage}%` }}
                           />
                         </div>
@@ -195,10 +195,10 @@ export function DashboardPage() {
         </div>
 
         {/* Recent Assets */}
-        <div className="border border-border">
-          <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+        <div className="border border-border dark:border-border/50 card-hover-glow">
+          <div className="px-6 py-4 border-b border-border dark:border-border/50 flex items-center justify-between">
             <h2 className="font-medium">Recent Assets</h2>
-            <Link to="/app/assets" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <Link to="/app/assets" className="text-xs text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">
               View all →
             </Link>
           </div>
@@ -217,10 +217,10 @@ export function DashboardPage() {
                 <Link
                   key={asset.id}
                   to={`/app/assets/${asset.id}`}
-                  className="flex items-center justify-between p-4 hover:bg-foreground/[0.02] transition-colors group"
+                  className="flex items-center justify-between p-4 hover:bg-foreground/[0.02] dark:hover:bg-orange/5 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 border border-border flex items-center justify-center text-muted-foreground group-hover:border-foreground group-hover:text-foreground transition-colors">
+                    <div className="w-10 h-10 border border-border dark:border-border/50 flex items-center justify-center text-muted-foreground group-hover:border-foreground dark:group-hover:border-orange/60 group-hover:text-foreground dark:group-hover:text-orange transition-colors">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                         <path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                       </svg>
@@ -241,22 +241,22 @@ export function DashboardPage() {
       </div>
 
       {/* Status Pipeline */}
-      <div className="border border-border">
-        <div className="px-6 py-4 border-b border-border">
+      <div className="border border-border dark:border-border/50 card-hover-glow">
+        <div className="px-6 py-4 border-b border-border dark:border-border/50">
           <h2 className="font-medium">Asset Pipeline</h2>
         </div>
         <div className="p-6">
           <div className="flex items-center gap-4">
             {/* Draft */}
             <div className="flex-1 text-center">
-              <div className="border border-border p-6 mb-3">
+              <div className="border border-border dark:border-border/50 p-6 mb-3">
                 <p className="text-3xl font-light text-muted-foreground">{stats.draft}</p>
               </div>
               <p className="text-sm text-muted-foreground">Draft</p>
             </div>
 
             {/* Arrow */}
-            <svg className="w-6 h-6 text-muted-foreground flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-muted-foreground dark:text-orange/50 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
 
@@ -269,7 +269,7 @@ export function DashboardPage() {
             </div>
 
             {/* Arrow */}
-            <svg className="w-6 h-6 text-muted-foreground flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-muted-foreground dark:text-orange/50 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
 

@@ -52,6 +52,7 @@ export interface Asset {
   isFavorite: boolean;
   createdAt: string;
   updatedAt: string;
+  documents?: AssetDocument[];
 }
 
 export interface AssetMetadata {
@@ -67,6 +68,16 @@ export interface AssetMetadata {
   images?: string[];
   documents?: string[];
   [key: string]: unknown;
+}
+
+export interface AssetDocument {
+  id: number;
+  assetId: number;
+  originalFileName: string;
+  contentType: string;
+  fileSize: number;
+  fileHash: string;
+  createdAt: string;
 }
 
 export type AssetStatus = 'DRAFT' | 'VERIFIED' | 'MINTED';

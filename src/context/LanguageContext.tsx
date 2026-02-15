@@ -366,6 +366,18 @@ const translations: Record<Language, Record<string, string>> = {
     'settings.language': 'Language',
     'settings.languageEn': 'English',
     'settings.languagePl': 'Polski',
+
+    // Documents
+    'documents.title': 'Documents',
+    'documents.upload': 'Upload Document',
+    'documents.empty': 'No documents attached',
+    'documents.saveFirst': 'Save the asset first to attach documents',
+    'documents.blockchainNote': 'Documents are included in blockchain verification',
+    'documents.delete': 'Delete',
+    'documents.download': 'Download',
+    'documents.uploading': 'Uploading...',
+    'documents.hash': 'Hash',
+    'documents.size': 'Size',
   },
   pl: {
     // Nav
@@ -723,6 +735,18 @@ const translations: Record<Language, Record<string, string>> = {
     'settings.language': 'Język',
     'settings.languageEn': 'English',
     'settings.languagePl': 'Polski',
+
+    // Documents
+    'documents.title': 'Dokumenty',
+    'documents.upload': 'Dodaj dokument',
+    'documents.empty': 'Brak dokumentów',
+    'documents.saveFirst': 'Najpierw zapisz asset, aby dodać dokumenty',
+    'documents.blockchainNote': 'Dokumenty są uwzględnione w weryfikacji blockchain',
+    'documents.delete': 'Usuń',
+    'documents.download': 'Pobierz',
+    'documents.uploading': 'Ładowanie...',
+    'documents.hash': 'Hash',
+    'documents.size': 'Rozmiar',
   },
 };
 

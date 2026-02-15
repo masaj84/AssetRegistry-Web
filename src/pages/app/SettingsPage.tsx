@@ -12,8 +12,8 @@ export function SettingsPage() {
       </div>
 
       {/* Appearance */}
-      <div className="border border-border">
-        <div className="px-6 py-4 border-b border-border">
+      <div className="border border-border dark:border-border/50 card-hover-glow">
+        <div className="px-6 py-4 border-b border-border dark:border-border/50">
           <h2 className="font-medium">{t('settings.appearance')}</h2>
           <p className="text-sm text-muted-foreground mt-1">{t('settings.theme')}</p>
         </div>
@@ -85,8 +85,8 @@ export function SettingsPage() {
       </div>
 
       {/* Language */}
-      <div className="border border-border">
-        <div className="px-6 py-4 border-b border-border">
+      <div className="border border-border dark:border-border/50 card-hover-glow">
+        <div className="px-6 py-4 border-b border-border dark:border-border/50">
           <h2 className="font-medium">{t('settings.language')}</h2>
         </div>
         <div className="p-6">

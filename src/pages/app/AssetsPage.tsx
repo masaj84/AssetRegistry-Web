@@ -110,7 +110,7 @@ export function AssetsPage() {
       )}
 
       {/* Filters */}
-      <div className="border border-border p-4">
+      <div className="border border-border dark:border-border/50 p-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Search */}
           <div className="relative">
@@ -122,7 +122,7 @@ export function AssetsPage() {
               placeholder="Search by name, serial number..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full h-10 pl-10 pr-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors text-sm"
+              className="w-full h-10 pl-10 pr-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors text-sm"
             />
           </div>
 
@@ -131,7 +131,7 @@ export function AssetsPage() {
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="w-full h-10 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors text-sm appearance-none cursor-pointer"
+              className="w-full h-10 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors text-sm appearance-none cursor-pointer"
             >
               <option value="all">All Types</option>
               {types.map((t) => (
@@ -148,7 +148,7 @@ export function AssetsPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full h-10 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors text-sm appearance-none cursor-pointer"
+              className="w-full h-10 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors text-sm appearance-none cursor-pointer"
             >
               <option value="all">All Status</option>
               <option value="DRAFT">Draft</option>
@@ -163,11 +163,11 @@ export function AssetsPage() {
       </div>
 
       {/* Assets Table */}
-      <div className="border border-border">
+      <div className="border border-border dark:border-border/50">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-border bg-foreground/[0.02]">
+              <tr className="border-b border-border dark:border-border/50 bg-foreground/[0.02] dark:bg-purple/5">
                 <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">Product</th>
                 <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">Type</th>
                 <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">Status</th>
@@ -196,10 +196,10 @@ export function AssetsPage() {
                 </tr>
               ) : (
                 filteredAssets.map((asset) => (
-                  <tr key={asset.id} className="group hover:bg-foreground/[0.02] transition-colors">
+                  <tr key={asset.id} className="group hover:bg-foreground/[0.02] dark:hover:bg-orange/5 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 border border-border flex items-center justify-center text-muted-foreground group-hover:border-foreground group-hover:text-foreground transition-colors flex-shrink-0">
+                        <div className="w-10 h-10 border border-border dark:border-border/50 flex items-center justify-center text-muted-foreground group-hover:border-foreground dark:group-hover:border-orange/60 group-hover:text-foreground dark:group-hover:text-orange transition-colors flex-shrink-0">
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                             <path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                           </svg>
@@ -228,13 +228,13 @@ export function AssetsPage() {
                     <td className="p-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <Link to={`/app/assets/${asset.id}`}>
-                          <button className="h-8 px-3 border border-border hover:border-foreground text-sm text-muted-foreground hover:text-foreground transition-colors">
+                          <button className="h-8 px-3 border border-border dark:border-border/50 hover:border-foreground dark:hover:border-orange/60 text-sm text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">
                             Edit
                           </button>
                         </Link>
                         <button
                           onClick={() => handleDelete(asset.id)}
-                          className="h-8 px-3 border border-border hover:border-red-500 text-sm text-muted-foreground hover:text-red-500 transition-colors"
+                          className="h-8 px-3 border border-border dark:border-border/50 hover:border-red-500 text-sm text-muted-foreground hover:text-red-500 transition-colors"
                         >
                           Delete
                         </button>

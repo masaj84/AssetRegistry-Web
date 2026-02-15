@@ -281,10 +281,21 @@ export interface InconsistentAsset {
   createdAt: string;
 }
 
+export interface AdminAssetDocument {
+  id: number;
+  assetId: number;
+  originalFileName: string;
+  contentType: string;
+  fileSize: number;
+  fileHash: string;
+  createdAt: string;
+}
+
 export interface AdminAssetDetail extends AdminAsset {
   metadata?: Record<string, unknown>;
   recordHash?: string;
   merkleBatchId?: number;
   merkleProof?: string;
   anchoredAt?: string;
+  documents?: AdminAssetDocument[];
 }
