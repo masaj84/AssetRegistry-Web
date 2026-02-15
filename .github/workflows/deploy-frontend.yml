@@ -55,7 +55,12 @@ jobs:
           fi
 
       - name: Build application
-        run: npm run build
+        run: |
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            npm run build -- --mode production
+          else
+            npm run build -- --mode staging
+          fi
 
       - name: Create deployment metadata
         run: |
