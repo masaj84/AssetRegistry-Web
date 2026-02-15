@@ -6,6 +6,7 @@ import { adminService } from '../../services/adminService';
 import { getErrorMessage } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
 import type { AdminAssetDetail, VerificationResponse } from '../../types/admin';
+import { blockchainConfig } from '../../lib/blockchainConfig';
 
 const statusVariants: Record<string, 'default' | 'success' | 'warning'> = {
   DRAFT: 'default',
@@ -271,7 +272,7 @@ export function AdminAssetDetailPage() {
                   <dt className="text-muted-foreground">TX Hash</dt>
                   <dd className="font-mono text-xs break-all max-w-[200px] text-right">
                     <a
-                      href={`https://amoy.polygonscan.com/tx/${verification.transactionHash}`}
+                      href={`${blockchainConfig.explorerUrl}/tx/${verification.transactionHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline"

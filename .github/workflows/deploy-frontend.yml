@@ -47,10 +47,16 @@ jobs:
           if [ "${{ inputs.environment }}" = "production" ]; then
             echo "VITE_API_URL=${{ secrets.VITE_API_URL_PRODUCTION }}" > .env.production
             echo "VITE_TEASER_MODE=true" >> .env.production
+            echo "VITE_CHAIN_ID=137" >> .env.production
+            echo "VITE_CHAIN_NAME=Polygon PoS" >> .env.production
+            echo "VITE_EXPLORER_URL=https://polygonscan.com" >> .env.production
             cat .env.production
           else
             echo "VITE_API_URL=${{ secrets.VITE_API_URL_STAGING }}" > .env.staging
             echo "VITE_TEASER_MODE=false" >> .env.staging
+            echo "VITE_CHAIN_ID=11155111" >> .env.staging
+            echo "VITE_CHAIN_NAME=Sepolia Testnet" >> .env.staging
+            echo "VITE_EXPLORER_URL=https://sepolia.etherscan.io" >> .env.staging
             cat .env.staging
           fi
 

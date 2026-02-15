@@ -7,8 +7,7 @@ import { adminService } from '../../services/adminService';
 import { getErrorMessage } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
 import type { AnchoringStats, BlockchainHealth, BatchInfoResponse, VerificationResponse } from '../../types/admin';
-
-const POLYGON_AMOY_EXPLORER = 'https://amoy.polygonscan.com';
+import { blockchainConfig } from '../../lib/blockchainConfig';
 
 export function AdminBlockchainPage() {
   const { t } = useLanguage();
@@ -159,16 +158,16 @@ export function AdminBlockchainPage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
           <div>
             <p className="text-muted-foreground mb-1">Network</p>
-            <p className="font-medium">Polygon Amoy (Testnet)</p>
+            <p className="font-medium">{blockchainConfig.chainName}</p>
           </div>
           <div>
             <p className="text-muted-foreground mb-1">Chain ID</p>
-            <p className="font-mono">80002</p>
+            <p className="font-mono">{blockchainConfig.chainId}</p>
           </div>
           <div>
             <p className="text-muted-foreground mb-1">Explorer</p>
-            <a href={POLYGON_AMOY_EXPLORER} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              amoy.polygonscan.com
+            <a href={blockchainConfig.explorerUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              {blockchainConfig.explorerUrl.replace('https://', '')}
             </a>
           </div>
           <div>
@@ -276,7 +275,7 @@ export function AdminBlockchainPage() {
                   <dt className="text-muted-foreground mb-1">Transaction</dt>
                   <dd>
                     <a
-                      href={`${POLYGON_AMOY_EXPLORER}/tx/${batchInfo.transactionHash}`}
+                      href={`${blockchainConfig.explorerUrl}/tx/${batchInfo.transactionHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-mono text-xs text-primary hover:underline break-all"
@@ -291,7 +290,7 @@ export function AdminBlockchainPage() {
                   <dt className="text-muted-foreground">Block Number</dt>
                   <dd>
                     <a
-                      href={`${POLYGON_AMOY_EXPLORER}/block/${batchInfo.blockNumber}`}
+                      href={`${blockchainConfig.explorerUrl}/block/${batchInfo.blockNumber}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-mono text-primary hover:underline"
@@ -373,7 +372,7 @@ export function AdminBlockchainPage() {
                   <dt className="text-muted-foreground mb-1">Transaction</dt>
                   <dd>
                     <a
-                      href={`${POLYGON_AMOY_EXPLORER}/tx/${verification.transactionHash}`}
+                      href={`${blockchainConfig.explorerUrl}/tx/${verification.transactionHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-mono text-xs text-primary hover:underline"
@@ -399,7 +398,7 @@ export function AdminBlockchainPage() {
         <h3 className="font-medium mb-4">Quick Links</h3>
         <div className="flex flex-wrap gap-3">
           <a
-            href={POLYGON_AMOY_EXPLORER}
+            href={blockchainConfig.explorerUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-foreground transition-colors text-sm"
@@ -407,7 +406,7 @@ export function AdminBlockchainPage() {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
             </svg>
-            Polygon Amoy Explorer
+            {blockchainConfig.chainName} Explorer
           </a>
           <Link
             to="/app/admin/assets"
