@@ -163,17 +163,19 @@ export function AdminBlockchainPage() {
           >
             {isAnchoring ? 'Anchoring...' : 'Trigger Anchoring'}
           </Button>
-          {(stats?.failedBatches ?? 0) > 0 && (
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={handleRetryFailed}
-              disabled={isAnchoring || health?.blockchain !== 'connected'}
-              className="bg-amber-600 hover:bg-amber-700 text-white"
-            >
-              {isAnchoring ? 'Retrying...' : `Retry Failed (${stats?.failedBatches})`}
-            </Button>
-          )}
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleRetryFailed}
+            disabled={isAnchoring || health?.blockchain !== 'connected' || (stats?.failedBatches ?? 0) === 0}
+            className={
+              (stats?.failedBatches ?? 0) > 0 && !isAnchoring && health?.blockchain === 'connected'
+                ? 'bg-amber-600 hover:bg-amber-700 text-white'
+                : ''
+            }
+          >
+            {isAnchoring ? 'Retrying...' : `Retry Failed (${stats?.failedBatches ?? 0})`}
+          </Button>
           <Badge variant={health?.status === 'healthy' ? 'success' : 'destructive'}>
             {health?.status === 'healthy' ? 'System Healthy' : 'System Unhealthy'}
           </Badge>
@@ -595,7 +597,6 @@ export function AdminBlockchainPage() {
           </div>
 
           {/* Orphaned assets */}
-          {assetStates.orphanedAssets.length > 0 && (
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
                 <h4 className="text-sm font-medium text-red-500">Orphaned Assets (stuck in failed batches)</h4>
@@ -614,15 +615,20 @@ export function AdminBlockchainPage() {
                       setIsFixing(false);
                     }
                   }}
-                  disabled={isFixing}
-                  className="bg-red-600 hover:bg-red-700 text-white"
+                  disabled={isFixing || assetStates.summary.orphaned === 0}
+                  className={
+                    assetStates.summary.orphaned > 0 && !isFixing
+                      ? 'bg-red-600 hover:bg-red-700 text-white'
+                      : ''
+                  }
                 >
-                  {isFixing ? 'Fixing...' : 'Detach & Reset'}
+                  {isFixing ? 'Fixing...' : `Detach & Reset (${assetStates.summary.orphaned})`}
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground mb-2">
                 These assets are assigned to failed/abandoned batches. "Detach & Reset" will clear their hash and batch reference so they get re-anchored in the next run.
               </p>
+          {assetStates.orphanedAssets.length > 0 && (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
@@ -653,11 +659,10 @@ export function AdminBlockchainPage() {
                   </tbody>
                 </table>
               </div>
-            </div>
           )}
+            </div>
 
           {/* Inconsistent assets */}
-          {assetStates.inconsistentAssets.length > 0 && (
             <div>
               <div className="flex items-center justify-between mb-2">
                 <h4 className="text-sm font-medium text-amber-500">Inconsistent Assets (hash without batch)</h4>
@@ -676,15 +681,20 @@ export function AdminBlockchainPage() {
                       setIsFixing(false);
                     }
                   }}
-                  disabled={isFixing}
-                  className="bg-amber-600 hover:bg-amber-700 text-white"
+                  disabled={isFixing || assetStates.summary.inconsistent === 0}
+                  className={
+                    assetStates.summary.inconsistent > 0 && !isFixing
+                      ? 'bg-amber-600 hover:bg-amber-700 text-white'
+                      : ''
+                  }
                 >
-                  {isFixing ? 'Fixing...' : 'Reset Hashes'}
+                  {isFixing ? 'Fixing...' : `Reset Hashes (${assetStates.summary.inconsistent})`}
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground mb-2">
                 These assets have a record hash but no batch assignment. "Reset Hashes" will clear the hash so they get re-computed in the next batch.
               </p>
+          {assetStates.inconsistentAssets.length > 0 && (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
@@ -711,8 +721,8 @@ export function AdminBlockchainPage() {
                   </tbody>
                 </table>
               </div>
-            </div>
           )}
+            </div>
 
           {assetStates.summary.orphaned === 0 && assetStates.summary.inconsistent === 0 && (
             <p className="text-emerald-500 text-sm">All assets are in a healthy state.</p>

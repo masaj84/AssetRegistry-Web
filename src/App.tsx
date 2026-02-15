@@ -9,12 +9,14 @@ import { LandingPage } from './pages/LandingPage';
 import { WhitepaperPage } from './pages/WhitepaperPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
+import { AuthActionPage } from './pages/auth/AuthActionPage';
 import { AppLayout } from './components/layout/AppLayout';
 import { AdminLayout } from './components/layout/AdminLayout';
 import { DashboardPage } from './pages/app/DashboardPage';
 import { AssetsPage } from './pages/app/AssetsPage';
 import { AssetFormPage } from './pages/app/AssetFormPage';
 import { ReportsPage } from './pages/app/ReportsPage';
+import { SettingsPage } from './pages/app/SettingsPage';
 
 // Admin pages
 import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
@@ -41,6 +43,9 @@ function App() {
           <Route path="/whitepaper" element={<WhitepaperPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/confirm-email" element={<AuthActionPage />} />
+          <Route path="/forgot-password" element={<AuthActionPage />} />
+          <Route path="/reset-password" element={<AuthActionPage />} />
 
           {/* Protected app routes */}
           <Route
@@ -56,6 +61,7 @@ function App() {
             <Route path="assets/new" element={<AssetFormPage />} />
             <Route path="assets/:id" element={<AssetFormPage />} />
             <Route path="reports" element={<ReportsPage />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
 
           {/* Admin routes */}

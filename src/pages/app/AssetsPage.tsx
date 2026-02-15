@@ -91,7 +91,7 @@ export function AssetsPage() {
           <p className="text-muted-foreground">Manage your registered products</p>
         </div>
         <Link to="/app/assets/new">
-          <Button className="h-11">
+          <Button className="h-11 bg-emerald-600 hover:bg-emerald-700 text-white">
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path d="M12 4v16m8-8H4" />
             </svg>

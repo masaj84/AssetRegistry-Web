@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
 type Language = 'en' | 'pl';
 
@@ -357,6 +357,15 @@ const translations: Record<Language, Record<string, string>> = {
     'app.adminPanel': 'Admin Panel',
     'app.signOut': 'Sign out',
     'app.editAsset': 'Edit Asset',
+    'app.settings': 'Settings',
+    'settings.title': 'Settings',
+    'settings.appearance': 'Appearance',
+    'settings.theme': 'Theme',
+    'settings.themeLight': 'Light',
+    'settings.themeDark': 'Dark',
+    'settings.language': 'Language',
+    'settings.languageEn': 'English',
+    'settings.languagePl': 'Polski',
   },
   pl: {
     // Nav
@@ -705,13 +714,36 @@ const translations: Record<Language, Record<string, string>> = {
     'app.adminPanel': 'Panel Admina',
     'app.signOut': 'Wyloguj',
     'app.editAsset': 'Edytuj zasób',
+    'app.settings': 'Ustawienia',
+    'settings.title': 'Ustawienia',
+    'settings.appearance': 'Wygląd',
+    'settings.theme': 'Motyw',
+    'settings.themeLight': 'Jasny',
+    'settings.themeDark': 'Ciemny',
+    'settings.language': 'Język',
+    'settings.languageEn': 'English',
+    'settings.languagePl': 'Polski',
   },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('language') as Language;
+      if (stored === 'en' || stored === 'pl') return stored;
+    }
+    return 'en';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('language', language);
+  }, [language]);
+
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+  };
 
   const t = (key: string): string => {
     return translations[language][key] || key;

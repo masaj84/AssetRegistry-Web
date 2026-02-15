@@ -183,6 +183,7 @@ export function AdminSecurityPage() {
                       size="sm"
                       onClick={() => handleUnlock(user.id)}
                       disabled={actionLoading === user.id}
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white"
                     >
                       {actionLoading === user.id ? t('admin.unlocking') : t('admin.security.unlock')}
                     </Button>
@@ -242,9 +243,9 @@ export function AdminSecurityPage() {
                   <td className="px-4 py-4 text-right">
                     <Button
                       size="sm"
-                      variant="secondary"
                       onClick={() => handleConfirmEmail(user.id)}
                       disabled={actionLoading === `email-${user.id}`}
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white"
                     >
                       {actionLoading === `email-${user.id}` ? t('admin.confirming') : t('admin.security.confirmEmail')}
                     </Button>

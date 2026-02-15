@@ -209,7 +209,7 @@ export function AdminOrganizationDetailPage() {
           />
 
           <div className="flex items-center gap-3 pt-4">
-            <Button type="submit" disabled={isSaving}>
+            <Button type="submit" disabled={isSaving} className="bg-emerald-600 hover:bg-emerald-700 text-white">
               {isSaving ? 'Saving...' : 'Save Changes'}
             </Button>
             <Button type="button" variant="secondary" onClick={() => navigate('/app/admin/organizations')}>
@@ -218,8 +218,9 @@ export function AdminOrganizationDetailPage() {
             <div className="flex-1" />
             <Button
               type="button"
-              variant={organization?.isVerified ? 'destructive' : 'secondary'}
+              variant={organization?.isVerified ? 'destructive' : 'primary'}
               onClick={handleToggleVerified}
+              className={!organization?.isVerified ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : ''}
             >
               {organization?.isVerified ? 'Unverify' : 'Verify Organization'}
             </Button>

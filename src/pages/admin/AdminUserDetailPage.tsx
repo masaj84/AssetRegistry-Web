@@ -225,7 +225,7 @@ export function AdminUserDetailPage() {
           )}
 
           <div className="flex items-center gap-3 pt-4">
-            <Button type="submit" disabled={isSaving}>
+            <Button type="submit" disabled={isSaving} className="bg-emerald-600 hover:bg-emerald-700 text-white">
               {isSaving ? 'Saving...' : 'Save Changes'}
             </Button>
             <Button type="button" variant="secondary" onClick={() => navigate('/app/admin/users')}>
@@ -234,8 +234,9 @@ export function AdminUserDetailPage() {
             <div className="flex-1" />
             <Button
               type="button"
-              variant={user?.isActive ? 'destructive' : 'secondary'}
+              variant={user?.isActive ? 'destructive' : 'primary'}
               onClick={handleToggleActive}
+              className={!user?.isActive ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : ''}
             >
               {user?.isActive ? 'Deactivate User' : 'Activate User'}
             </Button>

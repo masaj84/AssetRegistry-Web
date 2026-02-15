@@ -346,7 +346,7 @@ export function AssetFormPage() {
           >
             Cancel
           </button>
-          <Button type="submit" className="h-12 px-8" disabled={isLoading}>
+          <Button type="submit" className="h-12 px-8 bg-emerald-600 hover:bg-emerald-700 text-white" disabled={isLoading}>
             {isLoading ? (
               <span className="flex items-center gap-2">
                 <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">

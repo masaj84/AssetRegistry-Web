@@ -90,7 +90,15 @@ export function AdminNewsletterPage() {
           <h1 className="text-3xl font-light mb-1">{t('admin.newsletter.title')}</h1>
           <p className="text-muted-foreground">{t('admin.newsletter.subtitle')}</p>
         </div>
-        <Button variant="secondary" onClick={exportCSV} disabled={subscribers.length === 0}>
+        <Button
+          onClick={exportCSV}
+          disabled={subscribers.length === 0}
+          className={
+            subscribers.length > 0
+              ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+              : ''
+          }
+        >
           <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
             <path d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
           </svg>

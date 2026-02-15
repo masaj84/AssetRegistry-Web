@@ -234,11 +234,15 @@ export function AdminAssetDetailPage() {
 
           <div className="mt-4 pt-4 border-t border-border">
             <Button
-              variant="secondary"
+              variant="primary"
               size="sm"
               onClick={handleVerifyOnChain}
               disabled={isVerifying || !asset?.recordHash}
-              className="w-full"
+              className={
+                !isVerifying && asset?.recordHash
+                  ? 'w-full bg-emerald-600 hover:bg-emerald-700 text-white'
+                  : 'w-full'
+              }
             >
               {isVerifying ? 'Verifying...' : 'Verify On-Chain'}
             </Button>

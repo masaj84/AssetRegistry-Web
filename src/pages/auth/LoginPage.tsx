@@ -207,9 +207,9 @@ export function LoginPage() {
                 </div>
                 <span className="text-muted-foreground">{t.rememberMe}</span>
               </label>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/forgot-password" className="text-muted-foreground hover:text-foreground transition-colors">
                 {t.forgotPassword}
-              </a>
+              </Link>
             </div>
 
             <Button type="submit" className="w-full h-12" disabled={isLoading || isDemoLoading}>
