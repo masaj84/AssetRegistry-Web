@@ -63,6 +63,7 @@ export interface AssetMetadata {
   year?: number;
   purchaseDate?: string;
   purchasePrice?: number;
+  purchaseCurrency?: string;
   images?: string[];
   documents?: string[];
   [key: string]: unknown;
