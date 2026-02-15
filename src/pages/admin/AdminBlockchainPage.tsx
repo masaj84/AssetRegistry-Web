@@ -111,6 +111,26 @@ export function AdminBlockchainPage() {
     }
   };
 
+  const handleRetryFailed = async () => {
+    setIsAnchoring(true);
+    setAnchoringResult(null);
+    setError('');
+    try {
+      const result = await adminService.retryFailedBatches();
+      setAnchoringResult(result.message);
+      const [statsData, healthData] = await Promise.all([
+        adminService.getAnchoringStats(),
+        adminService.getBlockchainHealth(),
+      ]);
+      setStats(statsData);
+      setHealth(healthData);
+    } catch (err) {
+      setError(getErrorMessage(err));
+    } finally {
+      setIsAnchoring(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -141,6 +161,14 @@ export function AdminBlockchainPage() {
             disabled={isAnchoring || health?.blockchain !== 'connected'}
           >
             {isAnchoring ? 'Anchoring...' : 'Trigger Anchoring'}
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleRetryFailed}
+            disabled={isAnchoring || health?.blockchain !== 'connected' || (stats?.failedBatches ?? 0) === 0}
+          >
+            {isAnchoring ? 'Retrying...' : `Retry Failed (${stats?.failedBatches ?? 0})`}
           </Button>
           <Badge variant={health?.status === 'healthy' ? 'success' : 'destructive'}>
             {health?.status === 'healthy' ? 'System Healthy' : 'System Unhealthy'}
