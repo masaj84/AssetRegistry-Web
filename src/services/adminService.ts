@@ -146,6 +146,17 @@ export const adminService = {
     return response.data;
   },
 
+  // Anchoring
+  async triggerAnchoring(): Promise<{ message: string; triggered: boolean; batchId?: number; status?: string; transactionHash?: string; recordCount?: number }> {
+    const response = await api.post('/admin/anchoring/trigger');
+    return response.data;
+  },
+
+  async retryFailedBatches(): Promise<{ message: string; retriedCount: number }> {
+    const response = await api.post('/admin/anchoring/retry');
+    return response.data;
+  },
+
   // Audit Log (if backend supports it)
   async getAuditLogs(params?: AuditLogListRequest): Promise<PagedResponse<AuditLogEntry>> {
     const response = await api.get<PagedResponse<AuditLogEntry>>('/admin/audit-logs', { params });

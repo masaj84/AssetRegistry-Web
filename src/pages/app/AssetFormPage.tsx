@@ -29,6 +29,7 @@ export function AssetFormPage() {
     year: '',
     purchaseDate: '',
     purchasePrice: '',
+    purchaseCurrency: 'EUR',
     description: '',
   });
 
@@ -55,6 +56,7 @@ export function AssetFormPage() {
         year: asset.metadata.year?.toString() || '',
         purchaseDate: asset.metadata.purchaseDate || '',
         purchasePrice: asset.metadata.purchasePrice?.toString() || '',
+        purchaseCurrency: asset.metadata.purchaseCurrency || 'EUR',
         description: asset.metadata.description || '',
       });
     } catch (err) {
@@ -78,6 +80,7 @@ export function AssetFormPage() {
         year: formData.year ? parseInt(formData.year) : undefined,
         purchaseDate: formData.purchaseDate || undefined,
         purchasePrice: formData.purchasePrice ? parseFloat(formData.purchasePrice) : undefined,
+        purchaseCurrency: formData.purchaseCurrency || undefined,
         description: formData.description || undefined,
       };
 
@@ -273,17 +276,30 @@ export function AssetFormPage() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-2">Purchase Price</label>
-              <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="col-span-2">
+                <label className="block text-sm font-medium mb-2">Purchase Price</label>
                 <input
                   type="number"
                   placeholder="0.00"
                   value={formData.purchasePrice}
                   onChange={(e) => setFormData({ ...formData, purchasePrice: e.target.value })}
-                  className="w-full h-12 pl-8 pr-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
+                  className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Currency</label>
+                <select
+                  value={formData.purchaseCurrency}
+                  onChange={(e) => setFormData({ ...formData, purchaseCurrency: e.target.value })}
+                  className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
+                >
+                  <option value="EUR">EUR</option>
+                  <option value="USD">USD</option>
+                  <option value="GBP">GBP</option>
+                  <option value="PLN">PLN</option>
+                  <option value="CHF">CHF</option>
+                </select>
               </div>
             </div>
 

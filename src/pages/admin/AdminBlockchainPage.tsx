@@ -23,6 +23,8 @@ export function AdminBlockchainPage() {
   const [batchIdInput, setBatchIdInput] = useState(searchParams.get('batch') || '');
   const [hashInput, setHashInput] = useState('');
   const [isSearching, setIsSearching] = useState(false);
+  const [isAnchoring, setIsAnchoring] = useState(false);
+  const [anchoringResult, setAnchoringResult] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,6 +86,31 @@ export function AdminBlockchainPage() {
     }
   };
 
+  const handleTriggerAnchoring = async () => {
+    setIsAnchoring(true);
+    setAnchoringResult(null);
+    setError('');
+    try {
+      const result = await adminService.triggerAnchoring();
+      if (result.triggered) {
+        setAnchoringResult(`Batch #${result.batchId} anchored (${result.recordCount} records). TX: ${result.transactionHash?.slice(0, 18)}...`);
+        // Refresh stats
+        const [statsData, healthData] = await Promise.all([
+          adminService.getAnchoringStats(),
+          adminService.getBlockchainHealth(),
+        ]);
+        setStats(statsData);
+        setHealth(healthData);
+      } else {
+        setAnchoringResult(result.message);
+      }
+    } catch (err) {
+      setError(getErrorMessage(err));
+    } finally {
+      setIsAnchoring(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -107,6 +134,14 @@ export function AdminBlockchainPage() {
           <p className="text-muted-foreground">Anchoring stats, batch verification, and on-chain data</p>
         </div>
         <div className="flex items-center gap-3">
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleTriggerAnchoring}
+            disabled={isAnchoring || health?.blockchain !== 'connected'}
+          >
+            {isAnchoring ? 'Anchoring...' : 'Trigger Anchoring'}
+          </Button>
           <Badge variant={health?.status === 'healthy' ? 'success' : 'destructive'}>
             {health?.status === 'healthy' ? 'System Healthy' : 'System Unhealthy'}
           </Badge>
@@ -115,6 +150,13 @@ export function AdminBlockchainPage() {
           </Badge>
         </div>
       </div>
+
+      {anchoringResult && (
+        <div className="p-4 border border-emerald-500/30 bg-emerald-500/5 text-emerald-500 text-sm">
+          {anchoringResult}
+          <button onClick={() => setAnchoringResult(null)} className="ml-2 underline">Dismiss</button>
+        </div>
+      )}
 
       {error && (
         <div className="p-4 border border-red-500/30 bg-red-500/5 text-red-500 text-sm">
