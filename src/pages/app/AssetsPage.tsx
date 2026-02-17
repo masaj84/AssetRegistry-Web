@@ -4,12 +4,13 @@ import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { assetsService } from '../../services/assetsService';
 import { getErrorMessage } from '../../services/authService';
+import { useLanguage } from '../../context/LanguageContext';
 import type { Asset, AssetStatus } from '../../types';
 
-const statusLabels: Record<AssetStatus, string> = {
-  DRAFT: 'Draft',
-  VERIFIED: 'Verified',
-  MINTED: 'Minted',
+const statusLabelKeys: Record<AssetStatus, string> = {
+  DRAFT: 'status.draft',
+  VERIFIED: 'status.verified',
+  MINTED: 'status.minted',
 };
 
 const statusVariants: Record<AssetStatus, 'success' | 'warning' | 'default'> = {
@@ -19,6 +20,7 @@ const statusVariants: Record<AssetStatus, 'success' | 'warning' | 'default'> = {
 };
 
 export function AssetsPage() {
+  const { t } = useLanguage();
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -59,7 +61,7 @@ export function AssetsPage() {
   }, [assets, search, typeFilter, statusFilter]);
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Are you sure you want to delete this asset?')) return;
+    if (!confirm(t('common.confirmDelete'))) return;
     try {
       await assetsService.delete(id);
       setAssets(assets.filter((a) => a.id !== id));
@@ -76,7 +78,7 @@ export function AssetsPage() {
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          Loading...
+          {t('common.loading')}
         </div>
       </div>
     );
@@ -87,15 +89,15 @@ export function AssetsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-light mb-1">Assets</h1>
-          <p className="text-muted-foreground">Manage your registered products</p>
+          <h1 className="text-3xl font-light mb-1">{t('assets.title')}</h1>
+          <p className="text-muted-foreground">{t('assets.subtitle')}</p>
         </div>
         <Link to="/app/assets/new">
           <Button className="h-11 bg-emerald-600 hover:bg-emerald-700 text-white">
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path d="M12 4v16m8-8H4" />
             </svg>
-            Add Asset
+            {t('assets.addAsset')}
           </Button>
         </Link>
       </div>
@@ -119,7 +121,7 @@ export function AssetsPage() {
             </svg>
             <input
               type="text"
-              placeholder="Search by name, serial number..."
+              placeholder={t('assets.searchPlaceholder')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full h-10 pl-10 pr-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors text-sm"
@@ -133,9 +135,9 @@ export function AssetsPage() {
               onChange={(e) => setTypeFilter(e.target.value)}
               className="w-full h-10 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors text-sm appearance-none cursor-pointer"
             >
-              <option value="all">All Types</option>
-              {types.map((t) => (
-                <option key={t} value={t} className="capitalize">{t}</option>
+              <option value="all">{t('assets.allTypes')}</option>
+              {types.map((type) => (
+                <option key={type} value={type} className="capitalize">{type}</option>
               ))}
             </select>
             <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
@@ -150,10 +152,10 @@ export function AssetsPage() {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="w-full h-10 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors text-sm appearance-none cursor-pointer"
             >
-              <option value="all">All Status</option>
-              <option value="DRAFT">Draft</option>
-              <option value="VERIFIED">Verified</option>
-              <option value="MINTED">Minted</option>
+              <option value="all">{t('assets.allStatus')}</option>
+              <option value="DRAFT">{t('status.draft')}</option>
+              <option value="VERIFIED">{t('status.verified')}</option>
+              <option value="MINTED">{t('status.minted')}</option>
             </select>
             <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -168,11 +170,11 @@ export function AssetsPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-border dark:border-border/50 bg-foreground/[0.02] dark:bg-purple/5">
-                <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">Product</th>
-                <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">Type</th>
-                <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">Status</th>
-                <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">Serial</th>
-                <th className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">Actions</th>
+                <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">{t('assets.tableProduct')}</th>
+                <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">{t('assets.tableType')}</th>
+                <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">{t('assets.tableStatus')}</th>
+                <th className="text-left text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">{t('assets.tableSerial')}</th>
+                <th className="text-right text-xs font-medium text-muted-foreground uppercase tracking-wider p-4">{t('assets.tableActions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -185,11 +187,11 @@ export function AssetsPage() {
                       </svg>
                     </div>
                     <p className="text-muted-foreground mb-2">
-                      {assets.length === 0 ? 'No assets registered yet' : 'No assets match your filters'}
+                      {assets.length === 0 ? t('assets.noAssetsYet') : t('assets.noAssetsMatch')}
                     </p>
                     {assets.length === 0 && (
                       <Link to="/app/assets/new" className="text-sm text-foreground hover:underline">
-                        Add your first asset →
+                        {t('assets.addFirstAsset')}
                       </Link>
                     )}
                   </td>
@@ -217,7 +219,7 @@ export function AssetsPage() {
                     </td>
                     <td className="p-4">
                       <Badge variant={statusVariants[asset.status]}>
-                        {statusLabels[asset.status]}
+                        {t(statusLabelKeys[asset.status])}
                       </Badge>
                     </td>
                     <td className="p-4">
@@ -229,14 +231,14 @@ export function AssetsPage() {
                       <div className="flex items-center justify-end gap-2">
                         <Link to={`/app/assets/${asset.id}`}>
                           <button className="h-8 px-3 border border-border dark:border-border/50 hover:border-foreground dark:hover:border-orange/60 text-sm text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">
-                            Edit
+                            {t('common.edit')}
                           </button>
                         </Link>
                         <button
                           onClick={() => handleDelete(asset.id)}
                           className="h-8 px-3 border border-border dark:border-border/50 hover:border-red-500 text-sm text-muted-foreground hover:text-red-500 transition-colors"
                         >
-                          Delete
+                          {t('common.delete')}
                         </button>
                       </div>
                     </td>
@@ -250,20 +252,20 @@ export function AssetsPage() {
 
       {/* Summary */}
       <div className="flex items-center justify-between text-sm text-muted-foreground">
-        <span>Showing {filteredAssets.length} of {assets.length} assets</span>
+        <span>{t('assets.showing')} {filteredAssets.length} {t('assets.of')} {assets.length} {t('assets.assets')}</span>
         {filteredAssets.length > 0 && (
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-muted-foreground/50 rounded-full" />
-              <span>Draft: {assets.filter(a => a.status === 'DRAFT').length}</span>
+              <span>{t('status.draft')}: {assets.filter(a => a.status === 'DRAFT').length}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-amber-500 rounded-full" />
-              <span>Verified: {assets.filter(a => a.status === 'VERIFIED').length}</span>
+              <span>{t('status.verified')}: {assets.filter(a => a.status === 'VERIFIED').length}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-emerald-500 rounded-full" />
-              <span>Minted: {assets.filter(a => a.status === 'MINTED').length}</span>
+              <span>{t('status.minted')}: {assets.filter(a => a.status === 'MINTED').length}</span>
             </div>
           </div>
         )}

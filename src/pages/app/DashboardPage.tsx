@@ -4,12 +4,13 @@ import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { assetsService } from '../../services/assetsService';
 import { getErrorMessage } from '../../services/authService';
+import { useLanguage } from '../../context/LanguageContext';
 import type { Asset } from '../../types';
 
-const statusLabels: Record<string, string> = {
-  DRAFT: 'Draft',
-  VERIFIED: 'Verified',
-  MINTED: 'Minted',
+const statusLabelKeys: Record<string, string> = {
+  DRAFT: 'status.draft',
+  VERIFIED: 'status.verified',
+  MINTED: 'status.minted',
 };
 
 const statusVariants: Record<string, 'default' | 'success' | 'warning'> = {
@@ -19,6 +20,7 @@ const statusVariants: Record<string, 'default' | 'success' | 'warning'> = {
 };
 
 export function DashboardPage() {
+  const { t } = useLanguage();
   const [assets, setAssets] = useState<Asset[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -62,7 +64,7 @@ export function DashboardPage() {
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          Loading...
+          {t('common.loading')}
         </div>
       </div>
     );
@@ -88,15 +90,15 @@ export function DashboardPage() {
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-3xl font-light mb-1">Dashboard</h1>
-          <p className="text-muted-foreground">Overview of your product registry</p>
+          <h1 className="text-3xl font-light mb-1">{t('dashboard.title')}</h1>
+          <p className="text-muted-foreground">{t('dashboard.subtitle')}</p>
         </div>
         <Link to="/app/assets/new">
           <Button className="h-11">
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path d="M12 4v16m8-8H4" />
             </svg>
-            Add Asset
+            {t('assets.addAsset')}
           </Button>
         </Link>
       </div>
@@ -106,43 +108,43 @@ export function DashboardPage() {
         {/* Total */}
         <div className="border border-border dark:border-border/50 p-6 relative group hover:border-foreground dark:hover:border-orange/40 transition-all card-hover-glow">
           <div className="absolute top-0 left-0 w-1 h-full bg-foreground dark:bg-gradient-to-b dark:from-orange dark:to-magenta" />
-          <p className="text-sm text-muted-foreground mb-1">Total Assets</p>
+          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.totalAssets')}</p>
           <p className="text-4xl font-light dark:text-orange">{stats.total}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
             </svg>
-            All registered items
+            {t('dashboard.allRegisteredItems')}
           </div>
         </div>
 
         {/* Draft */}
         <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-purple/40 transition-all card-hover-glow">
-          <p className="text-sm text-muted-foreground mb-1">Draft</p>
+          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.draft')}</p>
           <p className="text-4xl font-light text-muted-foreground">{stats.draft}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <div className="w-2 h-2 bg-muted-foreground/50 rounded-full" />
-            Awaiting completion
+            {t('dashboard.awaitingCompletion')}
           </div>
         </div>
 
         {/* Verified */}
         <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-amber-500/40 transition-all card-hover-glow">
-          <p className="text-sm text-muted-foreground mb-1">Verified</p>
+          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.verified')}</p>
           <p className="text-4xl font-light text-amber-500">{stats.verified}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <div className="w-2 h-2 bg-amber-500 rounded-full" />
-            Ready to mint
+            {t('dashboard.readyToMint')}
           </div>
         </div>
 
         {/* Minted */}
         <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-emerald-500/40 transition-all card-hover-glow">
-          <p className="text-sm text-muted-foreground mb-1">Minted</p>
+          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.minted')}</p>
           <p className="text-4xl font-light text-emerald-500">{stats.minted}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <div className="w-2 h-2 bg-emerald-500 rounded-full" />
-            On blockchain
+            {t('dashboard.onBlockchain')}
           </div>
         </div>
       </div>
@@ -152,8 +154,8 @@ export function DashboardPage() {
         {/* Assets by Type */}
         <div className="border border-border dark:border-border/50 card-hover-glow">
           <div className="px-6 py-4 border-b border-border dark:border-border/50 flex items-center justify-between">
-            <h2 className="font-medium">Assets by Type</h2>
-            <span className="text-xs text-muted-foreground">{Object.keys(assetsByType).length} types</span>
+            <h2 className="font-medium">{t('dashboard.assetsByType')}</h2>
+            <span className="text-xs text-muted-foreground">{Object.keys(assetsByType).length} {t('dashboard.types')}</span>
           </div>
           <div className="p-6">
             {Object.keys(assetsByType).length === 0 ? (
@@ -163,9 +165,9 @@ export function DashboardPage() {
                     <path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                   </svg>
                 </div>
-                <p className="text-muted-foreground text-sm">No assets yet</p>
+                <p className="text-muted-foreground text-sm">{t('dashboard.noAssetsYet')}</p>
                 <Link to="/app/assets/new" className="text-sm text-foreground hover:underline mt-2 inline-block">
-                  Add your first asset →
+                  {t('dashboard.addFirstAsset')}
                 </Link>
               </div>
             ) : (
@@ -197,9 +199,9 @@ export function DashboardPage() {
         {/* Recent Assets */}
         <div className="border border-border dark:border-border/50 card-hover-glow">
           <div className="px-6 py-4 border-b border-border dark:border-border/50 flex items-center justify-between">
-            <h2 className="font-medium">Recent Assets</h2>
+            <h2 className="font-medium">{t('dashboard.recentAssets')}</h2>
             <Link to="/app/assets" className="text-xs text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">
-              View all →
+              {t('dashboard.viewAll')}
             </Link>
           </div>
           <div className="divide-y divide-border">
@@ -210,7 +212,7 @@ export function DashboardPage() {
                     <path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <p className="text-muted-foreground text-sm">No recent activity</p>
+                <p className="text-muted-foreground text-sm">{t('dashboard.noRecentActivity')}</p>
               </div>
             ) : (
               recentAssets.map((asset) => (
@@ -231,7 +233,7 @@ export function DashboardPage() {
                     </div>
                   </div>
                   <Badge variant={statusVariants[asset.status]}>
-                    {statusLabels[asset.status]}
+                    {t(statusLabelKeys[asset.status])}
                   </Badge>
                 </Link>
               ))
@@ -243,7 +245,7 @@ export function DashboardPage() {
       {/* Status Pipeline */}
       <div className="border border-border dark:border-border/50 card-hover-glow">
         <div className="px-6 py-4 border-b border-border dark:border-border/50">
-          <h2 className="font-medium">Asset Pipeline</h2>
+          <h2 className="font-medium">{t('dashboard.assetPipeline')}</h2>
         </div>
         <div className="p-6">
           <div className="flex items-center gap-4">
@@ -252,7 +254,7 @@ export function DashboardPage() {
               <div className="border border-border dark:border-border/50 p-6 mb-3">
                 <p className="text-3xl font-light text-muted-foreground">{stats.draft}</p>
               </div>
-              <p className="text-sm text-muted-foreground">Draft</p>
+              <p className="text-sm text-muted-foreground">{t('dashboard.draft')}</p>
             </div>
 
             {/* Arrow */}
@@ -265,7 +267,7 @@ export function DashboardPage() {
               <div className="border border-amber-500/30 bg-amber-500/5 p-6 mb-3">
                 <p className="text-3xl font-light text-amber-500">{stats.verified}</p>
               </div>
-              <p className="text-sm text-muted-foreground">Verified</p>
+              <p className="text-sm text-muted-foreground">{t('dashboard.verified')}</p>
             </div>
 
             {/* Arrow */}
@@ -278,7 +280,7 @@ export function DashboardPage() {
               <div className="border border-emerald-500/30 bg-emerald-500/5 p-6 mb-3">
                 <p className="text-3xl font-light text-emerald-500">{stats.minted}</p>
               </div>
-              <p className="text-sm text-muted-foreground">Minted</p>
+              <p className="text-sm text-muted-foreground">{t('dashboard.minted')}</p>
             </div>
           </div>
         </div>
