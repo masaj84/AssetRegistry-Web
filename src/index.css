@@ -58,6 +58,32 @@
 }
 
 @layer base {
+  /* Mobile date/time input fixes */
+  input[type="date"],
+  input[type="time"],
+  input[type="datetime-local"] {
+    /* Prevent native calendar from filling entire screen on mobile */
+    max-width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* Custom date picker styling for better mobile UX */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator,
+  input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    padding: 4px;
+    margin-left: auto;
+  }
+
+  @media (max-width: 640px) {
+    input[type="date"],
+    input[type="time"],
+    input[type="datetime-local"] {
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+  }
   * {
     border-color: var(--color-border);
   }

@@ -244,7 +244,7 @@ export function AssetFormPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-2">Brand</label>
                 <input
@@ -293,7 +293,7 @@ export function AssetFormPage() {
             <p className="text-sm text-muted-foreground mt-1">Origin and acquisition information</p>
           </div>
           <div className="p-6 space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-2">Year</label>
                 <input
@@ -316,8 +316,8 @@ export function AssetFormPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
-              <div className="col-span-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="sm:col-span-2">
                 <label className="block text-sm font-medium mb-2">Purchase Price</label>
                 <input
                   type="number"
