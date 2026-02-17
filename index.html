@@ -104,6 +104,16 @@
       ]
     }
     </script>
+    <!-- Theme initialization - prevents flash of wrong theme -->
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme');
+        // Default to light if no preference stored
+        if (!theme) theme = 'light';
+        document.documentElement.classList.add(theme);
+        document.documentElement.classList.remove(theme === 'light' ? 'dark' : 'light');
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
