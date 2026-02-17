@@ -108,3 +108,4 @@ export function AccountActivatedPage() {
     </div>
   );
 }
+export default AccountActivatedPage;

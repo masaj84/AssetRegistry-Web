@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { LanguageProvider } from './context/LanguageContext';
@@ -5,32 +6,49 @@ import { ThemeProvider } from './context/ThemeContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminRoute } from './components/AdminRoute';
 
-import { LandingPage } from './pages/LandingPage';
-import { WhitepaperPage } from './pages/WhitepaperPage';
-import { LoginPage } from './pages/auth/LoginPage';
-import { RegisterPage } from './pages/auth/RegisterPage';
-import { AuthActionPage } from './pages/auth/AuthActionPage';
-import { AccountActivatedPage } from './pages/auth/AccountActivatedPage';
+// Layouts (keep synchronous - used as route wrappers)
 import { AppLayout } from './components/layout/AppLayout';
 import { AdminLayout } from './components/layout/AdminLayout';
-import { DashboardPage } from './pages/app/DashboardPage';
-import { AssetsPage } from './pages/app/AssetsPage';
-import { AssetFormPage } from './pages/app/AssetFormPage';
-import { ReportsPage } from './pages/app/ReportsPage';
-import { SettingsPage } from './pages/app/SettingsPage';
+
+// Lazy-loaded pages
+const LandingPage = lazy(() => import('./pages/LandingPage'));
+const WhitepaperPage = lazy(() => import('./pages/WhitepaperPage'));
+const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
+const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'));
+const AuthActionPage = lazy(() => import('./pages/auth/AuthActionPage'));
+const AccountActivatedPage = lazy(() => import('./pages/auth/AccountActivatedPage'));
+
+// App pages
+const DashboardPage = lazy(() => import('./pages/app/DashboardPage'));
+const AssetsPage = lazy(() => import('./pages/app/AssetsPage'));
+const AssetFormPage = lazy(() => import('./pages/app/AssetFormPage'));
+const ReportsPage = lazy(() => import('./pages/app/ReportsPage'));
+const SettingsPage = lazy(() => import('./pages/app/SettingsPage'));
 
 // Admin pages
-import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
-import { AdminUsersPage } from './pages/admin/AdminUsersPage';
-import { AdminUserDetailPage } from './pages/admin/AdminUserDetailPage';
-import { AdminOrganizationsPage } from './pages/admin/AdminOrganizationsPage';
-import { AdminOrganizationDetailPage } from './pages/admin/AdminOrganizationDetailPage';
-import { AdminAssetsPage } from './pages/admin/AdminAssetsPage';
-import { AdminAssetDetailPage } from './pages/admin/AdminAssetDetailPage';
-import { AdminNewsletterPage } from './pages/admin/AdminNewsletterPage';
-import { AdminSecurityPage } from './pages/admin/AdminSecurityPage';
-import { AdminBlockchainPage } from './pages/admin/AdminBlockchainPage';
-import { AdminAuditLogPage } from './pages/admin/AdminAuditLogPage';
+const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
+const AdminUsersPage = lazy(() => import('./pages/admin/AdminUsersPage'));
+const AdminUserDetailPage = lazy(() => import('./pages/admin/AdminUserDetailPage'));
+const AdminOrganizationsPage = lazy(() => import('./pages/admin/AdminOrganizationsPage'));
+const AdminOrganizationDetailPage = lazy(() => import('./pages/admin/AdminOrganizationDetailPage'));
+const AdminAssetsPage = lazy(() => import('./pages/admin/AdminAssetsPage'));
+const AdminAssetDetailPage = lazy(() => import('./pages/admin/AdminAssetDetailPage'));
+const AdminNewsletterPage = lazy(() => import('./pages/admin/AdminNewsletterPage'));
+const AdminSecurityPage = lazy(() => import('./pages/admin/AdminSecurityPage'));
+const AdminBlockchainPage = lazy(() => import('./pages/admin/AdminBlockchainPage'));
+const AdminAuditLogPage = lazy(() => import('./pages/admin/AdminAuditLogPage'));
+
+// Loading fallback component
+function PageLoader() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-8 h-8 border-2 border-orange border-t-transparent rounded-full animate-spin" />
+        <span className="text-muted-foreground text-sm">Loading...</span>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -38,6 +56,7 @@ function App() {
       <LanguageProvider>
         <AuthProvider>
         <BrowserRouter>
+        <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<LandingPage />} />
@@ -91,6 +110,7 @@ function App() {
           {/* Catch all - redirect to home */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </Suspense>
         </BrowserRouter>
         </AuthProvider>
       </LanguageProvider>

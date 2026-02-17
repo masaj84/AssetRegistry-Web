@@ -768,3 +768,4 @@ export function AdminBlockchainPage() {
     </div>
   );
 }
+export default AdminBlockchainPage;

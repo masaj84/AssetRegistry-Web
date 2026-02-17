@@ -255,3 +255,4 @@ export function AdminAssetsPage() {
     </div>
   );
 }
+export default AdminAssetsPage;

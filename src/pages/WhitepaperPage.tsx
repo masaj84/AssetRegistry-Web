@@ -772,3 +772,4 @@ export function WhitepaperPage() {
     </div>
   );
 }
+export default WhitepaperPage;

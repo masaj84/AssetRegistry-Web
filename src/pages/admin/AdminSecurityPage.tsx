@@ -264,3 +264,4 @@ export function AdminSecurityPage() {
     </div>
   );
 }
+export default AdminSecurityPage;

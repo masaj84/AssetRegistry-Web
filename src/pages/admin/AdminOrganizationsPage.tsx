@@ -263,3 +263,4 @@ export function AdminOrganizationsPage() {
     </div>
   );
 }
+export default AdminOrganizationsPage;

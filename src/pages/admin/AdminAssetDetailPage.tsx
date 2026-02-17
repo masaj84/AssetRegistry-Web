@@ -371,3 +371,4 @@ export function AdminAssetDetailPage() {
     </div>
   );
 }
+export default AdminAssetDetailPage;

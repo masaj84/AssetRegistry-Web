@@ -426,3 +426,4 @@ function ResetPasswordContent({ t, searchParams }: { t: Record<string, string>; 
     </div>
   );
 }
+export default AuthActionPage;

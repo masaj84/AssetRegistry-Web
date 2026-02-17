@@ -539,3 +539,4 @@ export function AssetFormPage() {
     </div>
   );
 }
+export default AssetFormPage;

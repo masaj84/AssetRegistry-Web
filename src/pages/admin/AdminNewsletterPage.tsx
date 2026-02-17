@@ -203,3 +203,4 @@ export function AdminNewsletterPage() {
     </div>
   );
 }
+export default AdminNewsletterPage;
