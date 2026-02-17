@@ -10,6 +10,7 @@ import { WhitepaperPage } from './pages/WhitepaperPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
 import { AuthActionPage } from './pages/auth/AuthActionPage';
+import { AccountActivatedPage } from './pages/auth/AccountActivatedPage';
 import { AppLayout } from './components/layout/AppLayout';
 import { AdminLayout } from './components/layout/AdminLayout';
 import { DashboardPage } from './pages/app/DashboardPage';
@@ -46,6 +47,7 @@ function App() {
           <Route path="/confirm-email" element={<AuthActionPage />} />
           <Route path="/forgot-password" element={<AuthActionPage />} />
           <Route path="/reset-password" element={<AuthActionPage />} />
+          <Route path="/account-activated" element={<AccountActivatedPage />} />
 
           {/* Protected app routes */}
           <Route
