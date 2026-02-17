@@ -29,11 +29,13 @@ export function AssetFormPage() {
     model: '',
     serialNumber: '',
     year: '',
+    productionDate: '',
     purchaseDate: '',
     purchasePrice: '',
     purchaseCurrency: 'EUR',
     description: '',
   });
+  const [useExactProductionDate, setUseExactProductionDate] = useState(false);
 
   const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
@@ -60,11 +62,16 @@ export function AssetFormPage() {
         model: asset.metadata.model || '',
         serialNumber: asset.metadata.serialNumber || '',
         year: asset.metadata.year?.toString() || '',
+        productionDate: (asset.metadata.productionDate as string) || '',
         purchaseDate: asset.metadata.purchaseDate || '',
         purchasePrice: asset.metadata.purchasePrice?.toString() || '',
         purchaseCurrency: asset.metadata.purchaseCurrency || 'EUR',
         description: asset.metadata.description || '',
       });
+      // If productionDate exists, enable exact date mode
+      if (asset.metadata.productionDate) {
+        setUseExactProductionDate(true);
+      }
       if (asset.documents) {
         setDocuments(asset.documents);
       }
@@ -86,7 +93,11 @@ export function AssetFormPage() {
         brand: formData.brand || undefined,
         model: formData.model || undefined,
         serialNumber: formData.serialNumber || undefined,
-        year: formData.year ? parseInt(formData.year) : undefined,
+        // If exact date mode, use productionDate and extract year from it
+        year: useExactProductionDate 
+          ? (formData.productionDate ? new Date(formData.productionDate).getFullYear() : undefined)
+          : (formData.year ? parseInt(formData.year) : undefined),
+        productionDate: useExactProductionDate ? (formData.productionDate || undefined) : undefined,
         purchaseDate: formData.purchaseDate || undefined,
         purchasePrice: formData.purchasePrice ? parseFloat(formData.purchasePrice) : undefined,
         purchaseCurrency: formData.purchaseCurrency || undefined,
@@ -293,26 +304,61 @@ export function AssetFormPage() {
             <p className="text-sm text-muted-foreground mt-1">Origin and acquisition information</p>
           </div>
           <div className="p-6 space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium mb-2">Year</label>
-                <input
-                  type="number"
-                  placeholder="e.g. 2023"
-                  value={formData.year}
-                  onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-                  className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
-                />
+            {/* Production Year/Date */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <label className="flex items-center gap-2 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={useExactProductionDate}
+                    onChange={(e) => {
+                      setUseExactProductionDate(e.target.checked);
+                      // Clear the other field when switching
+                      if (e.target.checked) {
+                        setFormData({ ...formData, year: '' });
+                      } else {
+                        setFormData({ ...formData, productionDate: '' });
+                      }
+                    }}
+                    className="w-4 h-4 border border-border dark:border-border/50 bg-background accent-orange"
+                  />
+                  <span className="text-sm text-muted-foreground">Exact production date</span>
+                </label>
               </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {useExactProductionDate ? (
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Production Date</label>
+                    <input
+                      type="date"
+                      value={formData.productionDate}
+                      onChange={(e) => setFormData({ ...formData, productionDate: e.target.value })}
+                      className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Year</label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 2023"
+                      value={formData.year}
+                      onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+                      className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
+                    />
+                  </div>
+                )}
 
-              <div>
-                <label className="block text-sm font-medium mb-2">Purchase Date</label>
-                <input
-                  type="date"
-                  value={formData.purchaseDate}
-                  onChange={(e) => setFormData({ ...formData, purchaseDate: e.target.value })}
-                  className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
-                />
+                <div>
+                  <label className="block text-sm font-medium mb-2">Purchase Date</label>
+                  <input
+                    type="date"
+                    value={formData.purchaseDate}
+                    onChange={(e) => setFormData({ ...formData, purchaseDate: e.target.value })}
+                    className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
+                  />
+                </div>
               </div>
             </div>
 
