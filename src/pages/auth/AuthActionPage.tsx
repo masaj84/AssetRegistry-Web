@@ -117,7 +117,7 @@ export function AuthActionPage() {
             </div>
           </div>
           <div className="flex items-center justify-between text-sm text-background/40">
-            <span>&copy; 2025 TRVE.io</span>
+            <span>&copy; 2026 TRVE.io</span>
             <span className="font-mono">v0.1 Early Access</span>
           </div>
         </div>

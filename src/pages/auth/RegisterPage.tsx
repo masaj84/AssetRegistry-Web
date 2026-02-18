@@ -138,7 +138,7 @@ export function RegisterPage() {
 
           {/* Bottom */}
           <div className="flex items-center justify-between text-sm text-background/40">
-            <span>© 2025 TRVE.io</span>
+            <span>© 2026 TRVE.io</span>
             <span className="font-mono">v0.1 Early Access</span>
           </div>
         </div>
