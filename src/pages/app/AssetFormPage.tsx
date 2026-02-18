@@ -72,8 +72,18 @@ export function AssetFormPage() {
       if (asset.metadata.productionDate) {
         setUseExactProductionDate(true);
       }
-      if (asset.documents) {
+      // Fetch documents - use embedded documents if available, otherwise fetch separately
+      if (asset.documents && asset.documents.length > 0) {
         setDocuments(asset.documents);
+      } else {
+        // Explicitly fetch documents in case they weren't included in the asset response
+        try {
+          const docs = await assetsService.getDocuments(assetId);
+          setDocuments(docs);
+        } catch {
+          // Ignore document fetch errors - asset may simply have no documents
+          setDocuments([]);
+        }
       }
     } catch (err) {
       setError(getErrorMessage(err));
