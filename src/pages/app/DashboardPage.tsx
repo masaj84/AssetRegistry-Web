@@ -8,14 +8,14 @@ import { useLanguage } from '../../context/LanguageContext';
 import type { Asset } from '../../types';
 
 const statusLabelKeys: Record<string, string> = {
-  PENDING: 'status.pending',
-  ANCHORED: 'status.anchored',
+  DRAFT: 'status.draft',
+  VERIFIED: 'status.verified',
   MINTED: 'status.minted',
 };
 
 const statusVariants: Record<string, 'default' | 'success' | 'warning'> = {
-  PENDING: 'default',
-  ANCHORED: 'warning',
+  DRAFT: 'default',
+  VERIFIED: 'warning',
   MINTED: 'success',
 };
 
@@ -42,8 +42,8 @@ export function DashboardPage() {
 
   const stats = {
     total: assets.length,
-    pending: assets.filter((a) => a.status === 'PENDING').length,
-    anchored: assets.filter((a) => a.status === 'ANCHORED').length,
+    draft: assets.filter((a) => a.status === 'DRAFT').length,
+    verified: assets.filter((a) => a.status === 'VERIFIED').length,
     minted: assets.filter((a) => a.status === 'MINTED').length,
   };
 
@@ -118,20 +118,20 @@ export function DashboardPage() {
           </div>
         </div>
 
-        {/* Pending */}
+        {/* Draft */}
         <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-purple/40 transition-all card-hover-glow">
-          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.pending')}</p>
-          <p className="text-4xl font-light text-muted-foreground">{stats.pending}</p>
+          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.draft')}</p>
+          <p className="text-4xl font-light text-muted-foreground">{stats.draft}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <div className="w-2 h-2 bg-muted-foreground/50 rounded-full" />
             {t('dashboard.awaitingCompletion')}
           </div>
         </div>
 
-        {/* Anchored */}
+        {/* Verified */}
         <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-amber-500/40 transition-all card-hover-glow">
-          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.anchored')}</p>
-          <p className="text-4xl font-light text-amber-500">{stats.anchored}</p>
+          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.verified')}</p>
+          <p className="text-4xl font-light text-amber-500">{stats.verified}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <div className="w-2 h-2 bg-amber-500 rounded-full" />
             {t('dashboard.readyToMint')}
@@ -249,12 +249,12 @@ export function DashboardPage() {
         </div>
         <div className="p-4 sm:p-6">
           <div className="flex items-center justify-between gap-2 sm:gap-4">
-            {/* Pending */}
+            {/* Draft */}
             <div className="flex-1 text-center min-w-0">
               <div className="border border-border dark:border-border/50 p-3 sm:p-6 mb-2 sm:mb-3">
-                <p className="text-xl sm:text-3xl font-light text-muted-foreground">{stats.pending}</p>
+                <p className="text-xl sm:text-3xl font-light text-muted-foreground">{stats.draft}</p>
               </div>
-              <p className="text-xs sm:text-sm text-muted-foreground truncate">{t('dashboard.pending')}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground truncate">{t('dashboard.draft')}</p>
             </div>
 
             {/* Arrow */}
@@ -262,12 +262,12 @@ export function DashboardPage() {
               <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
 
-            {/* Anchored */}
+            {/* Verified */}
             <div className="flex-1 text-center min-w-0">
               <div className="border border-amber-500/30 bg-amber-500/5 p-3 sm:p-6 mb-2 sm:mb-3">
-                <p className="text-xl sm:text-3xl font-light text-amber-500">{stats.anchored}</p>
+                <p className="text-xl sm:text-3xl font-light text-amber-500">{stats.verified}</p>
               </div>
-              <p className="text-xs sm:text-sm text-muted-foreground truncate">{t('dashboard.anchored')}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground truncate">{t('dashboard.verified')}</p>
             </div>
 
             {/* Arrow */}

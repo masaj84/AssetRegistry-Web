@@ -217,10 +217,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.dashboard.totalUsers': 'Total Users',
     'admin.dashboard.organizations': 'Organizations',
     'admin.dashboard.totalAssets': 'Total Assets',
-    'admin.dashboard.anchoredAssets': 'Anchored Assets',
+    'admin.dashboard.verifiedAssets': 'Verified Assets',
     'admin.dashboard.active': 'active',
-    'admin.dashboard.anchored': 'anchored',
-    'admin.dashboard.pending': 'Pending',
+    'admin.dashboard.verified': 'verified',
     'admin.dashboard.minted': 'minted',
     'admin.dashboard.readyForMinting': 'Ready for minting',
 
@@ -249,6 +248,7 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.dashboard.inactive': 'Inactive',
     'admin.dashboard.activePercent': 'active',
     'admin.dashboard.assetPipeline': 'Asset Pipeline',
+    'admin.dashboard.draft': 'Draft',
     'admin.dashboard.manageUsers': 'Manage Users',
     'admin.dashboard.viewEditUsers': 'View and edit users',
     'admin.dashboard.verifyOrganizations': 'Verify organizations',
@@ -452,8 +452,8 @@ const translations: Record<Language, Record<string, string>> = {
     'assets.assets': 'assets',
 
     // Status Labels
-    'status.pending': 'Pending',
-    'status.anchored': 'Anchored',
+    'status.draft': 'Draft',
+    'status.verified': 'Verified',
     'status.minted': 'Minted',
 
     // Dashboard
@@ -461,9 +461,9 @@ const translations: Record<Language, Record<string, string>> = {
     'dashboard.subtitle': 'Overview of your product registry',
     'dashboard.totalAssets': 'Total Assets',
     'dashboard.allRegisteredItems': 'All registered items',
-    'dashboard.pending': 'Pending',
-    'dashboard.awaitingCompletion': 'Awaiting anchoring',
-    'dashboard.anchored': 'Anchored',
+    'dashboard.draft': 'Draft',
+    'dashboard.awaitingCompletion': 'Awaiting completion',
+    'dashboard.verified': 'Verified',
     'dashboard.readyToMint': 'Ready to mint',
     'dashboard.minted': 'Minted',
     'dashboard.onBlockchain': 'On blockchain',
@@ -710,10 +710,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.dashboard.totalUsers': 'Użytkownicy',
     'admin.dashboard.organizations': 'Organizacje',
     'admin.dashboard.totalAssets': 'Zasoby',
-    'admin.dashboard.anchoredAssets': 'Zakotwiczone',
+    'admin.dashboard.verifiedAssets': 'Zweryfikowane',
     'admin.dashboard.active': 'aktywnych',
-    'admin.dashboard.anchored': 'zakotwiczonych',
-    'admin.dashboard.pending': 'Oczekujące',
+    'admin.dashboard.verified': 'zweryfikowanych',
     'admin.dashboard.minted': 'wybitych',
     'admin.dashboard.readyForMinting': 'Gotowe do bicia',
 
@@ -742,6 +741,7 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.dashboard.inactive': 'Nieaktywni',
     'admin.dashboard.activePercent': 'aktywnych',
     'admin.dashboard.assetPipeline': 'Pipeline zasobów',
+    'admin.dashboard.draft': 'Szkic',
     'admin.dashboard.manageUsers': 'Zarządzaj użytkownikami',
     'admin.dashboard.viewEditUsers': 'Przeglądaj i edytuj',
     'admin.dashboard.verifyOrganizations': 'Weryfikuj organizacje',
@@ -945,8 +945,8 @@ const translations: Record<Language, Record<string, string>> = {
     'assets.assets': 'zasobów',
 
     // Status Labels
-    'status.pending': 'Oczekujący',
-    'status.anchored': 'Zakotwiczony',
+    'status.draft': 'Szkic',
+    'status.verified': 'Zweryfikowany',
     'status.minted': 'Wybity',
 
     // Dashboard
@@ -954,9 +954,9 @@ const translations: Record<Language, Record<string, string>> = {
     'dashboard.subtitle': 'Przegląd rejestru produktów',
     'dashboard.totalAssets': 'Wszystkie zasoby',
     'dashboard.allRegisteredItems': 'Wszystkie zarejestrowane przedmioty',
-    'dashboard.pending': 'Oczekujące',
-    'dashboard.awaitingCompletion': 'Oczekujące na zakotwiczenie',
-    'dashboard.anchored': 'Zakotwiczone',
+    'dashboard.draft': 'Szkic',
+    'dashboard.awaitingCompletion': 'Oczekujące na uzupełnienie',
+    'dashboard.verified': 'Zweryfikowane',
     'dashboard.readyToMint': 'Gotowe do wybicia',
     'dashboard.minted': 'Wybite',
     'dashboard.onBlockchain': 'W blockchain',

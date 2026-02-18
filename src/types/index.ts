@@ -80,7 +80,7 @@ export interface AssetDocument {
   createdAt: string;
 }
 
-export type AssetStatus = 'PENDING' | 'ANCHORED' | 'MINTED';
+export type AssetStatus = 'DRAFT' | 'VERIFIED' | 'MINTED';
 
 export interface CreateAssetRequest {
   ownerAddress: string;
@@ -133,8 +133,8 @@ export interface ChangePasswordRequest {
 // Dashboard types
 export interface DashboardStats {
   totalAssets: number;
-  pendingAssets: number;
-  anchoredAssets: number;
+  draftAssets: number;
+  verifiedAssets: number;
   mintedAssets: number;
   assetsByType: Record<string, number>;
 }

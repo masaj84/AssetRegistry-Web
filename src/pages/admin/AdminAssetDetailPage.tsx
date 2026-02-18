@@ -10,8 +10,8 @@ import type { AdminAssetDetail, VerificationResponse } from '../../types/admin';
 import { blockchainConfig } from '../../lib/blockchainConfig';
 
 const statusVariants: Record<string, 'default' | 'success' | 'warning'> = {
-  PENDING: 'default',
-  ANCHORED: 'warning',
+  DRAFT: 'default',
+  VERIFIED: 'warning',
   MINTED: 'success',
 };
 
@@ -102,7 +102,7 @@ export function AdminAssetDetailPage() {
           <p className="text-muted-foreground">{asset?.name || `Asset #${asset?.id}`}</p>
         </div>
         <div className="flex items-center gap-3">
-          <Badge variant={statusVariants[asset?.status || 'PENDING']}>
+          <Badge variant={statusVariants[asset?.status || 'DRAFT']}>
             {asset?.status}
           </Badge>
           {asset?.tokenId && (
