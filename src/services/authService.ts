@@ -44,7 +44,7 @@ export const authService = {
   },
 
   async confirmEmail(userId: string, token: string): Promise<void> {
-    await api.get('/auth/confirm-email', { params: { userId, token } });
+    await api.post('/auth/confirm-email', { userId, token });
   },
 
   async resendConfirmation(email: string): Promise<void> {
