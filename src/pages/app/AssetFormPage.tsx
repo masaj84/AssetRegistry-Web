@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
+import { InfoTooltip } from '../../components/ui/Tooltip';
 import { assetsService } from '../../services/assetsService';
 import { getErrorMessage } from '../../services/authService';
 import { useAuth } from '../../context/AuthContext';
@@ -254,6 +255,7 @@ export function AssetFormPage() {
             <div>
               <label className="block text-sm font-medium mb-2">
                 {t('asset.name')} <span className="text-red-500">*</span>
+                <InfoTooltip content={t('tooltip.assetName')} />
               </label>
               <input
                 type="text"
@@ -267,7 +269,10 @@ export function AssetFormPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-2">{t('asset.brand')}</label>
+                <label className="block text-sm font-medium mb-2">
+                  {t('asset.brand')}
+                  <InfoTooltip content={t('tooltip.brand')} />
+                </label>
                 <input
                   type="text"
                   placeholder={t('asset.brandPlaceholder')}
@@ -278,7 +283,10 @@ export function AssetFormPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">{t('asset.model')}</label>
+                <label className="block text-sm font-medium mb-2">
+                  {t('asset.model')}
+                  <InfoTooltip content={t('tooltip.model')} />
+                </label>
                 <input
                   type="text"
                   placeholder={t('asset.modelPlaceholder')}
@@ -290,7 +298,10 @@ export function AssetFormPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">{t('asset.serialNumber')}</label>
+              <label className="block text-sm font-medium mb-2">
+                {t('asset.serialNumber')}
+                <InfoTooltip content={t('tooltip.serialNumber')} />
+              </label>
               <div className="relative">
                 <input
                   type="text"
@@ -451,7 +462,10 @@ export function AssetFormPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">{t('asset.description')}</label>
+              <label className="block text-sm font-medium mb-2">
+                {t('asset.description')}
+                <InfoTooltip content={t('tooltip.description')} />
+              </label>
               <textarea
                 rows={4}
                 placeholder={t('asset.descriptionPlaceholder')}
@@ -474,7 +488,10 @@ export function AssetFormPage() {
                 <path d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13" />
               </svg>
               <div>
-                <h2 className="font-medium">{t('documents.title')}</h2>
+                <h2 className="font-medium">
+                  {t('documents.title')}
+                  <InfoTooltip content={t('tooltip.documents')} />
+                </h2>
                 <p className="text-sm text-muted-foreground mt-0.5">{t('documents.blockchainNote')}</p>
               </div>
             </div>

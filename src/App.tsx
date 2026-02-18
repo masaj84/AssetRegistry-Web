@@ -13,6 +13,7 @@ import { AdminLayout } from './components/layout/AdminLayout';
 // Lazy-loaded pages
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const WhitepaperPage = lazy(() => import('./pages/WhitepaperPage'));
+const HowItWorksPage = lazy(() => import('./pages/HowItWorksPage'));
 const PrivacyPage = lazy(() => import('./pages/legal/PrivacyPage'));
 const TermsPage = lazy(() => import('./pages/legal/TermsPage'));
 const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
@@ -63,6 +64,7 @@ function App() {
           {/* Public routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/whitepaper" element={<WhitepaperPage />} />
+          <Route path="/how-it-works" element={<HowItWorksPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/login" element={<LoginPage />} />

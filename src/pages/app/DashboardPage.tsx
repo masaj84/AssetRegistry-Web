@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
+import { InfoTooltip } from '../../components/ui/Tooltip';
 import { assetsService } from '../../services/assetsService';
 import { getErrorMessage } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
@@ -124,7 +125,10 @@ export function DashboardPage() {
         {/* Total */}
         <div className="border border-border dark:border-border/50 p-6 relative group hover:border-foreground dark:hover:border-orange/40 transition-all card-hover-glow">
           <div className="absolute top-0 left-0 w-1 h-full bg-foreground dark:bg-gradient-to-b dark:from-orange dark:to-magenta" />
-          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.totalAssets')}</p>
+          <p className="text-sm text-muted-foreground mb-1">
+            {t('dashboard.totalAssets')}
+            <InfoTooltip content={t('tooltip.totalAssets')} />
+          </p>
           <p className="text-4xl font-light dark:text-orange">{stats.total}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
@@ -136,7 +140,10 @@ export function DashboardPage() {
 
         {/* Draft */}
         <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-purple/40 transition-all card-hover-glow">
-          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.draft')}</p>
+          <p className="text-sm text-muted-foreground mb-1">
+            {t('dashboard.draft')}
+            <InfoTooltip content={t('tooltip.draftCount')} />
+          </p>
           <p className="text-4xl font-light text-muted-foreground">{stats.draft}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <div className="w-2 h-2 bg-muted-foreground/50 rounded-full" />
@@ -146,7 +153,10 @@ export function DashboardPage() {
 
         {/* Verified */}
         <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-amber-500/40 transition-all card-hover-glow">
-          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.verified')}</p>
+          <p className="text-sm text-muted-foreground mb-1">
+            {t('dashboard.verified')}
+            <InfoTooltip content={t('tooltip.verifiedCount')} />
+          </p>
           <p className="text-4xl font-light text-amber-500">{stats.verified}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <div className="w-2 h-2 bg-amber-500 rounded-full" />
@@ -156,7 +166,10 @@ export function DashboardPage() {
 
         {/* Minted */}
         <div className="border border-border dark:border-border/50 p-6 group hover:border-foreground dark:hover:border-emerald-500/40 transition-all card-hover-glow">
-          <p className="text-sm text-muted-foreground mb-1">{t('dashboard.minted')}</p>
+          <p className="text-sm text-muted-foreground mb-1">
+            {t('dashboard.minted')}
+            <InfoTooltip content={t('tooltip.mintedCount')} />
+          </p>
           <p className="text-4xl font-light text-emerald-500">{stats.minted}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <div className="w-2 h-2 bg-emerald-500 rounded-full" />

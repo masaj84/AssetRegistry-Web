@@ -36,24 +36,24 @@
   --color-magenta: oklch(0.65 0.25 330);
 }
 
-/* Dark mode overrides */
+/* Dark mode overrides - lightened for better readability */
 .dark {
-  --color-background: oklch(0.08 0.01 280);
+  --color-background: oklch(0.14 0.01 280);
   --color-foreground: oklch(0.95 0 0);
-  --color-card: oklch(0.12 0.015 285);
+  --color-card: oklch(0.18 0.015 285);
   --color-card-foreground: oklch(0.95 0 0);
-  --color-popover: oklch(0.1 0.01 280);
+  --color-popover: oklch(0.16 0.01 280);
   --color-popover-foreground: oklch(0.95 0 0);
   --color-primary: oklch(0.75 0.18 45);
   --color-primary-foreground: oklch(0.1 0 0);
-  --color-secondary: oklch(0.18 0.02 290);
-  --color-secondary-foreground: oklch(0.9 0 0);
-  --color-muted: oklch(0.15 0.015 285);
-  --color-muted-foreground: oklch(0.6 0.02 300);
+  --color-secondary: oklch(0.22 0.02 290);
+  --color-secondary-foreground: oklch(0.92 0 0);
+  --color-muted: oklch(0.20 0.015 285);
+  --color-muted-foreground: oklch(0.65 0.02 300);
   --color-accent: oklch(0.6 0.25 300);
   --color-accent-foreground: oklch(0.98 0 0);
-  --color-border: oklch(0.25 0.03 295);
-  --color-input: oklch(0.15 0.02 290);
+  --color-border: oklch(0.30 0.03 295);
+  --color-input: oklch(0.20 0.02 290);
   --color-ring: oklch(0.65 0.2 320);
 }
 
@@ -100,13 +100,13 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Dark mode body with gradient */
+  /* Dark mode body with gradient - lightened base */
   .dark body {
     background:
-      radial-gradient(ellipse 80% 50% at 20% 40%, oklch(0.25 0.15 45 / 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 80% at 80% 20%, oklch(0.35 0.2 300 / 0.12) 0%, transparent 50%),
-      radial-gradient(ellipse 50% 50% at 60% 80%, oklch(0.3 0.18 330 / 0.1) 0%, transparent 50%),
-      oklch(0.08 0.01 280);
+      radial-gradient(ellipse 80% 50% at 20% 40%, oklch(0.30 0.15 45 / 0.12) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 80% at 80% 20%, oklch(0.40 0.18 300 / 0.10) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 50% at 60% 80%, oklch(0.35 0.16 330 / 0.08) 0%, transparent 50%),
+      oklch(0.14 0.01 280);
     background-attachment: fixed;
   }
 }
@@ -210,7 +210,7 @@
   /* Animated gradient border for dark mode */
   .dark .gradient-border {
     position: relative;
-    background: oklch(0.1 0.01 280);
+    background: oklch(0.16 0.01 280);
     border: none;
   }
 
