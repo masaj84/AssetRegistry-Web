@@ -247,40 +247,40 @@ export function DashboardPage() {
         <div className="px-6 py-4 border-b border-border dark:border-border/50">
           <h2 className="font-medium">{t('dashboard.assetPipeline')}</h2>
         </div>
-        <div className="p-6">
-          <div className="flex items-center gap-4">
+        <div className="p-4 sm:p-6">
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
             {/* Draft */}
-            <div className="flex-1 text-center">
-              <div className="border border-border dark:border-border/50 p-6 mb-3">
-                <p className="text-3xl font-light text-muted-foreground">{stats.draft}</p>
+            <div className="flex-1 text-center min-w-0">
+              <div className="border border-border dark:border-border/50 p-3 sm:p-6 mb-2 sm:mb-3">
+                <p className="text-xl sm:text-3xl font-light text-muted-foreground">{stats.draft}</p>
               </div>
-              <p className="text-sm text-muted-foreground">{t('dashboard.draft')}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground truncate">{t('dashboard.draft')}</p>
             </div>
 
             {/* Arrow */}
-            <svg className="w-6 h-6 text-muted-foreground dark:text-orange/50 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-6 sm:h-6 text-muted-foreground dark:text-orange/50 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
 
             {/* Verified */}
-            <div className="flex-1 text-center">
-              <div className="border border-amber-500/30 bg-amber-500/5 p-6 mb-3">
-                <p className="text-3xl font-light text-amber-500">{stats.verified}</p>
+            <div className="flex-1 text-center min-w-0">
+              <div className="border border-amber-500/30 bg-amber-500/5 p-3 sm:p-6 mb-2 sm:mb-3">
+                <p className="text-xl sm:text-3xl font-light text-amber-500">{stats.verified}</p>
               </div>
-              <p className="text-sm text-muted-foreground">{t('dashboard.verified')}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground truncate">{t('dashboard.verified')}</p>
             </div>
 
             {/* Arrow */}
-            <svg className="w-6 h-6 text-muted-foreground dark:text-orange/50 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-6 sm:h-6 text-muted-foreground dark:text-orange/50 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
 
             {/* Minted */}
-            <div className="flex-1 text-center">
-              <div className="border border-emerald-500/30 bg-emerald-500/5 p-6 mb-3">
-                <p className="text-3xl font-light text-emerald-500">{stats.minted}</p>
+            <div className="flex-1 text-center min-w-0">
+              <div className="border border-emerald-500/30 bg-emerald-500/5 p-3 sm:p-6 mb-2 sm:mb-3">
+                <p className="text-xl sm:text-3xl font-light text-emerald-500">{stats.minted}</p>
               </div>
-              <p className="text-sm text-muted-foreground">{t('dashboard.minted')}</p>
+              <p className="text-xs sm:text-sm text-muted-foreground truncate">{t('dashboard.minted')}</p>
             </div>
           </div>
         </div>
