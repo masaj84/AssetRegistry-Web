@@ -638,7 +638,7 @@ export function LandingPage() {
                 key={useCase.title}
                 className="group relative"
               >
-                <div className={`border border-border dark:border-border/50 p-6 md:p-8 h-full hover:border-foreground transition-all duration-300 bg-background relative overflow-hidden ${cardGlows[idx]}`}>
+                <div className={`border border-border dark:border-border/50 p-6 md:p-8 h-full hover:border-foreground transition-all duration-300 bg-card dark:bg-white/5 relative overflow-hidden ${cardGlows[idx]}`}>
                   {/* Background pattern on hover */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
