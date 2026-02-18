@@ -1012,9 +1012,8 @@ export function LandingPage() {
                   <span className="text-magenta/80">{t('footer.resources')}</span>
                 </h4>
                 <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li><a href="#" className="hover:text-magenta transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-magenta transition-all" />{t('footer.docs')}</a></li>
-                  <li><a href="#" className="hover:text-magenta transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-magenta transition-all" />{t('footer.api')}</a></li>
-                  <li><a href="#" className="hover:text-magenta transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-magenta transition-all" />{t('footer.status')}</a></li>
+                  <li><Link to="/whitepaper" className="hover:text-magenta transition-colors inline-flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-px bg-magenta transition-all" />{t('footer.docs')}</Link></li>
+                  <li><span className="text-muted-foreground/60 inline-flex items-center gap-2">{t('footer.api')} <span className="text-xs">(Faza 2)</span></span></li>
                 </ul>
               </div>
 
