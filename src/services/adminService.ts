@@ -118,7 +118,7 @@ export const adminService = {
 
   // Asset Detail
   async getAssetById(id: number): Promise<AdminAssetDetail> {
-    const response = await api.get<AdminAssetDetail>(`/assets/${id}`);
+    const response = await api.get<AdminAssetDetail>(`/admin/assets/${id}`);
     return response.data;
   },
 
