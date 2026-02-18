@@ -153,7 +153,7 @@ export function AssetsPage() {
             >
               <option value="all">{t('assets.allTypes')}</option>
               {types.map((type) => (
-                <option key={type} value={type} className="capitalize">{type}</option>
+                <option key={type} value={type} className="capitalize">{t(`assetType.${type}`) || type}</option>
               ))}
             </select>
             <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
@@ -231,7 +231,7 @@ export function AssetsPage() {
                       </div>
                     </td>
                     <td className="p-4">
-                      <span className="text-sm capitalize">{asset.type}</span>
+                      <span className="text-sm">{t(`assetType.${asset.type}`) || asset.type}</span>
                     </td>
                     <td className="p-4">
                       <Badge variant={statusVariants[asset.status]}>

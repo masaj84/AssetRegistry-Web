@@ -506,6 +506,14 @@ const translations: Record<Language, Record<string, string>> = {
     'status.verified': 'Verified',
     'status.minted': 'Minted',
 
+    // Asset Types
+    'assetType.VEHICLE': 'Vehicle',
+    'assetType.WATCH': 'Watch',
+    'assetType.ELECTRONICS': 'Electronics',
+    'assetType.ART': 'Art',
+    'assetType.INSTRUMENT': 'Instrument',
+    'assetType.OTHER': 'Other',
+
     // Dashboard
     'dashboard.title': 'Dashboard',
     'dashboard.subtitle': 'Overview of your product registry',
@@ -790,7 +798,7 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.dashboard': 'Panel',
     'admin.users': 'Użytkownicy',
     'admin.organizations': 'Organizacje',
-    'admin.assets': 'Zasoby',
+    'admin.assets': 'Przedmioty',
     'admin.newsletter': 'Newsletter',
     'admin.security': 'Bezpieczeństwo',
     'admin.backToApp': 'Powrót do aplikacji',
@@ -840,7 +848,7 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.dashboard.activeUsers': 'Aktywni użytkownicy',
     'admin.dashboard.inactive': 'Nieaktywni',
     'admin.dashboard.activePercent': 'aktywnych',
-    'admin.dashboard.assetPipeline': 'Pipeline zasobów',
+    'admin.dashboard.assetPipeline': 'Pipeline przedmiotów',
     'admin.dashboard.draft': 'Szkic',
     'admin.dashboard.manageUsers': 'Zarządzaj użytkownikami',
     'admin.dashboard.viewEditUsers': 'Przeglądaj i edytuj',
@@ -885,8 +893,8 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.userDetail.activate': 'Aktywuj użytkownika',
     'admin.userDetail.deactivate': 'Dezaktywuj użytkownika',
     'admin.userDetail.confirmEmail': 'Potwierdź email',
-    'admin.userDetail.userAssets': 'Zasoby użytkownika',
-    'admin.userDetail.noAssets': 'Brak zasobów dla tego użytkownika',
+    'admin.userDetail.userAssets': 'Przedmioty użytkownika',
+    'admin.userDetail.noAssets': 'Brak przedmiotów dla tego użytkownika',
     'admin.userDetail.notFound': 'Nie znaleziono użytkownika',
 
     // Admin Organizations
@@ -898,7 +906,7 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.orgs.unverified': 'Niezweryfikowane',
     'admin.orgs.noOrgs': 'Nie znaleziono organizacji',
     'admin.orgs.members': 'Członkowie',
-    'admin.orgs.assets': 'Zasoby',
+    'admin.orgs.assets': 'Przedmioty',
     'admin.orgs.view': 'Zobacz',
     'admin.orgs.verify': 'Weryfikuj',
     'admin.orgs.unverify': 'Cofnij weryfikację',
@@ -922,14 +930,14 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.orgDetail.notFound': 'Nie znaleziono organizacji',
 
     // Admin Assets
-    'admin.assets.title': 'Zasoby',
+    'admin.assets.title': 'Przedmioty',
     'admin.assets.subtitle': 'Przeglądaj wszystkie przedmioty w systemie',
-    'admin.assets.search': 'Szukaj zasobów...',
+    'admin.assets.search': 'Szukaj przedmiotów...',
     'admin.assets.allCategories': 'Wszystkie kategorie',
     'admin.assets.allStatuses': 'Wszystkie statusy',
     'admin.assets.minted': 'Zakotwiczone',
     'admin.assets.notMinted': 'Niewybite',
-    'admin.assets.noAssets': 'Nie znaleziono zasobów',
+    'admin.assets.noAssets': 'Nie znaleziono przedmiotów',
     'admin.assets.owner': 'Właściciel',
     'admin.assets.category': 'Kategoria',
     'admin.assets.view': 'Zobacz',
@@ -944,7 +952,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // App Layout
     'app.dashboard': 'Panel',
-    'app.assets': 'Zasoby',
+    'app.assets': 'Przedmioty',
     'app.reports': 'Raporty',
     'app.newAsset': 'Nowy przedmiot',
     'app.adminPanel': 'Panel Admina',
@@ -1026,7 +1034,7 @@ const translations: Record<Language, Record<string, string>> = {
     'category.other': 'Inne',
 
     // Assets List
-    'assets.title': 'Zasoby',
+    'assets.title': 'Przedmioty',
     'assets.subtitle': 'Zarządzaj zarejestrowanymi produktami',
     'assets.addAsset': 'Dodaj przedmiot',
     'assets.searchPlaceholder': 'Szukaj po nazwie, numerze seryjnym...',
@@ -1037,8 +1045,8 @@ const translations: Record<Language, Record<string, string>> = {
     'assets.tableStatus': 'Status',
     'assets.tableSerial': 'Nr seryjny',
     'assets.tableActions': 'Akcje',
-    'assets.noAssetsYet': 'Brak zarejestrowanych zasobów',
-    'assets.noAssetsMatch': 'Brak zasobów spełniających kryteria',
+    'assets.noAssetsYet': 'Brak zarejestrowanych przedmiotów',
+    'assets.noAssetsMatch': 'Brak przedmiotów spełniających kryteria',
     'assets.addFirstAsset': 'Dodaj pierwszy przedmiot →',
     'assets.showing': 'Wyświetlanie',
     'assets.of': 'z',
@@ -1048,6 +1056,14 @@ const translations: Record<Language, Record<string, string>> = {
     'status.draft': 'Szkic',
     'status.verified': 'Zweryfikowany',
     'status.minted': 'Zakotwiczony',
+
+    // Asset Types
+    'assetType.VEHICLE': 'Pojazd',
+    'assetType.WATCH': 'Zegarek',
+    'assetType.ELECTRONICS': 'Elektronika',
+    'assetType.ART': 'Sztuka',
+    'assetType.INSTRUMENT': 'Instrument',
+    'assetType.OTHER': 'Inne',
 
     // Dashboard
     'dashboard.title': 'Panel',
@@ -1074,7 +1090,7 @@ const translations: Record<Language, Record<string, string>> = {
     'reports.subtitle': 'Analityka i podsumowania przedmiotów',
     'reports.comingSoon': 'Wkrótce',
     'reports.moduleInDevelopment': 'Moduł raportów w przygotowaniu',
-    'reports.moduleDescription': 'Pracujemy nad zaawansowanymi raportami i wizualizacjami. Będziesz mógł generować podsumowania wartości zasobów, kosztów utrzymania, analizy amortyzacji i więcej.',
+    'reports.moduleDescription': 'Pracujemy nad zaawansowanymi raportami i wizualizacjami. Będziesz mógł generować podsumowania wartości przedmiotów, kosztów utrzymania, analizy amortyzacji i więcej.',
     'reports.plannedFeatures': 'Planowane funkcje',
     'reports.plannedFeaturesSubtitle': 'Co pojawi się w module raportów',
     'reports.featuresPlanned': 'funkcji zaplanowanych',
@@ -1084,13 +1100,13 @@ const translations: Record<Language, Record<string, string>> = {
     'reports.feedbackDescription': 'Budujemy to dla Ciebie. Daj nam znać, jakie raporty i analizy byłyby dla Ciebie najbardziej wartościowe.',
     'reports.sendFeedback': 'Wyślij opinię',
     'reports.valueReport': 'Raport wartości',
-    'reports.valueReportDesc': 'Zestawienie wartości zasobów według kategorii',
+    'reports.valueReportDesc': 'Zestawienie wartości przedmiotów według kategorii',
     'reports.depreciation': 'Amortyzacja',
     'reports.depreciationDesc': 'Analiza utraty wartości w czasie',
     'reports.serviceCosts': 'Koszty serwisowe',
     'reports.serviceCostsDesc': 'Zestawienie kosztów utrzymania i napraw',
     'reports.assignments': 'Przypisania',
-    'reports.assignmentsDesc': 'Zasoby przypisane do członków zespołu',
+    'reports.assignmentsDesc': 'Przedmioty przypisane do członków zespołu',
     'reports.dataExport': 'Eksport danych',
     'reports.dataExportDesc': 'Eksport do PDF, Excel i CSV',
     'reports.serviceSchedule': 'Harmonogram serwisowy',
