@@ -9,8 +9,8 @@ import { useLanguage } from '../../context/LanguageContext';
 import type { AdminAsset, PagedResponse } from '../../types/admin';
 
 const statusVariants: Record<string, 'default' | 'success' | 'warning'> = {
-  DRAFT: 'default',
-  VERIFIED: 'warning',
+  PENDING: 'default',
+  ANCHORED: 'warning',
   MINTED: 'success',
 };
 
@@ -122,8 +122,8 @@ export function AdminAssetsPage() {
           className="h-10 px-3 rounded-lg bg-secondary border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
         >
           <option value="">{t('admin.assets.allStatuses')}</option>
-          <option value="DRAFT">{t('admin.dashboard.draft')}</option>
-          <option value="VERIFIED">{t('admin.dashboard.verified')}</option>
+          <option value="PENDING">{t('admin.dashboard.pending')}</option>
+          <option value="ANCHORED">{t('admin.dashboard.anchored')}</option>
           <option value="MINTED">{t('admin.assets.minted')}</option>
         </select>
       </div>

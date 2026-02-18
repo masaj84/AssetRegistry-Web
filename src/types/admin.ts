@@ -6,7 +6,8 @@ export interface AdminDashboardStats {
   verifiedOrganizations: number;
   totalAssets: number;
   mintedAssets: number;
-  verifiedAssets: number;
+  anchoredAssets: number;
+  pendingAssets: number;
 }
 
 // Admin User

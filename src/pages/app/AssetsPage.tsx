@@ -8,14 +8,14 @@ import { useLanguage } from '../../context/LanguageContext';
 import type { Asset, AssetStatus } from '../../types';
 
 const statusLabelKeys: Record<AssetStatus, string> = {
-  DRAFT: 'status.draft',
-  VERIFIED: 'status.verified',
+  PENDING: 'status.pending',
+  ANCHORED: 'status.anchored',
   MINTED: 'status.minted',
 };
 
 const statusVariants: Record<AssetStatus, 'success' | 'warning' | 'default'> = {
-  DRAFT: 'default',
-  VERIFIED: 'warning',
+  PENDING: 'default',
+  ANCHORED: 'warning',
   MINTED: 'success',
 };
 
@@ -153,8 +153,8 @@ export function AssetsPage() {
               className="w-full h-10 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors text-sm appearance-none cursor-pointer"
             >
               <option value="all">{t('assets.allStatus')}</option>
-              <option value="DRAFT">{t('status.draft')}</option>
-              <option value="VERIFIED">{t('status.verified')}</option>
+              <option value="PENDING">{t('status.pending')}</option>
+              <option value="ANCHORED">{t('status.anchored')}</option>
               <option value="MINTED">{t('status.minted')}</option>
             </select>
             <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
@@ -257,11 +257,11 @@ export function AssetsPage() {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-muted-foreground/50 rounded-full" />
-              <span>{t('status.draft')}: {assets.filter(a => a.status === 'DRAFT').length}</span>
+              <span>{t('status.pending')}: {assets.filter(a => a.status === 'PENDING').length}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-amber-500 rounded-full" />
-              <span>{t('status.verified')}: {assets.filter(a => a.status === 'VERIFIED').length}</span>
+              <span>{t('status.anchored')}: {assets.filter(a => a.status === 'ANCHORED').length}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-emerald-500 rounded-full" />

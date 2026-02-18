@@ -96,10 +96,10 @@ export function AdminDashboardPage() {
           </div>
         </Link>
 
-        {/* Newsletter */}
+        {/* Anchored Assets */}
         <Link to="/app/admin/newsletter" className="border border-border p-6 group hover:border-foreground transition-colors">
-          <p className="text-sm text-muted-foreground mb-1">{t('admin.dashboard.verifiedAssets')}</p>
-          <p className="text-4xl font-light text-amber-500">{stats?.verifiedAssets || 0}</p>
+          <p className="text-sm text-muted-foreground mb-1">{t('admin.dashboard.anchoredAssets')}</p>
+          <p className="text-4xl font-light text-amber-500">{stats?.anchoredAssets || 0}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
             <div className="w-2 h-2 bg-amber-500 rounded-full" />
             {t('admin.dashboard.readyForMinting')}
@@ -148,19 +148,19 @@ export function AdminDashboardPage() {
               <div className="flex-1 text-center">
                 <div className="border border-border p-4 mb-2">
                   <p className="text-2xl font-light text-muted-foreground">
-                    {(stats?.totalAssets || 0) - (stats?.verifiedAssets || 0) - (stats?.mintedAssets || 0)}
+                    {stats?.pendingAssets || 0}
                   </p>
                 </div>
-                <p className="text-xs text-muted-foreground">{t('admin.dashboard.draft')}</p>
+                <p className="text-xs text-muted-foreground">{t('admin.dashboard.pending')}</p>
               </div>
               <svg className="w-4 h-4 text-muted-foreground flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                 <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
               </svg>
               <div className="flex-1 text-center">
                 <div className="border border-amber-500/30 bg-amber-500/5 p-4 mb-2">
-                  <p className="text-2xl font-light text-amber-500">{stats?.verifiedAssets || 0}</p>
+                  <p className="text-2xl font-light text-amber-500">{stats?.anchoredAssets || 0}</p>
                 </div>
-                <p className="text-xs text-muted-foreground">{t('admin.dashboard.verified')}</p>
+                <p className="text-xs text-muted-foreground">{t('admin.dashboard.anchored')}</p>
               </div>
               <svg className="w-4 h-4 text-muted-foreground flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                 <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
