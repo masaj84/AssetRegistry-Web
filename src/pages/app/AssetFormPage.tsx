@@ -511,20 +511,29 @@ export function AssetFormPage() {
             ) : (
               <div className="space-y-3">
                 {documents.map((doc) => (
-                  <div key={doc.id} className="flex items-center justify-between p-3 border border-border dark:border-border/50 hover:border-foreground/20 dark:hover:border-orange/20 transition-colors">
-                    <div className="flex items-center gap-3 min-w-0 flex-1">
-                      <svg className="w-5 h-5 text-muted-foreground flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                  <div key={doc.id} className="p-3 border border-border dark:border-border/50 hover:border-foreground/20 dark:hover:border-orange/20 transition-colors">
+                    <div className="flex items-start gap-3">
+                      <svg className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                         <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                       </svg>
-                      <div className="min-w-0">
+                      <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{doc.originalFileName}</p>
-                        <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5">
-                          <span>{formatFileSize(doc.fileSize)}</span>
-                          <span className="font-mono" title={doc.fileHash}>{t('documents.hash')}: {doc.fileHash.slice(0, 10)}...{doc.fileHash.slice(-6)}</span>
-                        </div>
+                        <p className="text-xs text-muted-foreground mt-1">{formatFileSize(doc.fileSize)}</p>
+                        <p className="text-xs text-muted-foreground font-mono mt-1 truncate" title={doc.fileHash}>
+                          {t('documents.hash')}: {doc.fileHash.slice(0, 8)}...{doc.fileHash.slice(-6)}
+                        </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 flex-shrink-0 ml-4">
+                    <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border/50">
+                      {doc.contentType?.startsWith('image/') && (
+                        <button
+                          type="button"
+                          onClick={() => window.open(`${import.meta.env.VITE_API_URL || ''}/api/documents/${doc.id}/download`, '_blank')}
+                          className="h-8 px-3 text-xs border border-blue-500/30 hover:border-blue-500 text-blue-500/70 hover:text-blue-500 transition-colors"
+                        >
+                          {t('documents.view') || 'View'}
+                        </button>
+                      )}
                       <button
                         type="button"
                         onClick={() => assetsService.downloadDocument(doc.id)}
