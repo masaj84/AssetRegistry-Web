@@ -330,34 +330,51 @@ export function AssetFormPage() {
                 {useExactProductionDate ? (
                   <div>
                     <label className="block text-sm font-medium mb-2">{t('asset.productionDate')}</label>
-                    <input
-                      type="date"
-                      value={formData.productionDate}
-                      onChange={(e) => setFormData({ ...formData, productionDate: e.target.value })}
+                    <select
+                      value={formData.productionDate ? formData.productionDate.substring(0, 4) : ''}
+                      onChange={(e) => {
+                        const year = e.target.value;
+                        setFormData({ ...formData, productionDate: year ? `${year}-01-01` : '' });
+                      }}
                       className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
-                    />
+                    >
+                      <option value="">{t('asset.yearPlaceholder')}</option>
+                      {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(year => (
+                        <option key={year} value={year}>{year}</option>
+                      ))}
+                    </select>
                   </div>
                 ) : (
                   <div>
                     <label className="block text-sm font-medium mb-2">{t('asset.year')}</label>
-                    <input
-                      type="number"
-                      placeholder={t('asset.yearPlaceholder')}
+                    <select
                       value={formData.year}
                       onChange={(e) => setFormData({ ...formData, year: e.target.value })}
                       className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
-                    />
+                    >
+                      <option value="">{t('asset.yearPlaceholder')}</option>
+                      {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(year => (
+                        <option key={year} value={year}>{year}</option>
+                      ))}
+                    </select>
                   </div>
                 )}
 
                 <div>
                   <label className="block text-sm font-medium mb-2">{t('asset.purchaseDate')}</label>
-                  <input
-                    type="date"
-                    value={formData.purchaseDate}
-                    onChange={(e) => setFormData({ ...formData, purchaseDate: e.target.value })}
+                  <select
+                    value={formData.purchaseDate ? formData.purchaseDate.substring(0, 4) : ''}
+                    onChange={(e) => {
+                      const year = e.target.value;
+                      setFormData({ ...formData, purchaseDate: year ? `${year}-01-01` : '' });
+                    }}
                     className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
-                  />
+                  >
+                    <option value="">{t('asset.yearPlaceholder')}</option>
+                    {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(year => (
+                      <option key={year} value={year}>{year}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
             </div>
