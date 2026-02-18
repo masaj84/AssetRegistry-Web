@@ -1048,8 +1048,8 @@ export function LandingPage() {
               <div className="flex items-center gap-6 text-sm text-muted-foreground">
                 <p>{t('footer.copyright')}</p>
                 <span className="hidden md:block w-px h-4 bg-border bg-purple/30" />
-                <a href="#" className="hover:text-orange transition-colors">Privacy</a>
-                <a href="#" className="hover:text-orange transition-colors">Terms</a>
+                <Link to="/privacy" className="hover:text-orange transition-colors">Privacy</Link>
+                <Link to="/terms" className="hover:text-orange transition-colors">Terms</Link>
               </div>
 
               {/* Scroll to top */}
