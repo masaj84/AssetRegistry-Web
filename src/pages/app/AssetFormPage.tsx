@@ -330,19 +330,53 @@ export function AssetFormPage() {
                 {useExactProductionDate ? (
                   <div>
                     <label className="block text-sm font-medium mb-2">{t('asset.productionDate')}</label>
-                    <select
-                      value={formData.productionDate ? formData.productionDate.substring(0, 4) : ''}
-                      onChange={(e) => {
-                        const year = e.target.value;
-                        setFormData({ ...formData, productionDate: year ? `${year}-01-01` : '' });
-                      }}
-                      className="w-full h-12 px-4 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors"
-                    >
-                      <option value="">{t('asset.yearPlaceholder')}</option>
-                      {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(year => (
-                        <option key={year} value={year}>{year}</option>
-                      ))}
-                    </select>
+                    <div className="flex gap-2">
+                      <select
+                        value={formData.productionDate ? formData.productionDate.substring(0, 4) : ''}
+                        onChange={(e) => {
+                          const year = e.target.value;
+                          const currentDate = formData.productionDate || `${new Date().getFullYear()}-01-01`;
+                          const [, month, day] = currentDate.split('-');
+                          setFormData({ ...formData, productionDate: year ? `${year}-${month || '01'}-${day || '01'}` : '' });
+                        }}
+                        className="flex-1 h-12 px-2 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors text-sm"
+                      >
+                        <option value="">Rok</option>
+                        {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map(year => (
+                          <option key={year} value={year}>{year}</option>
+                        ))}
+                      </select>
+                      <select
+                        value={formData.productionDate ? formData.productionDate.substring(5, 7) : ''}
+                        onChange={(e) => {
+                          const month = e.target.value;
+                          const currentDate = formData.productionDate || `${new Date().getFullYear()}-01-01`;
+                          const [year, , day] = currentDate.split('-');
+                          setFormData({ ...formData, productionDate: `${year}-${month}-${day || '01'}` });
+                        }}
+                        className="w-20 h-12 px-2 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors text-sm"
+                      >
+                        <option value="">Mies.</option>
+                        {Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0')).map(month => (
+                          <option key={month} value={month}>{month}</option>
+                        ))}
+                      </select>
+                      <select
+                        value={formData.productionDate ? formData.productionDate.substring(8, 10) : ''}
+                        onChange={(e) => {
+                          const day = e.target.value;
+                          const currentDate = formData.productionDate || `${new Date().getFullYear()}-01-01`;
+                          const [year, month] = currentDate.split('-');
+                          setFormData({ ...formData, productionDate: `${year}-${month}-${day}` });
+                        }}
+                        className="w-20 h-12 px-2 border border-border dark:border-border/50 bg-background focus:border-foreground dark:focus:border-orange/60 focus:outline-none transition-colors text-sm"
+                      >
+                        <option value="">Dzień</option>
+                        {Array.from({ length: 31 }, (_, i) => String(i + 1).padStart(2, '0')).map(day => (
+                          <option key={day} value={day}>{day}</option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                 ) : (
                   <div>
