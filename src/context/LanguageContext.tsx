@@ -153,9 +153,9 @@ const translations: Record<Language, Record<string, string>> = {
     'contact.sectionTitle': 'Contact',
     'contact.headline': 'Let\'s build the future of product identity together',
     'contact.questions': 'Got questions?',
-    'contact.writeUs': 'Write to us',
+    'contact.writeUs': 'Write to me',
     'contact.email': 'Email',
-    'contact.response': 'We typically respond within 24 hours. Real humans, real answers.',
+    'contact.response': 'I typically respond within 24 hours.',
     'contact.emailAddress': 'hello@trve.io',
     'contact.status': 'Online and ready to help',
 
@@ -705,11 +705,11 @@ const translations: Record<Language, Record<string, string>> = {
     'contact.sectionTitle': 'Kontakt',
     'contact.headline': 'Zbudujmy razem przyszłość tożsamości produktów',
     'contact.questions': 'Masz pytania?',
-    'contact.writeUs': 'Napisz do nas',
+    'contact.writeUs': 'Napisz do mnie',
     'contact.email': 'Email',
-    'contact.response': 'Odpowiadamy zwykle w ciągu 24 godzin. Prawdziwi ludzie, prawdziwe odpowiedzi.',
+    'contact.response': 'Odpowiadam zwykle w ciągu 24 godzin.',
     'contact.emailAddress': 'hello@trve.io',
-    'contact.status': 'Online i gotowi do pomocy',
+    'contact.status': 'Online i gotowy do pomocy',
 
     // Newsletter
     'newsletter.title': 'Newsletter',
