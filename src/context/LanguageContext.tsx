@@ -225,6 +225,7 @@ const translations: Record<Language, Record<string, string>> = {
     'howItWorks.ctaButton': 'Register First Asset',
     'howItWorks.readWhitepaper': 'Read Whitepaper',
     'common.goToApp': 'Go to App',
+    'common.phase2': 'Phase 2',
     'footer.allRightsReserved': 'All rights reserved.',
 
     // Tooltips
@@ -776,6 +777,7 @@ const translations: Record<Language, Record<string, string>> = {
     'howItWorks.ctaButton': 'Zarejestruj pierwszy przedmiot',
     'howItWorks.readWhitepaper': 'Przeczytaj Whitepaper',
     'common.goToApp': 'Przejdź do aplikacji',
+    'common.phase2': 'Faza 2',
     'footer.allRightsReserved': 'Wszelkie prawa zastrzeżone.',
 
     // Tooltips
