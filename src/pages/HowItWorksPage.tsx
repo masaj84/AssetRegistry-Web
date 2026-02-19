@@ -232,7 +232,7 @@ export function HowItWorksPage() {
       {/* Footer */}
       <footer className="border-t border-border dark:border-border/50 py-8">
         <div className="max-w-5xl mx-auto px-6 text-center text-sm text-muted-foreground">
-          <p>© 2025 TRVE. {t('footer.allRightsReserved')}</p>
+          <p>© 2026 TRVE. {t('footer.allRightsReserved')}</p>
         </div>
       </footer>
     </div>
