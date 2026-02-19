@@ -91,11 +91,11 @@ export function HowItWorksPage() {
       {/* Header */}
       <header className="border-b border-border dark:border-border/50">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-foreground dark:bg-gradient-to-br dark:from-orange dark:to-purple flex items-center justify-center">
-              <span className="text-background text-sm font-bold">T</span>
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-9 h-9 border-2 border-orange/60 flex items-center justify-center group-hover:bg-orange/20 transition-colors group-hover:shadow-[0_0_15px_rgba(251,146,60,0.3)]">
+              <span className="text-[10px] font-mono font-bold tracking-tighter text-orange/90 group-hover:text-orange transition-colors">T_</span>
             </div>
-            <span className="font-semibold tracking-tight">TRVE</span>
+            <span className="text-sm font-mono font-medium tracking-widest">TRVE<span className="text-orange">_</span></span>
           </Link>
           <Link
             to="/app"
