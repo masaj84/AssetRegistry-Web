@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, type ReactNode } from 'react';
+import { useState, useRef, useEffect, useCallback, type ReactNode } from 'react';
 
 interface TooltipProps {
   content: ReactNode;
@@ -14,33 +14,39 @@ export function Tooltip({ content, children, position = 'top', delay = 200 }: To
   const tooltipRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (isVisible && tooltipRef.current && triggerRef.current) {
+  const calculatePosition = useCallback(() => {
+    if (tooltipRef.current && triggerRef.current) {
       const tooltip = tooltipRef.current.getBoundingClientRect();
       const trigger = triggerRef.current.getBoundingClientRect();
       
       // Check if tooltip would overflow viewport and adjust
       if (position === 'top' && trigger.top - tooltip.height < 8) {
-        setActualPosition('bottom');
+        return 'bottom';
       } else if (position === 'bottom' && trigger.bottom + tooltip.height > window.innerHeight - 8) {
-        setActualPosition('top');
+        return 'top';
       } else if (position === 'left' && trigger.left - tooltip.width < 8) {
-        setActualPosition('right');
+        return 'right';
       } else if (position === 'right' && trigger.right + tooltip.width > window.innerWidth - 8) {
-        setActualPosition('left');
-      } else {
-        setActualPosition(position);
+        return 'left';
       }
     }
-  }, [isVisible, position]);
+    return position;
+  }, [position]);
 
   const handleMouseEnter = () => {
-    timeoutRef.current = setTimeout(() => setIsVisible(true), delay);
+    timeoutRef.current = setTimeout(() => {
+      setIsVisible(true);
+      // Calculate position after a tick to ensure DOM is updated
+      requestAnimationFrame(() => {
+        setActualPosition(calculatePosition());
+      });
+    }, delay);
   };
 
   const handleMouseLeave = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setIsVisible(false);
+    setActualPosition(position);
   };
 
   useEffect(() => {
