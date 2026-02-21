@@ -25,7 +25,7 @@ lerna-debug.log*
 .env.development.local
 .env.test
 .env.test.local
-.env.production
+# .env.production - committed (public blockchain config, not sensitive)
 .env.production.local
 
 # Testing
