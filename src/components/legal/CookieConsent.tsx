@@ -1,20 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
-
-const COOKIE_CONSENT_KEY = 'trve_cookie_consent';
-
-export type ConsentLevel = 'all' | 'essential' | null;
-
-export function hasConsent(): boolean {
-  return localStorage.getItem(COOKIE_CONSENT_KEY) !== null;
-}
-
-export function getConsentLevel(): ConsentLevel {
-  const value = localStorage.getItem(COOKIE_CONSENT_KEY);
-  if (value === 'all' || value === 'essential') return value;
-  return null;
-}
+import { hasConsent, setConsent } from './cookieUtils';
 
 export function CookieConsent() {
   const { t } = useLanguage();
@@ -29,17 +16,13 @@ export function CookieConsent() {
   }, []);
 
   const acceptAll = () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'all');
+    setConsent('all');
     setVisible(false);
-    // Dispatch event for other components to react
-    window.dispatchEvent(new CustomEvent('cookieConsentChanged', { detail: 'all' }));
   };
 
   const acceptEssential = () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'essential');
+    setConsent('essential');
     setVisible(false);
-    // Dispatch event for other components to react
-    window.dispatchEvent(new CustomEvent('cookieConsentChanged', { detail: 'essential' }));
   };
 
   if (!visible) return null;

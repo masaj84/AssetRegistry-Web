@@ -2,21 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import Joyride, { STATUS, ACTIONS, EVENTS } from 'react-joyride';
 import type { CallBackProps, Step } from 'react-joyride';
 import { useLanguage } from '../../context/LanguageContext';
-import { hasConsent } from '../legal/CookieConsent';
-
-const ONBOARDING_KEY = 'trve_onboarding_complete';
-
-function hasSeenOnboarding(): boolean {
-  return localStorage.getItem(ONBOARDING_KEY) === 'true';
-}
-
-function markOnboardingComplete(): void {
-  localStorage.setItem(ONBOARDING_KEY, 'true');
-}
-
-export function resetOnboarding(): void {
-  localStorage.removeItem(ONBOARDING_KEY);
-}
+import { hasConsent } from '../legal/cookieUtils';
+import { hasSeenOnboarding, markOnboardingComplete } from './onboardingUtils';
 
 export function OnboardingTour() {
   const { t } = useLanguage();
