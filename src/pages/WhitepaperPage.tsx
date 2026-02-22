@@ -156,9 +156,9 @@ const wpContent = {
       phase1: {
         label: 'CURRENT',
         title: 'Phase 1 — Blockchain Anchoring',
-        desc: 'Daily batch anchoring using Merkle Trees. Asset data stays in our database, only cryptographic proof goes to Polygon. Cost: ~$0.003 per batch (unlimited records).',
-        items: ['Product registration', 'Merkle proof verification', 'Blockchain record anchoring', 'Public verification', 'Basic ownership management'],
-        technical: 'PostgreSQL → Merkle Tree → Polygon Smart Contract',
+        desc: 'Daily batch anchoring with cryptographic proofs. Asset data stays in our database, only verification proof goes to Polygon. Cost: ~$0.003 per batch (unlimited records).',
+        items: ['Product registration', 'Blockchain verification', 'Blockchain record anchoring', 'Public verification', 'Basic ownership management'],
+        technical: 'PostgreSQL → Crypto Proof → Polygon Smart Contract',
       },
       phase2: {
         title: 'Phase 2 — Data & Integrations',
@@ -169,7 +169,7 @@ const wpContent = {
         title: 'Phase 3 — Decentralized Storage',
         desc: 'IPFS integration for decentralized asset storage. Content-addressed data with permanent CID links. Asset metadata stored on IPFS, hash anchored on Polygon.',
         items: ['Stolen goods registry (global)', 'Insurance integration', 'Compliance & reporting', 'Public APIs', 'Marketplace connections', 'IPFS integration', 'Decentralized asset storage'],
-        technical: 'PostgreSQL → IPFS (CID) → Merkle Tree → Polygon',
+        technical: 'PostgreSQL → IPFS (CID) → Crypto Proof → Polygon',
       },
       phase4: {
         title: 'Phase 4 — NFT & Ownership',
@@ -181,7 +181,7 @@ const wpContent = {
       backwardsText: 'Assets registered in earlier phases remain fully verifiable. Migration to NFT is optional for users. All APIs maintain backward compatibility.',
       genesisTitle: 'Genesis Asset: This Whitepaper',
       genesisText1: 'The first asset registered in TRVE is this whitepaper itself — in both English and Polish versions. We use our own product to prove it works. Every update to this document is permanently recorded on blockchain.',
-      genesisText2: 'As TRVE evolves, so does the Genesis Asset — it will migrate through all phases: from Merkle anchoring, to IPFS storage, to finally becoming a collectible NFT.',
+      genesisText2: 'As TRVE evolves, so does the Genesis Asset — it will migrate through all phases: from blockchain anchoring, to IPFS storage, to finally becoming a collectible NFT.',
       genesisId: 'Asset ID: TRVE-GENESIS-001 • Verify: trve.io/verify/TRVE-GENESIS-001',
     },
     footer: {
@@ -289,9 +289,9 @@ const wpContent = {
       phase1: {
         label: 'OBECNA',
         title: 'Faza 1 — Zakotwiczenie blockchain',
-        desc: 'Codzienne batchowe zakotwiczenie przy użyciu Merkle Trees. Dane assetów pozostają w naszej bazie, tylko kryptograficzny dowód trafia na Polygon. Koszt: ~$0.003 za batch (nieograniczona liczba rekordów).',
-        items: ['Rejestracja produktu', 'Weryfikacja Merkle proof', 'Zakotwiczenie w blockchain', 'Publiczna weryfikacja', 'Podstawowe zarządzanie własnością'],
-        technical: 'PostgreSQL → Merkle Tree → Polygon Smart Contract',
+        desc: 'Codzienne batchowe zakotwiczenie z kryptograficznymi dowodami. Dane assetów pozostają w naszej bazie, tylko dowód weryfikacji trafia na Polygon. Koszt: ~$0.003 za batch (nieograniczona liczba rekordów).',
+        items: ['Rejestracja produktu', 'Weryfikacja blockchain', 'Zakotwiczenie w blockchain', 'Publiczna weryfikacja', 'Podstawowe zarządzanie własnością'],
+        technical: 'PostgreSQL → Crypto Proof → Polygon Smart Contract',
       },
       phase2: {
         title: 'Faza 2 — Dane i integracje',
@@ -302,7 +302,7 @@ const wpContent = {
         title: 'Faza 3 — Zdecentralizowane przechowywanie',
         desc: 'Integracja IPFS dla zdecentralizowanego przechowywania assetów. Adresowanie przez content z trwałymi linkami CID. Metadane assetów przechowywane na IPFS, hash zakotwiczony na Polygon.',
         items: ['Globalny rejestr skradzionych produktów', 'Integracja z ubezpieczeniami', 'Zgodność i raportowanie', 'Publiczne API', 'Połączenia z marketplace\'ami', 'Integracja IPFS', 'Zdecentralizowane przechowywanie assetów'],
-        technical: 'PostgreSQL → IPFS (CID) → Merkle Tree → Polygon',
+        technical: 'PostgreSQL → IPFS (CID) → Crypto Proof → Polygon',
       },
       phase4: {
         title: 'Faza 4 — NFT i własność',
@@ -314,7 +314,7 @@ const wpContent = {
       backwardsText: 'Assety zarejestrowane we wcześniejszych fazach pozostają w pełni weryfikowalne. Migracja do NFT jest opcjonalna dla użytkowników. Wszystkie API zachowują kompatybilność wsteczną.',
       genesisTitle: 'Genesis Asset: Ten Whitepaper',
       genesisText1: 'Pierwszy asset zarejestrowany w TRVE to sam ten whitepaper — w wersji angielskiej i polskiej. Używamy własnego produktu, aby udowodnić, że działa. Każda aktualizacja tego dokumentu jest trwale zapisywana na blockchain.',
-      genesisText2: 'W miarę ewolucji TRVE, Genesis Asset również ewoluuje — przejdzie przez wszystkie fazy: od Merkle anchoring, przez przechowywanie na IPFS, aż do stania się kolekcjonerskim NFT.',
+      genesisText2: 'W miarę ewolucji TRVE, Genesis Asset również ewoluuje — przejdzie przez wszystkie fazy: od zakotwiczenia blockchain, przez przechowywanie na IPFS, aż do stania się kolekcjonerskim NFT.',
       genesisId: 'Asset ID: TRVE-GENESIS-001 • Weryfikuj: trve.io/verify/TRVE-GENESIS-001',
     },
     footer: {
@@ -618,7 +618,7 @@ export function WhitepaperPage() {
                   <li>ASP.NET Core 8</li>
                   <li>PostgreSQL</li>
                   <li>Entity Framework Core</li>
-                  <li>Merkle Trees</li>
+                  <li>Cryptographic Proofs</li>
                 </ul>
               </div>
               <div>
