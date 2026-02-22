@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
 import { InfoTooltip } from '../../components/ui/Tooltip';
+import { OnboardingTour } from '../../components/onboarding/OnboardingTour';
 import { assetsService } from '../../services/assetsService';
 import { getErrorMessage } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
@@ -104,6 +105,9 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-8">
+      {/* Onboarding Tour */}
+      <OnboardingTour />
+      
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
@@ -111,7 +115,7 @@ export function DashboardPage() {
           <p className="text-muted-foreground">{t('dashboard.subtitle')}</p>
         </div>
         <Link to="/app/assets/new">
-          <Button className="h-11 bg-emerald-600 hover:bg-emerald-700 text-white">
+          <Button className="add-asset-btn h-11 bg-emerald-600 hover:bg-emerald-700 text-white">
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path d="M12 4v16m8-8H4" />
             </svg>
@@ -226,7 +230,7 @@ export function DashboardPage() {
         </div>
 
         {/* Recent Assets */}
-        <div className="border border-border dark:border-border/50 card-hover-glow">
+        <div className="assets-list border border-border dark:border-border/50 card-hover-glow">
           <div className="px-6 py-4 border-b border-border dark:border-border/50 flex items-center justify-between">
             <h2 className="font-medium">{t('dashboard.recentAssets')}</h2>
             <Link to="/app/assets" className="text-xs text-muted-foreground hover:text-foreground dark:hover:text-orange transition-colors">

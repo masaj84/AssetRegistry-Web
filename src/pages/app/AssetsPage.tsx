@@ -109,7 +109,7 @@ export function AssetsPage() {
           <p className="text-muted-foreground">{t('assets.subtitle')}</p>
         </div>
         <Link to="/app/assets/new">
-          <Button className="h-11 bg-emerald-600 hover:bg-emerald-700 text-white">
+          <Button className="add-asset-btn h-11 bg-emerald-600 hover:bg-emerald-700 text-white">
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path d="M12 4v16m8-8H4" />
             </svg>
@@ -181,7 +181,7 @@ export function AssetsPage() {
       </div>
 
       {/* Assets Table */}
-      <div className="border border-border dark:border-border/50">
+      <div className="assets-list border border-border dark:border-border/50">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>

@@ -561,6 +561,26 @@ const translations: Record<Language, Record<string, string>> = {
     'reports.dataExportDesc': 'Export to PDF, Excel and CSV formats',
     'reports.serviceSchedule': 'Service Schedule',
     'reports.serviceScheduleDesc': 'Calendar of planned inspections and services',
+
+    // Cookie Consent
+    'cookies.message': 'We use cookies to ensure the best experience. By using our service you accept our privacy policy.',
+    'cookies.acceptAll': 'Accept all',
+    'cookies.essential': 'Essential only',
+    'cookies.learnMore': 'Learn more',
+
+    // Onboarding
+    'onboarding.welcome': 'Welcome to TRVE!',
+    'onboarding.welcomeDesc': 'Let us show you around the platform.',
+    'onboarding.addAsset': 'Click here to add a new asset to the registry.',
+    'onboarding.assetsList': 'Here you can see all your registered assets.',
+    'onboarding.blockchainMonitor': 'Blockchain Monitor shows anchoring status on blockchain.',
+    'onboarding.profile': 'In settings you can change your account preferences.',
+    'onboarding.doneTitle': 'All set!',
+    'onboarding.done': 'Start by adding your first asset. Good luck!',
+    'onboarding.skip': 'Skip',
+    'onboarding.next': 'Next',
+    'onboarding.back': 'Back',
+    'onboarding.finish': 'Finish',
   },
   pl: {
     // Nav
@@ -1113,6 +1133,26 @@ const translations: Record<Language, Record<string, string>> = {
     'reports.dataExportDesc': 'Eksport do PDF, Excel i CSV',
     'reports.serviceSchedule': 'Harmonogram serwisowy',
     'reports.serviceScheduleDesc': 'Kalendarz planowanych przeglądów i serwisów',
+
+    // Cookie Consent
+    'cookies.message': 'Używamy ciasteczek aby zapewnić najlepsze doświadczenie. Korzystając z serwisu akceptujesz naszą politykę prywatności.',
+    'cookies.acceptAll': 'Akceptuj wszystkie',
+    'cookies.essential': 'Tylko niezbędne',
+    'cookies.learnMore': 'Dowiedz się więcej',
+
+    // Onboarding
+    'onboarding.welcome': 'Witaj w TRVE!',
+    'onboarding.welcomeDesc': 'Pokażemy Ci jak korzystać z platformy.',
+    'onboarding.addAsset': 'Kliknij tutaj aby dodać nowy przedmiot do rejestru.',
+    'onboarding.assetsList': 'Tutaj widzisz wszystkie swoje zarejestrowane przedmioty.',
+    'onboarding.blockchainMonitor': 'Blockchain Monitor pokazuje status zakotwiczenia w blockchain.',
+    'onboarding.profile': 'W ustawieniach możesz zmienić preferencje konta.',
+    'onboarding.doneTitle': 'Gotowe!',
+    'onboarding.done': 'Zacznij od dodania pierwszego przedmiotu. Powodzenia!',
+    'onboarding.skip': 'Pomiń',
+    'onboarding.next': 'Dalej',
+    'onboarding.back': 'Wstecz',
+    'onboarding.finish': 'Zakończ',
   },
 };
 

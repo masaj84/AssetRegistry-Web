@@ -5,6 +5,7 @@ import { LanguageProvider } from './context/LanguageContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminRoute } from './components/AdminRoute';
+import { CookieConsent } from './components/legal/CookieConsent';
 
 // Layouts (keep synchronous - used as route wrappers)
 import { AppLayout } from './components/layout/AppLayout';
@@ -117,6 +118,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </Suspense>
+        <CookieConsent />
         </BrowserRouter>
         </AuthProvider>
       </LanguageProvider>
