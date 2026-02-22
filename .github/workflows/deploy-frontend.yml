@@ -48,8 +48,9 @@ jobs:
             echo "VITE_API_URL=${{ secrets.VITE_API_URL_PRODUCTION }}" > .env.production
             echo "VITE_TEASER_MODE=true" >> .env.production
             echo "VITE_CHAIN_ID=137" >> .env.production
-            echo "VITE_CHAIN_NAME=Polygon PoS" >> .env.production
+            echo "VITE_CHAIN_NAME=Polygon" >> .env.production
             echo "VITE_EXPLORER_URL=https://polygonscan.com" >> .env.production
+            echo "VITE_CONTRACT_ADDRESS=0xE7913D25305812Ee5ab0a0E5f86adfcAA6589b97" >> .env.production
             cat .env.production
           else
             echo "VITE_API_URL=${{ secrets.VITE_API_URL_STAGING }}" > .env.staging
