@@ -330,6 +330,27 @@ export function WhitepaperPage() {
 
   return (
     <div className="min-h-screen bg-background relative">
+      {/* Print styles for PDF generation */}
+      <style>{`
+        @media print {
+          nav, .fixed { display: none !important; }
+          section, article, .card { 
+            page-break-inside: avoid !important; 
+            break-inside: avoid !important;
+          }
+          h1, h2, h3, h4 { 
+            page-break-after: avoid !important;
+            break-after: avoid !important;
+          }
+          .phase-card, .roadmap-phase {
+            page-break-inside: avoid !important;
+          }
+          body { 
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+        }
+      `}</style>
       {/* Subtle background effects */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-orange/5 bg-orange/10 rounded-full blur-[150px]" />
