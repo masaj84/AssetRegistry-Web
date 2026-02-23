@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams, useSearchParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
-import { useTheme } from '../context/ThemeContext';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
@@ -32,7 +31,6 @@ export default function VerifyPage() {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const { language } = useLanguage();
-  const { theme } = useTheme();
 
   const t = language === 'pl' ? {
     title: 'Weryfikacja On-Chain',
@@ -97,11 +95,12 @@ export default function VerifyPage() {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/verification/hash/${encodeURIComponent(h)}`);
       setResult(res.data);
-    } catch (err: any) {
-      if (err.response?.status === 404) {
+    } catch (err: unknown) {
+      const axiosErr = err as { response?: { status?: number; data?: { error?: string } } };
+      if (axiosErr.response?.status === 404) {
         setResult({ isVerified: false, status: 'Record not found', recordHash: h });
-      } else if (err.response?.status === 400) {
-        setError(err.response?.data?.error || 'Invalid hash format');
+      } else if (axiosErr.response?.status === 400) {
+        setError(axiosErr.response?.data?.error || 'Invalid hash format');
       } else {
         setError('Verification service unavailable. Please try again later.');
       }
