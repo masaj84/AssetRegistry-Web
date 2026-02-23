@@ -65,7 +65,14 @@ export function LoginPage() {
       await login(username, password);
       navigate('/app');
     } catch (err) {
-      setError(getErrorMessage(err));
+      const msg = getErrorMessage(err);
+      if (msg.toLowerCase().includes('confirm') || msg.toLowerCase().includes('email')) {
+        setError(language === 'pl'
+          ? '📧 Potwierdź swój adres email przed zalogowaniem. Sprawdź skrzynkę (też SPAM).'
+          : '📧 Please confirm your email before logging in. Check your inbox (and SPAM folder).');
+      } else {
+        setError(msg);
+      }
     } finally {
       setIsLoading(false);
     }

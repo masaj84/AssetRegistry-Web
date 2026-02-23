@@ -173,13 +173,23 @@ export function RegisterPage() {
             </div>
           )}
 
-          {/* Success */}
+          {/* Success - prominent email confirmation notice */}
           {success && (
-            <div className="mb-6 p-4 border border-green-500/30 bg-green-500/5 text-green-600 text-sm flex items-center gap-3">
-              <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path d="M5 13l4 4L19 7" />
-              </svg>
-              {success}
+            <div className="mb-6 p-6 border-2 border-green-500/50 bg-green-500/10 rounded-xl text-center">
+              <div className="text-4xl mb-3">📧</div>
+              <h3 className="text-lg font-bold text-green-400 mb-2">
+                {language === 'pl' ? 'Konto utworzone!' : 'Account created!'}
+              </h3>
+              <p className="text-green-300 text-sm mb-3">
+                {language === 'pl'
+                  ? 'Wysłaliśmy link aktywacyjny na Twój email. Kliknij go, aby aktywować konto.'
+                  : 'We sent an activation link to your email. Click it to activate your account.'}
+              </p>
+              <p className="text-muted-foreground text-xs">
+                {language === 'pl'
+                  ? '⚠️ Sprawdź też folder SPAM. Bez potwierdzenia nie będzie można się zalogować.'
+                  : '⚠️ Check your SPAM folder too. You cannot log in without confirming your email.'}
+              </p>
             </div>
           )}
 
