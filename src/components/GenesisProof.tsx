@@ -17,12 +17,12 @@ import { blockchainConfig } from '../lib/blockchainConfig';
 // HARDCODED VALUES - UPDATE AFTER FIRST PRODUCTION ANCHORING
 // =============================================================================
 const GENESIS_PROOF = {
-  enabled: false, // Set to true after first anchoring
+  enabled: true,
   documentName: 'TRVE Genesis Document',
-  documentHash: '0x...', // SHA-256 hash of document
-  txHash: '0x...', // Polygon transaction hash
-  anchoredAt: '2026-02-XX', // Date of anchoring
-  blockNumber: 0, // Block number
+  documentHash: '0xad88104798a999c3ab26d90d2bc68e83b25d14f512678e18843de0ce9ab03a44',
+  txHash: '0x4a2ce5d98003144a6d6d93662f302a513296889d05af6fcd6366e1817ac9257b',
+  anchoredAt: '2026-02-23',
+  blockNumber: 83346345,
 };
 // =============================================================================
 
