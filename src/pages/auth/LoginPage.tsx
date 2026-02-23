@@ -19,8 +19,8 @@ export function LoginPage() {
     en: {
       welcome: 'Welcome back',
       subtitle: 'Sign in to continue to your registry',
-      username: 'Username',
-      usernamePlaceholder: 'johndoe',
+      username: 'Username or Email',
+      usernamePlaceholder: 'johndoe or your@email.com',
       password: 'Password',
       passwordPlaceholder: '••••••••',
       rememberMe: 'Remember me',
@@ -38,8 +38,8 @@ export function LoginPage() {
     pl: {
       welcome: 'Witaj ponownie',
       subtitle: 'Zaloguj się, aby kontynuować',
-      username: 'Nazwa użytkownika',
-      usernamePlaceholder: 'jankowalski',
+      username: 'Nazwa użytkownika lub Email',
+      usernamePlaceholder: 'jankowalski lub twoj@email.com',
       password: 'Hasło',
       passwordPlaceholder: '••••••••',
       rememberMe: 'Zapamiętaj mnie',
