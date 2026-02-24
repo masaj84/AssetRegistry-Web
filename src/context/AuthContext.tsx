@@ -14,7 +14,8 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   loginAsDemo: () => Promise<void>;
   loginWithGoogle: () => Promise<void>;
-  loginWithFacebook: () => Promise<void>;
+  // Facebook login temporarily disabled
+  // loginWithFacebook: () => Promise<void>;
   register: (email: string, password: string) => Promise<{ requiresEmailConfirmation: boolean }>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -94,16 +95,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const loginWithFacebook = async () => {
-    setIsOAuthLoading(true);
-    try {
-      await oauthService.initiateFacebookLogin();
-      // Navigation happens in the service, loading state will persist until callback
-    } catch (error) {
-      setIsOAuthLoading(false);
-      throw error;
-    }
-  };
+  // Facebook login temporarily disabled
+  // const loginWithFacebook = async () => {
+  //   setIsOAuthLoading(true);
+  //   try {
+  //     await oauthService.initiateFacebookLogin();
+  //     // Navigation happens in the service, loading state will persist until callback
+  //   } catch (error) {
+  //     setIsOAuthLoading(false);
+  //     throw error;
+  //   }
+  // };
 
   return (
     <AuthContext.Provider value={{
@@ -115,7 +117,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       login,
       loginAsDemo,
       loginWithGoogle,
-      loginWithFacebook,
+      // Facebook login temporarily disabled
+      // loginWithFacebook,
       register,
       logout,
       refreshUser

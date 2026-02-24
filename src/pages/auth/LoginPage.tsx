@@ -9,7 +9,7 @@ import { useLanguage } from '../../context/LanguageContext';
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const { login, loginAsDemo, loginWithGoogle, loginWithFacebook, isOAuthLoading } = useAuth();
+  const { login, loginAsDemo, loginWithGoogle, isOAuthLoading } = useAuth();
   const { language } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,15 +27,16 @@ export function LoginPage() {
     }
   };
 
-  const handleFacebookLogin = async () => {
-    setError('');
-    try {
-      await loginWithFacebook();
-    } catch (err) {
-      const msg = oauthService.getErrorMessage(err, 'facebook');
-      setError(msg);
-    }
-  };
+  // Facebook login temporarily disabled
+  // const handleFacebookLogin = async () => {
+  //   setError('');
+  //   try {
+  //     await loginWithFacebook();
+  //   } catch (err) {
+  //     const msg = oauthService.getErrorMessage(err, 'facebook');
+  //     setError(msg);
+  //   }
+  // };
 
   const t = {
     en: {
@@ -57,9 +58,7 @@ export function LoginPage() {
       loadingDemo: 'Loading...',
       tagline: 'Immutable product history',
       continueWithGoogle: 'Continue with Google',
-      continueWithFacebook: 'Continue with Facebook',
       signingInWithGoogle: 'Signing in with Google...',
-      signingInWithFacebook: 'Signing in with Facebook...',
       orDivider: 'or',
     },
     pl: {
@@ -81,9 +80,7 @@ export function LoginPage() {
       loadingDemo: 'Ładowanie...',
       tagline: 'Niezmienna historia produktów',
       continueWithGoogle: 'Kontynuuj z Google',
-      continueWithFacebook: 'Kontynuuj z Facebook',
       signingInWithGoogle: 'Logowanie przez Google...',
-      signingInWithFacebook: 'Logowanie przez Facebook...',
       orDivider: 'lub',
     },
   }[language];
@@ -278,7 +275,6 @@ export function LoginPage() {
           <SocialLoginSection
             isLoading={isOAuthLoading}
             onGoogleLogin={handleGoogleLogin}
-            onFacebookLogin={handleFacebookLogin}
             disabled={isLoading || isDemoLoading}
           />
 

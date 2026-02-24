@@ -6,21 +6,27 @@ import type {
 
 class OAuthService {
   /**
-   * Get OAuth authorization URL for the specified provider
+   * Get OAuth authorization URL for Google
    */
-  async getOAuthUrl(provider: 'google' | 'facebook'): Promise<OAuthUrlResponse> {
+  async getOAuthUrl(provider: 'google'): Promise<OAuthUrlResponse> {
+    if (provider !== 'google') {
+      throw new Error('Only Google OAuth is supported');
+    }
     const response = await api.get<OAuthUrlResponse>(`/auth/oauth/${provider}/url`);
     return response.data;
   }
 
   /**
-   * Exchange OAuth authorization code for JWT tokens
+   * Exchange OAuth authorization code for JWT tokens (Google only)
    */
   async exchangeCodeForTokens(
-    provider: 'google' | 'facebook',
+    provider: 'google',
     code: string,
     state: string
   ): Promise<OAuthCallbackResponse> {
+    if (provider !== 'google') {
+      throw new Error('Only Google OAuth is supported');
+    }
     const response = await api.post<OAuthCallbackResponse>(
       `/auth/oauth/${provider}/callback`,
       { code, state }
@@ -48,28 +54,24 @@ class OAuthService {
   }
 
   /**
-   * Initiate Facebook OAuth login
+   * Facebook OAuth temporarily disabled
+   * This method is kept as a placeholder for future implementation
    */
   async initiateFacebookLogin(): Promise<void> {
-    try {
-      const { url } = await this.getOAuthUrl('facebook');
-      // Store the current URL to return to after OAuth
-      sessionStorage.setItem('oauth_redirect_url', window.location.pathname);
-      window.location.href = url;
-    } catch (error) {
-      console.error('Failed to initiate Facebook OAuth:', error);
-      throw new Error('Failed to start Facebook login. Please try again.');
-    }
+    throw new Error('Facebook login is temporarily unavailable. Please use Google login.');
   }
 
   /**
-   * Handle OAuth callback and complete authentication
+   * Handle OAuth callback and complete authentication (Google only)
    */
   async handleCallback(
-    provider: 'google' | 'facebook',
+    provider: 'google',
     code: string,
     state: string
   ): Promise<OAuthCallbackResponse> {
+    if (provider !== 'google') {
+      throw new Error('Only Google OAuth is supported');
+    }
     try {
       const result = await this.exchangeCodeForTokens(provider, code, state);
       return result;
@@ -89,22 +91,26 @@ class OAuthService {
   }
 
   /**
-   * Handle OAuth errors and provide user-friendly messages
+   * Handle OAuth errors and provide user-friendly messages (Google only)
    */
-  getErrorMessage(error: any, provider: 'google' | 'facebook'): string {
+  getErrorMessage(error: any, provider: 'google'): string {
+    if (provider !== 'google') {
+      return 'Only Google login is supported.';
+    }
+    
     if (error?.response?.status === 400) {
-      return `${provider.charAt(0).toUpperCase() + provider.slice(1)} login was cancelled.`;
+      return 'Google login was cancelled.';
     }
     
     if (error?.response?.status === 401) {
-      return `${provider.charAt(0).toUpperCase() + provider.slice(1)} login failed. Please try again.`;
+      return 'Google login failed. Please try again.';
     }
     
     if (error?.response?.status >= 500) {
-      return 'Social login temporarily unavailable. Please try again later.';
+      return 'Google login temporarily unavailable. Please try again later.';
     }
     
-    return error?.message || `${provider.charAt(0).toUpperCase() + provider.slice(1)} login failed. Please try again.`;
+    return error?.message || 'Google login failed. Please try again.';
   }
 }
 
