@@ -9,7 +9,7 @@ interface AuthContextType {
   isLoading: boolean;
   isAuthenticated: boolean;
   isDemo: boolean;
-  login: (username: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   loginAsDemo: () => Promise<void>;
   register: (email: string, password: string, userName: string) => Promise<{ requiresEmailConfirmation: boolean }>;
   logout: () => Promise<void>;
@@ -18,7 +18,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const DEMO_USERNAME = 'demo';
+const DEMO_EMAIL = 'demo@trve.io';
 const DEMO_PASSWORD = 'Demo123!';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -46,16 +46,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     initAuth();
   }, []);
 
-  const login = async (username: string, password: string) => {
-    await authService.login({ username, password });
+  const login = async (email: string, password: string) => {
+    await authService.login({ email, password });
     // Fetch full user profile after login
     const userData = await authService.getProfile();
     setUser(userData);
-    setIsDemo(username === DEMO_USERNAME);
+    setIsDemo(email === 'demo@trve.io'); // Updated demo email
   };
 
   const loginAsDemo = async () => {
-    await login(DEMO_USERNAME, DEMO_PASSWORD);
+    await login(DEMO_EMAIL, DEMO_PASSWORD);
   };
 
   const register = async (email: string, password: string, userName: string) => {

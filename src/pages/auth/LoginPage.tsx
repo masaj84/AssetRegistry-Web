@@ -9,7 +9,7 @@ export function LoginPage() {
   const navigate = useNavigate();
   const { login, loginAsDemo } = useAuth();
   const { language } = useLanguage();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -19,8 +19,8 @@ export function LoginPage() {
     en: {
       welcome: 'Welcome back',
       subtitle: 'Sign in to continue to your registry',
-      username: 'Username or Email',
-      usernamePlaceholder: 'johndoe or your@email.com',
+      email: 'Email Address',
+      emailPlaceholder: 'your@email.com',
       password: 'Password',
       passwordPlaceholder: '••••••••',
       rememberMe: 'Remember me',
@@ -30,7 +30,7 @@ export function LoginPage() {
       or: 'or continue with',
       noAccount: "Don't have an account?",
       register: 'Create one',
-      loginError: 'Invalid username or password',
+      loginError: 'Invalid email or password',
       tryDemo: 'Try Demo Account',
       loadingDemo: 'Loading...',
       tagline: 'Immutable product history',
@@ -38,8 +38,8 @@ export function LoginPage() {
     pl: {
       welcome: 'Witaj ponownie',
       subtitle: 'Zaloguj się, aby kontynuować',
-      username: 'Nazwa użytkownika lub Email',
-      usernamePlaceholder: 'jankowalski lub twoj@email.com',
+      email: 'Adres Email',
+      emailPlaceholder: 'twoj@email.com',
       password: 'Hasło',
       passwordPlaceholder: '••••••••',
       rememberMe: 'Zapamiętaj mnie',
@@ -49,7 +49,7 @@ export function LoginPage() {
       or: 'lub kontynuuj z',
       noAccount: 'Nie masz konta?',
       register: 'Utwórz je',
-      loginError: 'Nieprawidłowa nazwa użytkownika lub hasło',
+      loginError: 'Nieprawidłowy adres email lub hasło',
       tryDemo: 'Konto Demo',
       loadingDemo: 'Ładowanie...',
       tagline: 'Niezmienna historia produktów',
@@ -62,7 +62,7 @@ export function LoginPage() {
     setIsLoading(true);
 
     try {
-      await login(username, password);
+      await login(email, password);
       navigate('/app');
     } catch (err) {
       const msg = getErrorMessage(err);
@@ -180,12 +180,12 @@ export function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2">{t.username}</label>
+                <label className="block text-sm font-medium mb-2">{t.email}</label>
                 <input
-                  type="text"
-                  placeholder={t.usernamePlaceholder}
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  type="email"
+                  placeholder={t.emailPlaceholder}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
                 />
