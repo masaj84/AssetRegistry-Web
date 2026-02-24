@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { oauthService } from '../../services/oauthService';
-import { authService } from '../../services/authService';
 
 export function OAuthCallback() {
   const [searchParams] = useSearchParams();
@@ -12,7 +11,7 @@ export function OAuthCallback() {
   const { refreshUser } = useAuth();
   const { language } = useLanguage();
   const [error, setError] = useState<string>('');
-  const [isProcessing, setIsProcessing] = useState(true);
+  const [, setIsProcessing] = useState(true);
 
   const t = {
     en: {

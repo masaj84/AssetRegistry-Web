@@ -1,7 +1,6 @@
 import { api, setTokens } from '../lib/api';
 import type { 
   OAuthUrlResponse, 
-  OAuthCallbackRequest, 
   OAuthCallbackResponse 
 } from '../types';
 
