@@ -24,6 +24,7 @@ export interface AdminUser {
   createdAt: string;
   lastLoginAt?: string;
   assetCount: number;
+  adminNote?: string;
 }
 
 export interface AdminUserListRequest {
@@ -42,6 +43,7 @@ export interface AdminUpdateUserRequest {
   walletAddress?: string;
   organizationId?: number;
   organizationRole?: string;
+  adminNote?: string;
 }
 
 // Admin Organization

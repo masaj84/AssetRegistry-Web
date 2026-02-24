@@ -24,6 +24,7 @@ export function AdminUserDetailPage() {
     walletAddress: '',
     organizationId: '',
     organizationRole: '',
+    adminNote: '',
   });
 
   useEffect(() => {
@@ -44,6 +45,7 @@ export function AdminUserDetailPage() {
           walletAddress: userData.walletAddress || '',
           organizationId: userData.organizationId?.toString() || '',
           organizationRole: userData.organizationRole || '',
+          adminNote: userData.adminNote || '',
         });
       } catch (err) {
         setError(getErrorMessage(err));
@@ -67,6 +69,7 @@ export function AdminUserDetailPage() {
         walletAddress: formData.walletAddress || undefined,
         organizationId: formData.organizationId ? parseInt(formData.organizationId) : undefined,
         organizationRole: formData.organizationRole || undefined,
+        adminNote: formData.adminNote,
       });
       navigate('/app/admin/users');
     } catch (err) {
@@ -224,6 +227,19 @@ export function AdminUserDetailPage() {
             </div>
           )}
 
+          <div className="space-y-1.5">
+            <label className="block text-sm font-medium text-foreground">Admin Note</label>
+            <textarea
+              value={formData.adminNote}
+              onChange={(e) => setFormData({ ...formData, adminNote: e.target.value })}
+              maxLength={500}
+              rows={3}
+              placeholder="Internal note about this user..."
+              className="w-full px-3 py-2 rounded-lg bg-secondary border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none text-sm"
+            />
+            <p className="text-xs text-muted-foreground text-right">{formData.adminNote.length}/500</p>
+          </div>
+
           <div className="flex items-center gap-3 pt-4">
             <Button type="submit" disabled={isSaving} className="bg-emerald-600 hover:bg-emerald-700 text-white">
               {isSaving ? 'Saving...' : 'Save Changes'}
@@ -285,6 +301,12 @@ export function AdminUserDetailPage() {
             <dt className="text-muted-foreground">Current Organization</dt>
             <dd className="font-medium">{user?.organizationName || 'None'}</dd>
           </div>
+          {user?.adminNote && (
+            <div className="col-span-2">
+              <dt className="text-muted-foreground">Admin Note</dt>
+              <dd className="font-medium text-amber-500">{user.adminNote}</dd>
+            </div>
+          )}
         </dl>
       </div>
     </div>
