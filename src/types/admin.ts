@@ -23,6 +23,7 @@ export interface AdminUser {
   organizationRole?: string;
   createdAt: string;
   lastLoginAt?: string;
+  assetCount: number;
 }
 
 export interface AdminUserListRequest {

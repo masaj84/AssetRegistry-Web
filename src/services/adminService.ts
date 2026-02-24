@@ -56,6 +56,10 @@ export const adminService = {
     return response.data;
   },
 
+  async deleteUser(id: string): Promise<void> {
+    await api.delete(`/admin/users/${id}`);
+  },
+
   // Organizations
   async getOrganizations(params?: AdminOrganizationListRequest): Promise<PagedResponse<AdminOrganization>> {
     const response = await api.get<PagedResponse<AdminOrganization>>('/admin/organizations', { params });

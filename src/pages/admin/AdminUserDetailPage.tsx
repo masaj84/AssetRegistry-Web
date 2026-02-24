@@ -240,6 +240,25 @@ export function AdminUserDetailPage() {
             >
               {user?.isActive ? 'Deactivate User' : 'Activate User'}
             </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              disabled={!!user?.assetCount}
+              title={user?.assetCount ? `Cannot delete: user has ${user.assetCount} asset(s)` : 'Delete user permanently'}
+              onClick={async () => {
+                if (!id || !user) return;
+                if (!confirm(`Are you sure you want to permanently delete user "${user.username}"? This cannot be undone.`)) return;
+                try {
+                  await adminService.deleteUser(id);
+                  navigate('/app/admin/users');
+                } catch (err) {
+                  setError(getErrorMessage(err));
+                }
+              }}
+              className={user?.assetCount ? 'opacity-40 cursor-not-allowed' : ''}
+            >
+              🗑️ Delete User
+            </Button>
           </div>
         </form>
       </div>
