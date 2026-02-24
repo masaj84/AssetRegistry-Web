@@ -21,6 +21,7 @@ const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
 const RegisterPage = lazy(() => import('./pages/auth/RegisterPage'));
 const AuthActionPage = lazy(() => import('./pages/auth/AuthActionPage'));
 const AccountActivatedPage = lazy(() => import('./pages/auth/AccountActivatedPage'));
+const OAuthCallbackPage = lazy(() => import('./pages/auth/OAuthCallbackPage'));
 const VerifyPage = lazy(() => import('./pages/VerifyPage'));
 
 // App pages
@@ -75,6 +76,7 @@ function App() {
           <Route path="/forgot-password" element={<AuthActionPage />} />
           <Route path="/reset-password" element={<AuthActionPage />} />
           <Route path="/account-activated" element={<AccountActivatedPage />} />
+          <Route path="/auth/callback/:provider" element={<OAuthCallbackPage />} />
           <Route path="/verify" element={<VerifyPage />} />
           <Route path="/verify/:hash" element={<VerifyPage />} />
 

@@ -1,19 +1,41 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
+import { SocialLoginSection } from '../../components/auth/SocialLoginSection';
 import { useAuth } from '../../context/AuthContext';
 import { getErrorMessage } from '../../services/authService';
+import { oauthService } from '../../services/oauthService';
 import { useLanguage } from '../../context/LanguageContext';
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const { login, loginAsDemo } = useAuth();
+  const { login, loginAsDemo, loginWithGoogle, loginWithFacebook, isOAuthLoading } = useAuth();
   const { language } = useLanguage();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isDemoLoading, setIsDemoLoading] = useState(false);
+
+  const handleGoogleLogin = async () => {
+    setError('');
+    try {
+      await loginWithGoogle();
+    } catch (err) {
+      const msg = oauthService.getErrorMessage(err, 'google');
+      setError(msg);
+    }
+  };
+
+  const handleFacebookLogin = async () => {
+    setError('');
+    try {
+      await loginWithFacebook();
+    } catch (err) {
+      const msg = oauthService.getErrorMessage(err, 'facebook');
+      setError(msg);
+    }
+  };
 
   const t = {
     en: {
@@ -34,6 +56,11 @@ export function LoginPage() {
       tryDemo: 'Try Demo Account',
       loadingDemo: 'Loading...',
       tagline: 'Immutable product history',
+      continueWithGoogle: 'Continue with Google',
+      continueWithFacebook: 'Continue with Facebook',
+      signingInWithGoogle: 'Signing in with Google...',
+      signingInWithFacebook: 'Signing in with Facebook...',
+      orDivider: 'or',
     },
     pl: {
       welcome: 'Witaj ponownie',
@@ -53,6 +80,11 @@ export function LoginPage() {
       tryDemo: 'Konto Demo',
       loadingDemo: 'Ładowanie...',
       tagline: 'Niezmienna historia produktów',
+      continueWithGoogle: 'Kontynuuj z Google',
+      continueWithFacebook: 'Kontynuuj z Facebook',
+      signingInWithGoogle: 'Logowanie przez Google...',
+      signingInWithFacebook: 'Logowanie przez Facebook...',
+      orDivider: 'lub',
     },
   }[language];
 
@@ -219,7 +251,7 @@ export function LoginPage() {
               </Link>
             </div>
 
-            <Button type="submit" className="w-full h-12" disabled={isLoading || isDemoLoading}>
+            <Button type="submit" className="w-full h-12" disabled={isLoading || isDemoLoading || isOAuthLoading}>
               {isLoading ? (
                 <span className="flex items-center gap-2">
                   <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -242,11 +274,29 @@ export function LoginPage() {
             </div>
           </div>
 
+          {/* Social Login Section */}
+          <SocialLoginSection
+            isLoading={isOAuthLoading}
+            onGoogleLogin={handleGoogleLogin}
+            onFacebookLogin={handleFacebookLogin}
+            disabled={isLoading || isDemoLoading}
+          />
+
+          {/* Demo divider */}
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-border"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-background text-muted-foreground">{t.orDivider}</span>
+            </div>
+          </div>
+
           {/* Demo button */}
           <button
             type="button"
             onClick={handleDemo}
-            disabled={isLoading || isDemoLoading}
+            disabled={isLoading || isDemoLoading || isOAuthLoading}
             className="w-full h-12 border border-border hover:border-foreground text-foreground flex items-center justify-center gap-3 transition-colors disabled:opacity-50"
           >
             {isDemoLoading ? (

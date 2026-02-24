@@ -2,6 +2,7 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import type { User } from '../types';
 import { authService, getErrorMessage } from '../services/authService';
+import { oauthService } from '../services/oauthService';
 import { getAccessToken, clearTokens } from '../lib/api';
 
 interface AuthContextType {
@@ -9,8 +10,11 @@ interface AuthContextType {
   isLoading: boolean;
   isAuthenticated: boolean;
   isDemo: boolean;
+  isOAuthLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   loginAsDemo: () => Promise<void>;
+  loginWithGoogle: () => Promise<void>;
+  loginWithFacebook: () => Promise<void>;
   register: (email: string, password: string) => Promise<{ requiresEmailConfirmation: boolean }>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -25,6 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isDemo, setIsDemo] = useState(false);
+  const [isOAuthLoading, setIsOAuthLoading] = useState(false);
 
   const isAuthenticated = !!user;
 
@@ -78,14 +83,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const loginWithGoogle = async () => {
+    setIsOAuthLoading(true);
+    try {
+      await oauthService.initiateGoogleLogin();
+      // Navigation happens in the service, loading state will persist until callback
+    } catch (error) {
+      setIsOAuthLoading(false);
+      throw error;
+    }
+  };
+
+  const loginWithFacebook = async () => {
+    setIsOAuthLoading(true);
+    try {
+      await oauthService.initiateFacebookLogin();
+      // Navigation happens in the service, loading state will persist until callback
+    } catch (error) {
+      setIsOAuthLoading(false);
+      throw error;
+    }
+  };
+
   return (
     <AuthContext.Provider value={{
       user,
       isLoading,
       isAuthenticated,
       isDemo,
+      isOAuthLoading,
       login,
       loginAsDemo,
+      loginWithGoogle,
+      loginWithFacebook,
       register,
       logout,
       refreshUser

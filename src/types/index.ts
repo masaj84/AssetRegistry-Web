@@ -41,6 +41,26 @@ export interface RegisterResponse {
   requiresEmailConfirmation: boolean;
 }
 
+export interface OAuthUrlResponse {
+  url: string;
+  state: string;
+}
+
+export interface OAuthCallbackRequest {
+  code: string;
+  state: string;
+}
+
+export interface OAuthCallbackResponse extends LoginResponse {
+  user: {
+    id: string;
+    email: string;
+    name?: string;
+    avatarUrl?: string;
+    provider: 'google' | 'facebook';
+  };
+}
+
 // Asset types
 export interface Asset {
   id: number;
