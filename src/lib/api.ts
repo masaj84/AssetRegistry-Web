@@ -114,17 +114,49 @@ export interface ApiError {
   errors?: Record<string, string[]>;
 }
 
-export const getErrorMessage = (error: unknown): string => {
+// Map common backend error messages to Polish
+const errorTranslations: Record<string, string> = {
+  'Email is required': 'Email jest wymagany',
+  'Email and password are required': 'Email i hasło są wymagane',
+  'Invalid email or password': 'Nieprawidłowy email lub hasło',
+  'Invalid credentials': 'Nieprawidłowe dane logowania',
+  'User not found': 'Użytkownik nie został znaleziony',
+  'Email already exists': 'Ten email jest już zarejestrowany',
+  'Username is already taken': 'Ta nazwa użytkownika jest już zajęta',
+  'Password must be at least 8 characters': 'Hasło musi mieć co najmniej 8 znaków',
+  'Please confirm your email before logging in': 'Potwierdź swój email przed zalogowaniem',
+  'Account is locked': 'Konto jest zablokowane',
+  'Invalid email format': 'Nieprawidłowy format email',
+  'Email is already registered': 'Ten email jest już zarejestrowany',
+};
+
+function translateError(message: string, lang: string): string {
+  if (lang !== 'pl') return message;
+  // Direct match
+  if (errorTranslations[message]) return errorTranslations[message];
+  // Partial match (backend may include dynamic content)
+  for (const [en, pl] of Object.entries(errorTranslations)) {
+    if (message.toLowerCase().includes(en.toLowerCase())) return pl;
+  }
+  // Known patterns
+  if (message.includes('already taken')) return 'Ta nazwa jest już zajęta';
+  if (message.includes('already registered') || message.includes('already exists')) return 'Ten email jest już zarejestrowany';
+  if (message.includes('confirm') && message.includes('email')) return 'Potwierdź swój email przed zalogowaniem';
+  return message;
+}
+
+export const getErrorMessage = (error: unknown, lang?: string): string => {
+  const language = lang || localStorage.getItem('language') || 'en';
   if (axios.isAxiosError(error)) {
     const data = error.response?.data as ApiError | undefined;
-    if (data?.message) return data.message;
+    if (data?.message) return translateError(data.message, language);
     if (data?.errors) {
-      return Object.values(data.errors).flat().join(', ');
+      return Object.values(data.errors).flat().map(e => translateError(String(e), language)).join(', ');
     }
-    if (error.response?.status === 401) return 'Unauthorized. Please login again.';
-    if (error.response?.status === 403) return 'Access denied.';
-    if (error.response?.status === 404) return 'Resource not found.';
-    if (error.response?.status === 500) return 'Server error. Please try again later.';
+    if (error.response?.status === 401) return language === 'pl' ? 'Sesja wygasła. Zaloguj się ponownie.' : 'Unauthorized. Please login again.';
+    if (error.response?.status === 403) return language === 'pl' ? 'Brak dostępu.' : 'Access denied.';
+    if (error.response?.status === 404) return language === 'pl' ? 'Nie znaleziono.' : 'Resource not found.';
+    if (error.response?.status === 500) return language === 'pl' ? 'Błąd serwera. Spróbuj ponownie.' : 'Server error. Please try again later.';
   }
-  return 'An unexpected error occurred.';
+  return language === 'pl' ? 'Wystąpił nieoczekiwany błąd.' : 'An unexpected error occurred.';
 };

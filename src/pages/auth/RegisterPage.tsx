@@ -168,22 +168,28 @@ export function RegisterPage() {
             </div>
           )}
 
-          {/* Success - prominent email confirmation notice */}
+          {/* Success - email confirmation notice */}
           {success && (
-            <div className="mb-6 p-6 border-2 border-green-500/50 bg-green-500/10 rounded-xl text-center">
-              <div className="text-4xl mb-3">📧</div>
-              <h3 className="text-lg font-bold text-green-400 mb-2">
-                {language === 'pl' ? 'Konto utworzone!' : 'Account created!'}
+            <div className="mb-8 text-center">
+              <div className="mb-6 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center">
+                  <svg className="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-xl font-light mb-2">
+                {language === 'pl' ? 'Sprawdź swoją skrzynkę' : 'Check your inbox'}
               </h3>
-              <p className="text-green-300 text-sm mb-3">
+              <p className="text-muted-foreground text-sm mb-4">
                 {language === 'pl'
                   ? 'Wysłaliśmy link aktywacyjny na Twój email. Kliknij go, aby aktywować konto.'
                   : 'We sent an activation link to your email. Click it to activate your account.'}
               </p>
-              <p className="text-muted-foreground text-xs">
+              <p className="text-muted-foreground/60 text-xs">
                 {language === 'pl'
-                  ? '⚠️ Sprawdź też folder SPAM. Bez potwierdzenia nie będzie można się zalogować.'
-                  : '⚠️ Check your SPAM folder too. You cannot log in without confirming your email.'}
+                  ? 'Nie widzisz maila? Sprawdź folder SPAM.'
+                  : "Can't find it? Check your SPAM folder."}
               </p>
             </div>
           )}
