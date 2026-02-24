@@ -33,7 +33,7 @@ export interface RefreshTokenResponse {
 export interface RegisterRequest {
   email: string;
   password: string;
-  userName: string;
+  userName?: string;
 }
 
 export interface RegisterResponse {

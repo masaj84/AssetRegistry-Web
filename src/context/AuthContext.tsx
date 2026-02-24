@@ -11,7 +11,7 @@ interface AuthContextType {
   isDemo: boolean;
   login: (email: string, password: string) => Promise<void>;
   loginAsDemo: () => Promise<void>;
-  register: (email: string, password: string, userName: string) => Promise<{ requiresEmailConfirmation: boolean }>;
+  register: (email: string, password: string) => Promise<{ requiresEmailConfirmation: boolean }>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
 }
@@ -58,8 +58,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await login(DEMO_EMAIL, DEMO_PASSWORD);
   };
 
-  const register = async (email: string, password: string, userName: string) => {
-    const response = await authService.register({ email, password, userName });
+  const register = async (email: string, password: string) => {
+    const response = await authService.register({ email, password });
     return { requiresEmailConfirmation: response.requiresEmailConfirmation };
   };
 

@@ -9,7 +9,6 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const { register } = useAuth();
   const { language } = useLanguage();
-  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -20,8 +19,6 @@ export function RegisterPage() {
     en: {
       title: 'Create your account',
       subtitle: 'Start building your product registry',
-      userName: 'Username',
-      userNamePlaceholder: 'johndoe',
       email: 'Email',
       emailPlaceholder: 'your@email.com',
       password: 'Password',
@@ -45,8 +42,6 @@ export function RegisterPage() {
     pl: {
       title: 'Utwórz konto',
       subtitle: 'Zacznij budować swój rejestr produktów',
-      userName: 'Nazwa użytkownika',
-      userNamePlaceholder: 'jankowalski',
       email: 'Email',
       emailPlaceholder: 'twoj@email.com',
       password: 'Hasło',
@@ -76,7 +71,7 @@ export function RegisterPage() {
     setIsLoading(true);
 
     try {
-      const result = await register(email, password, userName);
+      const result = await register(email, password);
       if (result.requiresEmailConfirmation) {
         setSuccess(t.successMessage);
       } else {
@@ -196,18 +191,6 @@ export function RegisterPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2">{t.userName}</label>
-                <input
-                  type="text"
-                  placeholder={t.userNamePlaceholder}
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  required
-                  className="w-full h-12 px-4 border border-border bg-background focus:border-foreground focus:outline-none transition-colors"
-                />
-              </div>
-
               <div>
                 <label className="block text-sm font-medium mb-2">{t.email}</label>
                 <input
