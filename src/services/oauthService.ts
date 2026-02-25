@@ -93,7 +93,7 @@ class OAuthService {
   /**
    * Handle OAuth errors and provide user-friendly messages (Google only)
    */
-  getErrorMessage(error: any, provider: 'google'): string {
+  getErrorMessage(error: Error | { response?: { status: number } } | { message?: string } | unknown, provider: 'google'): string {
     if (provider !== 'google') {
       return 'Only Google login is supported.';
     }

@@ -6,7 +6,13 @@ import { LanguageProvider } from '../../context/LanguageContext';
 
 // Mock child components
 vi.mock('../ui/SocialLoginButton', () => ({
-  SocialLoginButton: ({ provider, onClick, isLoading, disabled, children }: any) => (
+  SocialLoginButton: ({ provider, onClick, isLoading, disabled, children }: {
+    provider: string;
+    onClick: () => void;
+    isLoading: boolean;
+    disabled?: boolean;
+    children?: React.ReactNode;
+  }) => (
     <button 
       data-testid={`${provider}-button`}
       onClick={onClick}
