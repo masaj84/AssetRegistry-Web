@@ -100,14 +100,15 @@ class OAuthService {
     
     // Type guard for response errors
     if (error && typeof error === 'object' && 'response' in error) {
-      const responseError = error as { response?: { status: number } };
-      if (responseError.response?.status === 400) {
+      const responseError = error as { response?: { status?: number } };
+      const status = responseError.response?.status;
+      if (status === 400) {
         return 'Google login was cancelled.';
       }
-      if (responseError.response?.status === 401) {
+      if (status === 401) {
         return 'Google login failed. Please try again.';
       }
-      if (responseError.response?.status >= 500) {
+      if (status !== undefined && status >= 500) {
         return 'Google login temporarily unavailable. Please try again later.';
       }
     }
