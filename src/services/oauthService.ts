@@ -93,24 +93,32 @@ class OAuthService {
   /**
    * Handle OAuth errors and provide user-friendly messages (Google only)
    */
-  getErrorMessage(error: Error | { response?: { status: number } } | { message?: string } | unknown, provider: 'google'): string {
+  getErrorMessage(error: unknown, provider: 'google'): string {
     if (provider !== 'google') {
       return 'Only Google login is supported.';
     }
     
-    if (error?.response?.status === 400) {
-      return 'Google login was cancelled.';
+    // Type guard for response errors
+    if (error && typeof error === 'object' && 'response' in error) {
+      const responseError = error as { response?: { status: number } };
+      if (responseError.response?.status === 400) {
+        return 'Google login was cancelled.';
+      }
+      if (responseError.response?.status === 401) {
+        return 'Google login failed. Please try again.';
+      }
+      if (responseError.response?.status >= 500) {
+        return 'Google login temporarily unavailable. Please try again later.';
+      }
     }
     
-    if (error?.response?.status === 401) {
-      return 'Google login failed. Please try again.';
+    // Type guard for message errors
+    if (error && typeof error === 'object' && 'message' in error) {
+      const messageError = error as { message: string };
+      return messageError.message || 'Google login failed. Please try again.';
     }
     
-    if (error?.response?.status >= 500) {
-      return 'Google login temporarily unavailable. Please try again later.';
-    }
-    
-    return error?.message || 'Google login failed. Please try again.';
+    return 'Google login failed. Please try again.';
   }
 }
 
