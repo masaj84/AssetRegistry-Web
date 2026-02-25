@@ -62,15 +62,15 @@ export function OAuthCallback() {
           throw new Error('Missing OAuth callback parameters');
         }
 
-        // Exchange code for tokens
+        // Exchange code for tokens (stores tokens in localStorage)
         await oauthService.handleCallback(provider, code, state);
 
-        // Refresh user profile
-        await refreshUser();
-
-        // Redirect to intended destination
+        // Use full page reload to ensure AuthContext reinitializes
+        // with the new tokens from localStorage. React navigate()
+        // can race with setUser state updates, causing ProtectedRoute
+        // to redirect to /login before user state is set.
         const redirectUrl = oauthService.getRedirectUrl();
-        navigate(redirectUrl);
+        window.location.href = redirectUrl;
 
       } catch (err) {
         console.error('OAuth callback error:', err);
