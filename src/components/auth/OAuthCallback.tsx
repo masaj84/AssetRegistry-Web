@@ -65,12 +65,12 @@ export function OAuthCallback() {
         // Exchange code for tokens (stores tokens in localStorage)
         await oauthService.handleCallback(provider, code, state);
 
-        // Use full page reload to ensure AuthContext reinitializes
-        // with the new tokens from localStorage. React navigate()
-        // can race with setUser state updates, causing ProtectedRoute
-        // to redirect to /login before user state is set.
-        const redirectUrl = oauthService.getRedirectUrl();
-        window.location.href = redirectUrl;
+        // Always redirect to /app after OAuth login.
+        // The stored redirect URL is typically /login (where user clicked
+        // "Login with Google"), so we ignore it and go straight to /app.
+        // Full page reload ensures AuthContext reads tokens from localStorage.
+        oauthService.getRedirectUrl(); // clear stored URL
+        window.location.href = '/app';
 
       } catch (err) {
         console.error('OAuth callback error:', err);
