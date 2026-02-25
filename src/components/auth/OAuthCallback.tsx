@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSearchParams, useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
@@ -12,6 +12,7 @@ export function OAuthCallback() {
   const { language } = useLanguage();
   const [error, setError] = useState<string>('');
   const [, setIsProcessing] = useState(true);
+  const isProcessingRef = useRef(false);
 
   const t = {
     en: {
@@ -29,6 +30,11 @@ export function OAuthCallback() {
   }[language];
 
   useEffect(() => {
+    // Guard against double-execution (React StrictMode / dependency changes)
+    // Google auth codes are single-use, so we must only call the callback once
+    if (isProcessingRef.current) return;
+    isProcessingRef.current = true;
+
     const handleOAuthCallback = async () => {
       try {
         // Validate provider - only Google supported
