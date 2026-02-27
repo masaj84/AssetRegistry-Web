@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { ContactSection } from '../components/ContactSection';
+import { GenesisProof } from '../components/GenesisProof';
 
 // TEASER MODE - Controlled by VITE_TEASER_MODE env variable
 const TEASER_MODE = import.meta.env.VITE_TEASER_MODE === 'true';
@@ -609,6 +610,9 @@ export function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Genesis Proof Section */}
+      <GenesisProof />
 
       {/* Use Cases Section */}
       <section className="py-24 px-6 border-t border-border dark:border-border/50 relative" id="use-cases">

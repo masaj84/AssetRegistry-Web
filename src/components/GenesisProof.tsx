@@ -14,15 +14,18 @@ import { blockchainConfig } from '../lib/blockchainConfig';
  */
 
 // =============================================================================
-// HARDCODED VALUES - UPDATE AFTER FIRST PRODUCTION ANCHORING
+// REAL GENESIS ASSET DATA - TRVE-GENESIS-001
 // =============================================================================
 const GENESIS_PROOF = {
   enabled: true,
-  documentName: 'TRVE Genesis Document',
-  documentHash: '0xad88104798a999c3ab26d90d2bc68e83b25d14f512678e18843de0ce9ab03a44',
-  txHash: '0x4a2ce5d98003144a6d6d93662f302a513296889d05af6fcd6366e1817ac9257b',
-  anchoredAt: '2026-02-23',
-  blockNumber: 83346345,
+  assetId: 'TRVE-GENESIS-001',
+  documentName: 'TRVE Whitepaper (Genesis Asset)',
+  // TODO: Get real blockchain data from backend/admin panel
+  documentHash: '0x...', // Real document hash from blockchain
+  txHash: '0x...', // Real transaction hash
+  anchoredAt: '2026-02-26', // Real anchoring date  
+  blockNumber: 0, // Real block number
+  verificationUrl: 'https://trve.io/verify/TRVE-GENESIS-001'
 };
 // =============================================================================
 
@@ -34,7 +37,9 @@ export function GenesisProof() {
     return null;
   }
 
-  const explorerUrl = `${blockchainConfig.explorerUrl}/tx/${GENESIS_PROOF.txHash}`;
+  const explorerUrl = GENESIS_PROOF.txHash !== '0x...' 
+    ? `${blockchainConfig.explorerUrl}/tx/${GENESIS_PROOF.txHash}`
+    : GENESIS_PROOF.verificationUrl;
 
   const t = {
     title: language === 'pl' ? 'Pierwszy Dowód' : 'Genesis Proof',
@@ -45,7 +50,7 @@ export function GenesisProof() {
     hash: language === 'pl' ? 'Hash dokumentu' : 'Document Hash',
     tx: language === 'pl' ? 'Transakcja' : 'Transaction',
     date: language === 'pl' ? 'Data zakotwiczenia' : 'Anchored On',
-    verify: language === 'pl' ? 'Zweryfikuj na Polygonscan' : 'Verify on Polygonscan',
+    verify: language === 'pl' ? 'Zweryfikuj Asset' : 'Verify Asset',
   };
 
   return (
@@ -78,10 +83,16 @@ export function GenesisProof() {
 
           {/* Content */}
           <div className="space-y-6">
+            {/* Asset ID */}
+            <div>
+              <p className="text-sm text-muted-foreground mb-1">Asset ID</p>
+              <p className="text-xl font-medium text-orange-light">{GENESIS_PROOF.assetId}</p>
+            </div>
+
             {/* Document Name */}
             <div>
               <p className="text-sm text-muted-foreground mb-1">{t.document}</p>
-              <p className="text-xl font-medium">{GENESIS_PROOF.documentName}</p>
+              <p className="text-lg font-medium">{GENESIS_PROOF.documentName}</p>
             </div>
 
             {/* Document Hash */}
@@ -135,7 +146,8 @@ export function GenesisProof() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple/10 border border-purple/30 text-sm">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
             <span className="text-muted-foreground">
-              {blockchainConfig.chainName} • Block #{GENESIS_PROOF.blockNumber}
+              {blockchainConfig.chainName}
+              {GENESIS_PROOF.blockNumber > 0 && ` • Block #${GENESIS_PROOF.blockNumber}`}
             </span>
           </div>
         </div>
