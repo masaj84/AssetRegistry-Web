@@ -20,11 +20,10 @@ const GENESIS_PROOF = {
   enabled: true,
   assetId: 'TRVE-GENESIS-001',
   documentName: 'TRVE Whitepaper (Genesis Asset)',
-  // TODO: Get real blockchain data from backend/admin panel
-  documentHash: '0x...', // Real document hash from blockchain
-  txHash: '0x...', // Real transaction hash
-  anchoredAt: '2026-02-26', // Real anchoring date  
-  blockNumber: 0, // Real block number
+  documentHash: '0xad88104798a999c3ab26d90d2bc68e83b25d14f512678e18843de0ce9ab03a44',
+  txHash: '0x4a2ce5d98003144a6d6d93662f302a513296889d05af6fcd6366e1817ac9257b',
+  anchoredAt: '2026-02-23',
+  blockNumber: 83346345,
   verificationUrl: 'https://trve.io/verify/TRVE-GENESIS-001'
 };
 // =============================================================================
