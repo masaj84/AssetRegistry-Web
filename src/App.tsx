@@ -28,6 +28,8 @@ const VerifyPage = lazy(() => import('./pages/VerifyPage'));
 const DashboardPage = lazy(() => import('./pages/app/DashboardPage'));
 const AssetsPage = lazy(() => import('./pages/app/AssetsPage'));
 const AssetFormPage = lazy(() => import('./pages/app/AssetFormPage'));
+const CarAssetsPage = lazy(() => import('./pages/app/CarAssetsPage'));
+const CarAssetFormPage = lazy(() => import('./pages/app/CarAssetFormPage'));
 const ReportsPage = lazy(() => import('./pages/app/ReportsPage'));
 const SettingsPage = lazy(() => import('./pages/app/SettingsPage'));
 
@@ -93,6 +95,10 @@ function App() {
             <Route path="assets" element={<AssetsPage />} />
             <Route path="assets/new" element={<AssetFormPage />} />
             <Route path="assets/:id" element={<AssetFormPage />} />
+            <Route path="cars" element={<CarAssetsPage />} />
+            <Route path="cars/add" element={<CarAssetFormPage />} />
+            <Route path="cars/:id" element={<CarAssetFormPage />} />
+            <Route path="cars/:id/edit" element={<CarAssetFormPage />} />
             <Route path="reports" element={<ReportsPage />} />
             <Route path="settings" element={<SettingsPage />} />
           </Route>

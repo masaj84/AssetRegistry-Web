@@ -90,7 +90,95 @@ export interface AssetMetadata {
   [key: string]: unknown;
 }
 
+// Car Asset types for leasing companies
+export interface CarAsset {
+  id: string;
+  vin: string;
+  make: string;
+  model: string;
+  year: number;
+  color?: string;
+  mileage?: number;
+  status: CarAssetStatus;
+  location?: string;
+  bookValue?: number;
+  residualValue?: number;
+  leaseStartDate?: string;
+  leaseEndDate?: string;
+  currentLessee?: string;
+  organizationId: number;
+  organizationName: string;
+  photos?: string[];
+  documents?: string[];
+  blockchainAnchoredAt?: string;
+  blockchainHash?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type CarAssetStatus = 'AVAILABLE' | 'LEASED' | 'IN_SERVICE' | 'SOLD' | 'DAMAGED' | 'RESERVED';
+
+export interface CreateCarAssetRequest {
+  vin: string;
+  make: string;
+  model: string;
+  year: number;
+  color?: string;
+  mileage?: number;
+  location?: string;
+  bookValue?: number;
+  residualValue?: number;
+  leaseStartDate?: string;
+  leaseEndDate?: string;
+  currentLessee?: string;
+  photos?: string[];
+}
+
+export interface UpdateCarAssetRequest {
+  color?: string;
+  mileage?: number;
+  status?: CarAssetStatus;
+  location?: string;
+  bookValue?: number;
+  residualValue?: number;
+  leaseStartDate?: string;
+  leaseEndDate?: string;
+  currentLessee?: string;
+  photos?: string[];
+}
+
+export interface CarAssetSearchRequest {
+  make?: string;
+  model?: string;
+  yearFrom?: number;
+  yearTo?: number;
+  status?: CarAssetStatus;
+  location?: string;
+  organizationId?: number;
+  pageNumber?: number;
+  pageSize?: number;
+}
+
+export interface CarAssetSearchResponse {
+  assets: CarAsset[];
+  totalCount: number;
+  pageNumber: number;
+  pageSize: number;
+  totalPages: number;
+}
+
 export interface AssetDocument {
+  id: number;
+  assetId: number;
+  filename: string;
+  originalFileName: string;
+  contentType: string;
+  fileSize: number;
+  fileHash: string;
+  uploadedAt: string;
+}
+
+export interface CarAssetDocument {
   id: number;
   assetId: number;
   originalFileName: string;
