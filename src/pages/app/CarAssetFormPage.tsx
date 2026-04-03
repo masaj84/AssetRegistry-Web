@@ -142,10 +142,11 @@ const CarAssetFormPage = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="vin-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     VIN <span className="text-red-500">*</span>
                   </label>
                   <input
+                    id="vin-input"
                     type="text"
                     value={formData.vin}
                     onChange={(e) => handleInputChange('vin', e.target.value.toUpperCase())}
@@ -158,10 +159,11 @@ const CarAssetFormPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="make-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Make <span className="text-red-500">*</span>
                   </label>
                   <input
+                    id="make-input"
                     type="text"
                     value={formData.make}
                     onChange={(e) => handleInputChange('make', e.target.value)}
@@ -172,10 +174,11 @@ const CarAssetFormPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="model-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Model <span className="text-red-500">*</span>
                   </label>
                   <input
+                    id="model-input"
                     type="text"
                     value={formData.model}
                     onChange={(e) => handleInputChange('model', e.target.value)}
@@ -186,10 +189,11 @@ const CarAssetFormPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="year-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Year <span className="text-red-500">*</span>
                   </label>
                   <input
+                    id="year-input"
                     type="number"
                     value={formData.year}
                     onChange={(e) => handleInputChange('year', parseInt(e.target.value))}
@@ -201,10 +205,11 @@ const CarAssetFormPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="color-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Color
                   </label>
                   <input
+                    id="color-input"
                     type="text"
                     value={formData.color}
                     onChange={(e) => handleInputChange('color', e.target.value)}
@@ -214,10 +219,11 @@ const CarAssetFormPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="mileage-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Mileage (km)
                   </label>
                   <input
+                    id="mileage-input"
                     type="number"
                     value={formData.mileage}
                     onChange={(e) => handleInputChange('mileage', parseInt(e.target.value) || 0)}
@@ -235,10 +241,11 @@ const CarAssetFormPage = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="location-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Location
                   </label>
                   <input
+                    id="location-input"
                     type="text"
                     value={formData.location}
                     onChange={(e) => handleInputChange('location', e.target.value)}
@@ -249,10 +256,11 @@ const CarAssetFormPage = () => {
 
                 {isEditing && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="status-select" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Status
                     </label>
                     <select
+                      id="status-select"
                       value={formData.status || 'AVAILABLE'}
                       onChange={(e) => handleInputChange('status', e.target.value as CarAssetStatus)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -275,10 +283,11 @@ const CarAssetFormPage = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="book-value-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Book Value (PLN)
                   </label>
                   <input
+                    id="book-value-input"
                     type="number"
                     value={formData.bookValue}
                     onChange={(e) => handleInputChange('bookValue', parseFloat(e.target.value) || 0)}
@@ -290,10 +299,11 @@ const CarAssetFormPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="residual-value-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Residual Value (PLN)
                   </label>
                   <input
+                    id="residual-value-input"
                     type="number"
                     value={formData.residualValue}
                     onChange={(e) => handleInputChange('residualValue', parseFloat(e.target.value) || 0)}
@@ -312,10 +322,11 @@ const CarAssetFormPage = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="current-lessee-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Current Lessee
                   </label>
                   <input
+                    id="current-lessee-input"
                     type="text"
                     value={formData.currentLessee}
                     onChange={(e) => handleInputChange('currentLessee', e.target.value)}
@@ -325,10 +336,11 @@ const CarAssetFormPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="lease-start-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Lease Start Date
                   </label>
                   <input
+                    id="lease-start-input"
                     type="date"
                     value={formData.leaseStartDate}
                     onChange={(e) => handleInputChange('leaseStartDate', e.target.value)}
@@ -337,10 +349,11 @@ const CarAssetFormPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="lease-end-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Lease End Date
                   </label>
                   <input
+                    id="lease-end-input"
                     type="date"
                     value={formData.leaseEndDate}
                     onChange={(e) => handleInputChange('leaseEndDate', e.target.value)}

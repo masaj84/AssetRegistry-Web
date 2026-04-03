@@ -9,14 +9,16 @@ import type { CarAsset, CreateCarAssetRequest, UpdateCarAssetRequest } from '../
 vi.mock('../../services/carAssetsService');
 const mockCarAssetsService = vi.mocked(carAssetsService);
 
-// Mock navigate
+// Mock navigate and params
 const mockNavigate = vi.fn();
+const mockParams = { id: undefined };
+
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
     useNavigate: () => mockNavigate,
-    useParams: () => ({}), // Default to new asset
+    useParams: () => mockParams,
   };
 });
 
@@ -76,16 +78,16 @@ describe('CarAssetFormPage', () => {
       expect(screen.getByText('Add Vehicle')).toBeInTheDocument();
 
       // Check required fields are present
-      expect(screen.getByLabelText(/VIN/)).toBeInTheDocument();
-      expect(screen.getByLabelText(/Make/)).toBeInTheDocument();
-      expect(screen.getByLabelText(/Model/)).toBeInTheDocument();
-      expect(screen.getByLabelText(/Year/)).toBeInTheDocument();
+      expect(screen.getByLabelText('VIN *')).toBeInTheDocument();
+      expect(screen.getByLabelText('Make *')).toBeInTheDocument();
+      expect(screen.getByLabelText('Model *')).toBeInTheDocument();
+      expect(screen.getByLabelText('Year *')).toBeInTheDocument();
     });
 
     it('should have current year as default', async () => {
       renderWithRouter(<CarAssetFormPage />);
 
-      const yearInput = screen.getByLabelText(/Year/) as HTMLInputElement;
+      const yearInput = screen.getByLabelText('Year *') as HTMLInputElement;
       expect(yearInput.value).toBe(new Date().getFullYear().toString());
     });
 
@@ -105,14 +107,11 @@ describe('CarAssetFormPage', () => {
 
   describe('Edit Vehicle Mode', () => {
     beforeEach(() => {
-      vi.doMock('react-router-dom', async () => {
-        const actual = await vi.importActual('react-router-dom');
-        return {
-          ...actual,
-          useNavigate: () => mockNavigate,
-          useParams: () => ({ id: '123e4567-e89b-12d3-a456-426614174000' }),
-        };
-      });
+      mockParams.id = '123e4567-e89b-12d3-a456-426614174000';
+    });
+    
+    afterEach(() => {
+      mockParams.id = undefined;
     });
 
     it('should load and display existing vehicle data', async () => {
@@ -143,10 +142,10 @@ describe('CarAssetFormPage', () => {
       renderWithRouter(<CarAssetFormPage />);
 
       await waitFor(() => {
-        expect(screen.getByLabelText(/Status/)).toBeInTheDocument();
+        expect(screen.getByLabelText('Status')).toBeInTheDocument();
       });
 
-      const statusSelect = screen.getByLabelText(/Status/) as HTMLSelectElement;
+      const statusSelect = screen.getByLabelText('Status') as HTMLSelectElement;
       expect(statusSelect.value).toBe('AVAILABLE');
     });
 
@@ -186,13 +185,13 @@ describe('CarAssetFormPage', () => {
     it('should validate VIN length', async () => {
       renderWithRouter(<CarAssetFormPage />);
 
-      const vinInput = screen.getByLabelText(/VIN/);
+      const vinInput = screen.getByLabelText('VIN *');
       fireEvent.change(vinInput, { target: { value: 'SHORT' } });
 
-      const makeInput = screen.getByLabelText(/Make/);
+      const makeInput = screen.getByLabelText('Make *');
       fireEvent.change(makeInput, { target: { value: 'BMW' } });
 
-      const modelInput = screen.getByLabelText(/Model/);
+      const modelInput = screen.getByLabelText('Model *');
       fireEvent.change(modelInput, { target: { value: '320i' } });
 
       const submitButton = screen.getByText('Add Vehicle');
@@ -213,7 +212,7 @@ describe('CarAssetFormPage', () => {
     it('should uppercase VIN input', async () => {
       renderWithRouter(<CarAssetFormPage />);
 
-      const vinInput = screen.getByLabelText(/VIN/);
+      const vinInput = screen.getByLabelText('VIN *');
       fireEvent.change(vinInput, { target: { value: 'wbaxx12345xx00001' } });
 
       expect((vinInput as HTMLInputElement).value).toBe('WBAXX12345XX00001');
@@ -222,7 +221,7 @@ describe('CarAssetFormPage', () => {
     it('should validate year range', async () => {
       renderWithRouter(<CarAssetFormPage />);
 
-      const yearInput = screen.getByLabelText(/Year/);
+      const yearInput = screen.getByLabelText('Year *');
       
       // Test minimum year
       fireEvent.change(yearInput, { target: { value: '1899' } });
@@ -243,16 +242,16 @@ describe('CarAssetFormPage', () => {
       renderWithRouter(<CarAssetFormPage />);
 
       // Fill required fields
-      fireEvent.change(screen.getByLabelText(/VIN/), { target: { value: 'WBAXX12345XX00001' } });
-      fireEvent.change(screen.getByLabelText(/Make/), { target: { value: 'BMW' } });
-      fireEvent.change(screen.getByLabelText(/Model/), { target: { value: '320i' } });
+      fireEvent.change(screen.getByLabelText('VIN *'), { target: { value: 'WBAXX12345XX00001' } });
+      fireEvent.change(screen.getByLabelText('Make *'), { target: { value: 'BMW' } });
+      fireEvent.change(screen.getByLabelText('Model *'), { target: { value: '320i' } });
       
       // Fill optional fields
-      fireEvent.change(screen.getByLabelText(/Color/), { target: { value: 'Black' } });
-      fireEvent.change(screen.getByLabelText(/Mileage/), { target: { value: '15000' } });
-      fireEvent.change(screen.getByLabelText(/Location/), { target: { value: 'Wrocław HQ' } });
-      fireEvent.change(screen.getByLabelText(/Book Value/), { target: { value: '180000' } });
-      fireEvent.change(screen.getByLabelText(/Residual Value/), { target: { value: '120000' } });
+      fireEvent.change(screen.getByLabelText('Color'), { target: { value: 'Black' } });
+      fireEvent.change(screen.getByLabelText('Mileage (km)'), { target: { value: '15000' } });
+      fireEvent.change(screen.getByLabelText('Location'), { target: { value: 'Wrocław HQ' } });
+      fireEvent.change(screen.getByLabelText('Book Value (PLN)'), { target: { value: '180000' } });
+      fireEvent.change(screen.getByLabelText('Residual Value (PLN)'), { target: { value: '120000' } });
 
       const submitButton = screen.getByText('Add Vehicle');
       fireEvent.click(submitButton);
@@ -284,9 +283,9 @@ describe('CarAssetFormPage', () => {
       renderWithRouter(<CarAssetFormPage />);
 
       // Fill required fields
-      fireEvent.change(screen.getByLabelText(/VIN/), { target: { value: 'WBAXX12345XX00001' } });
-      fireEvent.change(screen.getByLabelText(/Make/), { target: { value: 'BMW' } });
-      fireEvent.change(screen.getByLabelText(/Model/), { target: { value: '320i' } });
+      fireEvent.change(screen.getByLabelText('VIN *'), { target: { value: 'WBAXX12345XX00001' } });
+      fireEvent.change(screen.getByLabelText('Make *'), { target: { value: 'BMW' } });
+      fireEvent.change(screen.getByLabelText('Model *'), { target: { value: '320i' } });
 
       const submitButton = screen.getByText('Add Vehicle');
       fireEvent.click(submitButton);
@@ -306,9 +305,9 @@ describe('CarAssetFormPage', () => {
       renderWithRouter(<CarAssetFormPage />);
 
       // Fill required fields
-      fireEvent.change(screen.getByLabelText(/VIN/), { target: { value: 'WBAXX12345XX00001' } });
-      fireEvent.change(screen.getByLabelText(/Make/), { target: { value: 'BMW' } });
-      fireEvent.change(screen.getByLabelText(/Model/), { target: { value: '320i' } });
+      fireEvent.change(screen.getByLabelText('VIN *'), { target: { value: 'WBAXX12345XX00001' } });
+      fireEvent.change(screen.getByLabelText('Make *'), { target: { value: 'BMW' } });
+      fireEvent.change(screen.getByLabelText('Model *'), { target: { value: '320i' } });
 
       const submitButton = screen.getByText('Add Vehicle');
       fireEvent.click(submitButton);
@@ -324,14 +323,11 @@ describe('CarAssetFormPage', () => {
 
   describe('Form Submission - Edit Mode', () => {
     beforeEach(() => {
-      vi.doMock('react-router-dom', async () => {
-        const actual = await vi.importActual('react-router-dom');
-        return {
-          ...actual,
-          useNavigate: () => mockNavigate,
-          useParams: () => ({ id: '123e4567-e89b-12d3-a456-426614174000' }),
-        };
-      });
+      mockParams.id = '123e4567-e89b-12d3-a456-426614174000';
+    });
+    
+    afterEach(() => {
+      mockParams.id = undefined;
     });
 
     it('should update car asset successfully', async () => {
@@ -345,7 +341,7 @@ describe('CarAssetFormPage', () => {
       });
 
       // Update color
-      const colorInput = screen.getByDisplayValue('Black');
+      const colorInput = screen.getByLabelText('Color');
       fireEvent.change(colorInput, { target: { value: 'Silver' } });
 
       const submitButton = screen.getByText('Update Vehicle');
@@ -377,9 +373,9 @@ describe('CarAssetFormPage', () => {
     it('should handle lease dates correctly', async () => {
       renderWithRouter(<CarAssetFormPage />);
 
-      const leaseStartInput = screen.getByLabelText(/Lease Start Date/);
-      const leaseEndInput = screen.getByLabelText(/Lease End Date/);
-      const lesseeInput = screen.getByLabelText(/Current Lessee/);
+      const leaseStartInput = screen.getByLabelText('Lease Start Date');
+      const leaseEndInput = screen.getByLabelText('Lease End Date');
+      const lesseeInput = screen.getByLabelText('Current Lessee');
 
       fireEvent.change(leaseStartInput, { target: { value: '2026-04-01' } });
       fireEvent.change(leaseEndInput, { target: { value: '2027-04-01' } });
@@ -406,26 +402,26 @@ describe('CarAssetFormPage', () => {
     it('should handle decimal values for book and residual values', async () => {
       renderWithRouter(<CarAssetFormPage />);
 
-      const bookValueInput = screen.getByLabelText(/Book Value/);
-      const residualValueInput = screen.getByLabelText(/Residual Value/);
+      const bookValueInput = screen.getByLabelText('Book Value (PLN)');
+      const residualValueInput = screen.getByLabelText('Residual Value (PLN)');
 
       fireEvent.change(bookValueInput, { target: { value: '180000.50' } });
       fireEvent.change(residualValueInput, { target: { value: '120000.75' } });
 
-      expect((bookValueInput as HTMLInputElement).value).toBe('180000.5');
+      expect((bookValueInput as HTMLInputElement).value).toBe('180000.50');
       expect((residualValueInput as HTMLInputElement).value).toBe('120000.75');
     });
 
     it('should handle empty financial values', async () => {
       renderWithRouter(<CarAssetFormPage />);
 
-      const bookValueInput = screen.getByLabelText(/Book Value/);
+      const bookValueInput = screen.getByLabelText('Book Value (PLN)');
       fireEvent.change(bookValueInput, { target: { value: '' } });
 
       // Fill required fields for submission
-      fireEvent.change(screen.getByLabelText(/VIN/), { target: { value: 'WBAXX12345XX00001' } });
-      fireEvent.change(screen.getByLabelText(/Make/), { target: { value: 'BMW' } });
-      fireEvent.change(screen.getByLabelText(/Model/), { target: { value: '320i' } });
+      fireEvent.change(screen.getByLabelText('VIN *'), { target: { value: 'WBAXX12345XX00001' } });
+      fireEvent.change(screen.getByLabelText('Make *'), { target: { value: 'BMW' } });
+      fireEvent.change(screen.getByLabelText('Model *'), { target: { value: '320i' } });
 
       const submitButton = screen.getByText('Add Vehicle');
       fireEvent.click(submitButton);
@@ -442,15 +438,8 @@ describe('CarAssetFormPage', () => {
 
   describe('Loading States', () => {
     it('should show loading state when loading car data in edit mode', async () => {
-      vi.doMock('react-router-dom', async () => {
-        const actual = await vi.importActual('react-router-dom');
-        return {
-          ...actual,
-          useNavigate: () => mockNavigate,
-          useParams: () => ({ id: '123e4567-e89b-12d3-a456-426614174000' }),
-        };
-      });
-
+      mockParams.id = '123e4567-e89b-12d3-a456-426614174000';
+      
       mockCarAssetsService.getCarAsset.mockImplementation(
         () => new Promise(resolve => setTimeout(() => resolve(mockCarAsset), 100))
       );
@@ -462,18 +451,13 @@ describe('CarAssetFormPage', () => {
       await waitFor(() => {
         expect(screen.getByText('Edit Vehicle')).toBeInTheDocument();
       });
+      
+      mockParams.id = undefined;
     });
 
     it('should show error when loading car data fails', async () => {
-      vi.doMock('react-router-dom', async () => {
-        const actual = await vi.importActual('react-router-dom');
-        return {
-          ...actual,
-          useNavigate: () => mockNavigate,
-          useParams: () => ({ id: '123e4567-e89b-12d3-a456-426614174000' }),
-        };
-      });
-
+      mockParams.id = '123e4567-e89b-12d3-a456-426614174000';
+      
       mockCarAssetsService.getCarAsset.mockRejectedValue(new Error('Car not found'));
 
       renderWithRouter(<CarAssetFormPage />);
@@ -481,6 +465,8 @@ describe('CarAssetFormPage', () => {
       await waitFor(() => {
         expect(screen.getByText('Car not found')).toBeInTheDocument();
       });
+      
+      mockParams.id = undefined;
     });
   });
 });
