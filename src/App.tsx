@@ -23,11 +23,19 @@ const AuthActionPage = lazy(() => import('./pages/auth/AuthActionPage'));
 const AccountActivatedPage = lazy(() => import('./pages/auth/AccountActivatedPage'));
 const OAuthCallbackPage = lazy(() => import('./pages/auth/OAuthCallbackPage'));
 const VerifyPage = lazy(() => import('./pages/VerifyPage'));
+const PublicCarPage = lazy(() => import('./pages/PublicCarPage'));
+const IndustryPage = lazy(() => import('./pages/IndustryPage'));
+const RoadmapPage = lazy(() => import('./pages/RoadmapPage'));
+const TechPage = lazy(() => import('./pages/TechPage'));
+const KomisPage = lazy(() => import('./pages/KomisPage'));
 
 // App pages
 const DashboardPage = lazy(() => import('./pages/app/DashboardPage'));
 const AssetsPage = lazy(() => import('./pages/app/AssetsPage'));
 const AssetFormPage = lazy(() => import('./pages/app/AssetFormPage'));
+const CarsPage = lazy(() => import('./pages/app/CarsPage'));
+const CarFormPage = lazy(() => import('./pages/app/CarFormPage'));
+const CarDetailPage = lazy(() => import('./pages/app/CarDetailPage'));
 const ReportsPage = lazy(() => import('./pages/app/ReportsPage'));
 const SettingsPage = lazy(() => import('./pages/app/SettingsPage'));
 
@@ -79,6 +87,17 @@ function App() {
           <Route path="/auth/callback/:provider" element={<OAuthCallbackPage />} />
           <Route path="/verify" element={<VerifyPage />} />
           <Route path="/verify/:hash" element={<VerifyPage />} />
+          <Route path="/car/:id" element={<PublicCarPage />} />
+
+          {/* Industry sub-pages (Step 9) */}
+          <Route path="/zegarmistrzostwo" element={<IndustryPage industry="watches" />} />
+          <Route path="/galerie-sztuki" element={<IndustryPage industry="art" />} />
+          <Route path="/instrumenty" element={<IndustryPage industry="instruments" />} />
+          <Route path="/inne" element={<IndustryPage industry="other" />} />
+          <Route path="/jak-dziala" element={<TechPage />} />
+          <Route path="/roadmap" element={<RoadmapPage />} />
+          <Route path="/komis" element={<KomisPage />} />
+          <Route path="/uzywane" element={<KomisPage />} />
 
           {/* Protected app routes */}
           <Route
@@ -90,6 +109,10 @@ function App() {
             }
           >
             <Route index element={<DashboardPage />} />
+            <Route path="cars" element={<CarsPage />} />
+            <Route path="cars/new" element={<CarFormPage />} />
+            <Route path="cars/:id" element={<CarDetailPage />} />
+            <Route path="cars/:id/edit" element={<CarFormPage />} />
             <Route path="assets" element={<AssetsPage />} />
             <Route path="assets/new" element={<AssetFormPage />} />
             <Route path="assets/:id" element={<AssetFormPage />} />
