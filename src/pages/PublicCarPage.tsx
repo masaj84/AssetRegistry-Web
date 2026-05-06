@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { carAssetsService } from '../services/carAssetsService';
+import { carTimelineService } from '../services/carTimelineService';
 import { useLanguage } from '../context/LanguageContext';
 import type { PublicCarAsset } from '../types/carAsset';
+import type { PublicCarTimelineEntry } from '../types/timeline';
 
 const tokens = {
   warmTerra: '#E67347',
@@ -29,6 +31,7 @@ export default function PublicCarPage() {
   const { id } = useParams<{ id: string }>();
   const { language } = useLanguage();
   const [car, setCar] = useState<PublicCarAsset | null>(null);
+  const [timeline, setTimeline] = useState<PublicCarTimelineEntry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -38,8 +41,14 @@ export default function PublicCarPage() {
     (async () => {
       try {
         setIsLoading(true);
-        const data = await carAssetsService.getPublicById(id);
-        if (!cancelled) setCar(data);
+        const [data, timelineData] = await Promise.all([
+          carAssetsService.getPublicById(id),
+          carTimelineService.listPublic(id).catch(() => [] as PublicCarTimelineEntry[]),
+        ]);
+        if (!cancelled) {
+          setCar(data);
+          setTimeline(timelineData);
+        }
       } catch {
         if (!cancelled) setError(language === 'pl' ? 'Nie znaleziono auta' : 'Car not found');
       } finally {
@@ -72,6 +81,19 @@ export default function PublicCarPage() {
       LEASED: 'Wynajęte',
       SOLD: 'Sprzedane',
       DAMAGED: 'Uszkodzone',
+      timelineTitle: 'Historia',
+      timelineEmpty: 'Brak wpisów w historii.',
+      timelineWorkshop: 'Warsztat',
+      typeSERVICE: 'Serwis',
+      typeINSPECTION: 'Przegląd',
+      typeREPAIR: 'Naprawa',
+      typeDETAILING: 'Detailing',
+      typeMILEAGE_CHECK: 'Odczyt licznika',
+      typeOWNERSHIP_CHANGE: 'Zmiana właściciela',
+      typePURCHASE: 'Zakup',
+      typeSALE: 'Sprzedaż',
+      typeACCIDENT_REPORT: 'Zgłoszenie szkody',
+      typeOTHER: 'Inne',
     },
     en: {
       label: 'Car record',
@@ -95,8 +117,26 @@ export default function PublicCarPage() {
       LEASED: 'Leased',
       SOLD: 'Sold',
       DAMAGED: 'Damaged',
+      timelineTitle: 'History',
+      timelineEmpty: 'No entries yet.',
+      timelineWorkshop: 'Workshop',
+      typeSERVICE: 'Service',
+      typeINSPECTION: 'Inspection',
+      typeREPAIR: 'Repair',
+      typeDETAILING: 'Detailing',
+      typeMILEAGE_CHECK: 'Odometer check',
+      typeOWNERSHIP_CHANGE: 'Owner change',
+      typePURCHASE: 'Purchase',
+      typeSALE: 'Sale',
+      typeACCIDENT_REPORT: 'Accident report',
+      typeOTHER: 'Other',
     },
   }[language];
+
+  const typeLabel = (type: string): string => {
+    const key = `type${type}` as keyof typeof labels;
+    return (labels as Record<string, string>)[key] ?? type;
+  };
 
   if (isLoading) {
     return (
@@ -382,6 +422,107 @@ export default function PublicCarPage() {
           >
             {labels.learnMore} →
           </Link>
+        </div>
+
+        {/* Timeline */}
+        <div
+          className="mt-5"
+          style={{
+            backgroundColor: tokens.paperCream,
+            border: `1px solid ${tokens.warmTerra}30`,
+            borderRadius: '12px 8px 14px 10px',
+            padding: '1.25rem 1.5rem',
+            boxShadow: `0 4px 14px rgba(60,56,53,0.04)`,
+          }}
+        >
+          <div
+            style={{
+              fontFamily: tokens.fontAccent,
+              fontSize: '0.625rem',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: tokens.warmTerra,
+              marginBottom: '0.75rem',
+            }}
+          >
+            {labels.timelineTitle}
+          </div>
+          {timeline.length === 0 ? (
+            <p style={{ fontSize: '0.875rem', opacity: 0.6, fontStyle: 'italic', margin: 0 }}>
+              {labels.timelineEmpty}
+            </p>
+          ) : (
+            <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+              {timeline.map((entry, idx) => (
+                <li
+                  key={entry.id}
+                  style={{
+                    paddingLeft: '0.875rem',
+                    paddingTop: idx === 0 ? 0 : '0.625rem',
+                    paddingBottom: idx === timeline.length - 1 ? 0 : '0.625rem',
+                    borderLeft: `2px solid ${tokens.warmTerra}40`,
+                    marginLeft: '0.25rem',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      marginBottom: '0.25rem',
+                      flexWrap: 'wrap',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: tokens.fontAccent,
+                        fontSize: '0.6875rem',
+                        fontWeight: 600,
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                        color: tokens.warmTerra,
+                      }}
+                    >
+                      {typeLabel(entry.type)}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: tokens.fontMono,
+                        fontSize: '0.6875rem',
+                        opacity: 0.55,
+                      }}
+                    >
+                      {formatDate(entry.occurredAt)}
+                    </span>
+                    {entry.mileage != null && (
+                      <span
+                        style={{
+                          fontFamily: tokens.fontMono,
+                          fontSize: '0.6875rem',
+                          opacity: 0.55,
+                        }}
+                      >
+                        · {entry.mileage.toLocaleString('pl-PL')} km
+                      </span>
+                    )}
+                  </div>
+                  <p style={{ fontSize: '0.875rem', margin: 0 }}>{entry.description}</p>
+                  {entry.workshop && (
+                    <p
+                      style={{
+                        fontSize: '0.75rem',
+                        opacity: 0.55,
+                        margin: '0.2rem 0 0',
+                        fontStyle: 'italic',
+                      }}
+                    >
+                      {labels.timelineWorkshop}: {entry.workshop}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ol>
+          )}
         </div>
 
         {/* Meta dates */}

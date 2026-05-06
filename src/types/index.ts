@@ -127,6 +127,36 @@ export interface Organization {
   createdAt: string;
 }
 
+// Backend OrganizationType enum — serialized as int (integer index in enum order).
+// Order matches AssetRegistry.Contracts.Organizations.OrganizationType.cs.
+export const OrganizationTypeEnum = {
+  DEALERSHIP: 0,
+  LEASING: 1,
+  NOTARY: 2,
+  INSURANCE: 3,
+  AUCTION: 4,
+  GALLERY: 5,
+  REAL_ESTATE: 6,
+  MARINA: 7,
+  OTHER: 8,
+} as const;
+export type OrganizationTypeKey = keyof typeof OrganizationTypeEnum;
+
+export interface CreateOrganizationRequest {
+  name: string;
+  type: number;
+  taxId?: string | null;
+  address?: string | null;
+  contactEmail?: string | null;
+  contactPhone?: string | null;
+}
+
+export interface CreateOrganizationResponse {
+  organization: Organization;
+  token: string;
+  refreshToken: string;
+}
+
 export type OrganizationRole = 'MEMBER' | 'ADMIN';
 
 export interface OrganizationMember {

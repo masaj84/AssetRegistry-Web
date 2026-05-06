@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { QrShareCard } from '../../components/QrShareCard';
+import { CarTimeline } from '../../components/app/CarTimeline';
 import { carAssetsService } from '../../services/carAssetsService';
 import { getErrorMessage } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
@@ -270,6 +271,15 @@ export default function CarDetailPage() {
             <p className="text-sm text-muted-foreground italic">{t('app.cars.notAnchored')}</p>
           )}
         </div>
+      </div>
+
+      {/* Timeline */}
+      <div className="mt-5">
+        <CarTimeline
+          carId={car.id}
+          currentMileage={car.mileage}
+          onMileageBumped={(km) => setCar((prev) => (prev ? { ...prev, mileage: km } : prev))}
+        />
       </div>
 
       {/* QR share card */}

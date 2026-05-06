@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -61,6 +61,18 @@ export function AppLayout() {
     logout();
     navigate('/');
   };
+
+  // Onboarding gate: a user with no organization can't use car/asset endpoints.
+  // Redirect to the org-creation form once. /app/onboarding/* and /app/admin/* are exempt
+  // (admin sometimes wants to provision other orgs without one of their own).
+  const ONBOARDING_PATH = '/app/onboarding/organization';
+  useEffect(() => {
+    if (!user) return;
+    if (user.organizationId) return;
+    if (location.pathname.startsWith('/app/onboarding')) return;
+    if (location.pathname.startsWith('/app/admin')) return;
+    navigate(ONBOARDING_PATH, { replace: true });
+  }, [user, location.pathname, navigate]);
 
   return (
     <div className="min-h-screen flex bg-background relative">

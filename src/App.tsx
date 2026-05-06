@@ -38,6 +38,7 @@ const CarFormPage = lazy(() => import('./pages/app/CarFormPage'));
 const CarDetailPage = lazy(() => import('./pages/app/CarDetailPage'));
 const ReportsPage = lazy(() => import('./pages/app/ReportsPage'));
 const SettingsPage = lazy(() => import('./pages/app/SettingsPage'));
+const CreateOrganizationPage = lazy(() => import('./pages/app/CreateOrganizationPage'));
 
 // Admin pages
 const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
@@ -109,6 +110,7 @@ function App() {
             }
           >
             <Route index element={<DashboardPage />} />
+            <Route path="onboarding/organization" element={<CreateOrganizationPage />} />
             <Route path="cars" element={<CarsPage />} />
             <Route path="cars/new" element={<CarFormPage />} />
             <Route path="cars/:id" element={<CarDetailPage />} />
