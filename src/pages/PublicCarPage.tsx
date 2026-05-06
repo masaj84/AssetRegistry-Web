@@ -33,20 +33,21 @@ export default function PublicCarPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (id) load(id);
-  }, [id]);
-
-  const load = async (carId: string) => {
-    try {
-      setIsLoading(true);
-      const data = await carAssetsService.getPublicById(carId);
-      setCar(data);
-    } catch (err) {
-      setError(language === 'pl' ? 'Nie znaleziono auta' : 'Car not found');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    if (!id) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        setIsLoading(true);
+        const data = await carAssetsService.getPublicById(id);
+        if (!cancelled) setCar(data);
+      } catch {
+        if (!cancelled) setError(language === 'pl' ? 'Nie znaleziono auta' : 'Car not found');
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [id, language]);
 
   const labels = {
     pl: {

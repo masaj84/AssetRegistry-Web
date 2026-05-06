@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
 import { useLanguage } from '../context/LanguageContext';
-import { useAuth } from '../context/AuthContext';
 
 import { ContactSection } from '../components/ContactSection';
 
@@ -58,7 +57,7 @@ function HumanText({
   variant?: 'display' | 'headline' | 'body' | 'accent' | 'small';
   children: React.ReactNode;
   className?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }) {
   const variants: Record<string, React.CSSProperties> = {
     display: {
@@ -215,12 +214,9 @@ function ComingSoonToast({ show, onClose }: { show: boolean; onClose: () => void
 
 export function LandingPageHuman() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [isDemoLoading, setIsDemoLoading] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
 
   const { t, language, setLanguage } = useLanguage();
-  const { loginAsDemo } = useAuth();
-  const navigate = useNavigate();
 
   // Custom styles for human design
   const humanStyles = `
@@ -275,27 +271,6 @@ export function LandingPageHuman() {
     .blob-drift    { animation: drift-x     14s ease-in-out infinite; }
     .blob-rotate   { animation: slow-rotate 60s linear infinite; }
   `;
-
-  const handleComingSoon = () => {
-    setShowComingSoon(true);
-    setTimeout(() => setShowComingSoon(false), 5000);
-  };
-
-  const handleDemo = async () => {
-    if (TEASER_MODE) {
-      handleComingSoon();
-      return;
-    }
-    setIsDemoLoading(true);
-    try {
-      await loginAsDemo();
-      navigate('/app');
-    } catch (error) {
-      console.error('Demo login failed:', error);
-    } finally {
-      setIsDemoLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen relative" style={{ backgroundColor: humanTokens.colors.paperCream }}>
