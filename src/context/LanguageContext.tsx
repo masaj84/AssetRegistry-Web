@@ -687,6 +687,12 @@ const translations: Record<Language, Record<string, string>> = {
     'app.cars.timeline.type.SALE': 'Sale',
     'app.cars.timeline.type.ACCIDENT_REPORT': 'Accident report',
     'app.cars.timeline.type.OTHER': 'Other',
+    // AI feature placeholders (roadmap; see AssetRegistry-Docs/AI_FEATURES.md)
+    'app.cars.ai.anomaly.title': 'AI anomaly detector',
+    'app.cars.ai.anomaly.desc': 'AI will continuously scan this car\u2019s timeline for suspicious patterns — odometer rollback gaps, missing service intervals, frequent ownership changes — and flag them here. Coming soon.',
+    'app.cars.ai.pitch.title': 'AI sales-pitch generator',
+    'app.cars.ai.pitch.desc': 'One-click description for OLX/Otomoto listings, generated from the car\u2019s timeline and verified data. Coming soon.',
+    'app.cars.timeline.ai.ocr.hint': 'Paste a service invoice (PDF/photo) and AI will fill the fields automatically.',
     // Organization onboarding
     'app.org.create.title': 'Set up your dealership',
     'app.org.create.subtitle': 'Before you add cars, give your dealership a name. You can edit details later.',
@@ -1559,6 +1565,12 @@ const translations: Record<Language, Record<string, string>> = {
     'app.cars.timeline.type.SALE': 'Sprzedaż',
     'app.cars.timeline.type.ACCIDENT_REPORT': 'Zgłoszenie szkody',
     'app.cars.timeline.type.OTHER': 'Inne',
+    // AI feature placeholdery (roadmap; patrz AssetRegistry-Docs/AI_FEATURES.md)
+    'app.cars.ai.anomaly.title': 'AI wykrywanie anomalii',
+    'app.cars.ai.anomaly.desc': 'AI będzie skanować historię auta w poszukiwaniu podejrzanych wzorców — luki sugerujące cofnięty licznik, brak serwisu w długich odstępach, częste zmiany właściciela — i tutaj je flagować. Funkcja w drodze.',
+    'app.cars.ai.pitch.title': 'AI generator opisu sprzedażowego',
+    'app.cars.ai.pitch.desc': 'Jednym kliknięciem opis na OLX/Otomoto, wygenerowany z historii auta i zweryfikowanych danych. Funkcja w drodze.',
+    'app.cars.timeline.ai.ocr.hint': 'Wklej fakturę serwisową (PDF/zdjęcie) — AI uzupełni pola automatycznie.',
     // Onboarding organizacji
     'app.org.create.title': 'Załóż swój salon',
     'app.org.create.subtitle': 'Zanim dodasz auta, nazwij salon. Szczegóły możesz później edytować.',

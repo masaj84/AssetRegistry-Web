@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { QrShareCard } from '../../components/QrShareCard';
+import { AiSoonCard } from '../../components/AiSoonCard';
 import { CarTimeline } from '../../components/app/CarTimeline';
 import { carAssetsService } from '../../services/carAssetsService';
 import { getErrorMessage } from '../../services/authService';
@@ -273,12 +274,38 @@ export default function CarDetailPage() {
         </div>
       </div>
 
+      {/* AI: Anomaly detector (placeholder) */}
+      <div className="mt-5">
+        <AiSoonCard
+          title={t('app.cars.ai.anomaly.title')}
+          description={t('app.cars.ai.anomaly.desc')}
+          icon={
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+          }
+        />
+      </div>
+
       {/* Timeline */}
       <div className="mt-5">
         <CarTimeline
           carId={car.id}
           currentMileage={car.mileage}
           onMileageBumped={(km) => setCar((prev) => (prev ? { ...prev, mileage: km } : prev))}
+        />
+      </div>
+
+      {/* AI: Sales pitch generator (placeholder) */}
+      <div className="mt-5">
+        <AiSoonCard
+          title={t('app.cars.ai.pitch.title')}
+          description={t('app.cars.ai.pitch.desc')}
+          icon={
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zM19.5 13.5l-1.875 1.875M6.75 19.5h10.5" />
+            </svg>
+          }
         />
       </div>
 

@@ -140,6 +140,36 @@ export function CarTimeline({ carId, currentMileage, onMileageBumped }: CarTimel
 
       {showForm && (
         <form onSubmit={handleSubmit} className="space-y-3 mb-5 pb-5 border-b border-border">
+          {/* AI: OCR invoice → entry (placeholder) */}
+          <div
+            className="flex items-center gap-2.5 px-3 py-2 border border-dashed text-xs"
+            style={{
+              borderColor: '#E6734740',
+              backgroundColor: '#E6734708',
+              color: '#3C3835',
+            }}
+          >
+            <svg
+              className="w-4 h-4 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.5}
+              viewBox="0 0 24 24"
+              style={{ color: '#E67347' }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+            </svg>
+            <span className="flex-1 opacity-75">
+              {t('app.cars.timeline.ai.ocr.hint')}
+            </span>
+            <span
+              className="px-1.5 py-0.5 text-[9px] font-mono font-semibold tracking-widest uppercase"
+              style={{ backgroundColor: '#E67347', color: '#FFF', borderRadius: '3px' }}
+            >
+              Wkrótce
+            </span>
+          </div>
+
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs text-muted-foreground mb-1">

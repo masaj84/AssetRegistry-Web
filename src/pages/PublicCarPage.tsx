@@ -94,6 +94,9 @@ export default function PublicCarPage() {
       typeSALE: 'Sprzedaż',
       typeACCIDENT_REPORT: 'Zgłoszenie szkody',
       typeOTHER: 'Inne',
+      aiSummaryTitle: 'Podsumowanie AI',
+      aiSummaryPlaceholder: 'AI w 2-3 zdaniach podsumuje historię tego auta — regularność serwisu, anomalie, wiarygodność danych. Funkcja w drodze.',
+      aiChatTooltip: 'Zapytaj AI o to auto — wkrótce dostępne',
     },
     en: {
       label: 'Car record',
@@ -130,6 +133,9 @@ export default function PublicCarPage() {
       typeSALE: 'Sale',
       typeACCIDENT_REPORT: 'Accident report',
       typeOTHER: 'Other',
+      aiSummaryTitle: 'AI summary',
+      aiSummaryPlaceholder: 'AI will summarise this car\u2019s history in 2-3 sentences — service regularity, anomalies, data reliability. Coming soon.',
+      aiChatTooltip: 'Ask AI about this car — coming soon',
     },
   }[language];
 
@@ -424,6 +430,52 @@ export default function PublicCarPage() {
           </Link>
         </div>
 
+        {/* AI Summary (placeholder) */}
+        <div
+          className="mt-5 relative"
+          style={{
+            border: `1px dashed ${tokens.warmTerra}50`,
+            borderRadius: '12px 8px 14px 10px',
+            padding: '1.25rem 1.5rem',
+            backgroundColor: `${tokens.warmTerra}06`,
+            overflow: 'hidden',
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              padding: '0.25rem 0.625rem',
+              backgroundColor: tokens.warmTerra,
+              color: '#FFF',
+              fontFamily: tokens.fontAccent,
+              fontSize: '0.625rem',
+              fontWeight: 600,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              borderRadius: '0 8px 0 6px',
+            }}
+          >
+            Wkrótce · AI
+          </div>
+          <div
+            style={{
+              fontFamily: tokens.fontAccent,
+              fontSize: '0.625rem',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: tokens.warmTerra,
+              marginBottom: '0.5rem',
+            }}
+          >
+            {labels.aiSummaryTitle}
+          </div>
+          <p style={{ fontSize: '0.875rem', opacity: 0.7, lineHeight: 1.55, margin: 0 }}>
+            {labels.aiSummaryPlaceholder}
+          </p>
+        </div>
+
         {/* Timeline */}
         <div
           className="mt-5"
@@ -558,6 +610,54 @@ export default function PublicCarPage() {
           </Link>
         </div>
       </main>
+
+      {/* AI Chat — floating button (placeholder) */}
+      <button
+        type="button"
+        disabled
+        title={labels.aiChatTooltip}
+        aria-label={labels.aiChatTooltip}
+        style={{
+          position: 'fixed',
+          bottom: '1.25rem',
+          right: '1.25rem',
+          width: '3.25rem',
+          height: '3.25rem',
+          borderRadius: '50%',
+          backgroundColor: tokens.warmTerra,
+          color: '#FFF',
+          border: 'none',
+          cursor: 'not-allowed',
+          opacity: 0.85,
+          boxShadow: '0 8px 24px rgba(230,115,71,0.35)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontFamily: tokens.fontAccent,
+        }}
+      >
+        <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+        </svg>
+        <span
+          style={{
+            position: 'absolute',
+            top: '-6px',
+            right: '-6px',
+            fontSize: '0.5rem',
+            backgroundColor: '#3C3835',
+            color: '#FFF',
+            padding: '2px 5px',
+            borderRadius: '10px',
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          Wkrótce
+        </span>
+      </button>
     </div>
   );
 }
