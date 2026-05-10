@@ -45,7 +45,9 @@ jobs:
       - name: Create environment file
         run: |
           if [ "${{ inputs.environment }}" = "production" ]; then
-            echo "VITE_API_URL=${{ secrets.VITE_API_URL_PRODUCTION }}" > .env.production
+            # Same-origin API: nginx on trve.io proxies /api/ to localhost:5000.
+            # No api.trve.io subdomain (DNS doesn't exist).
+            echo "VITE_API_URL=https://trve.io" > .env.production
             echo "VITE_TEASER_MODE=false" >> .env.production
             echo "VITE_CHAIN_ID=137" >> .env.production
             echo "VITE_CHAIN_NAME=Polygon" >> .env.production
