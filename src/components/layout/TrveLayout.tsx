@@ -90,6 +90,8 @@ const styles = `
   .trve-nav a:hover,.trve-nav button:hover{color:var(--fg)}
   .trve-nav .cta{border:1px solid var(--line);padding:9px 16px;color:var(--fg)}
   .trve-nav .cta:hover{background:var(--fg);color:var(--bg)}
+  .trve-social{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;color:var(--mute);transition:color .2s,border-color .2s,background .2s}
+  .trve-social:hover{color:var(--fg);border-color:var(--fg);background:var(--bg-2)}
   .trve-lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:2px;gap:0}
   .trve-lang button{padding:5px 10px;border-radius:999px;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:var(--mute)}
   .trve-lang button.on{background:var(--fg);color:var(--bg)}
@@ -204,6 +206,18 @@ export function TrveLayout({ children }: TrveLayoutProps) {
           <nav className="trve-nav">
             <Link to="/#story" className="hide-sm">{t('dealer.nav.howItWorks')}</Link>
             <Link to="/#value" className="hide-sm">{t('dealer.nav.forDealer')}</Link>
+            <a
+              href="https://x.com/trveio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="trve-social"
+              aria-label="TRVE_ on X"
+              title="@trveio"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18.244 2H21l-6.52 7.45L22 22h-6.91l-4.94-6.45L4.56 22H2l7.06-8.06L2 2h6.91l4.47 5.93L18.244 2zm-1.21 18h1.83L7.05 4h-1.9l11.884 16z"/>
+              </svg>
+            </a>
             <div className="trve-lang hide-sm" role="group" aria-label="Theme">
               {TRVE_THEMES.map((th) => (
                 <button
@@ -258,12 +272,6 @@ export function TrveLayout({ children }: TrveLayoutProps) {
             <Link to="/#story">{t('dealer.footer.howItWorks')}</Link>
             <Link to="/#demo">{t('dealer.footer.contact')}</Link>
             <a href="mailto:hello@trve.io">hello@trve.io</a>
-            <a href="https://x.com/trveio" target="_blank" rel="noopener noreferrer" aria-label="TRVE_ on X" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M18.244 2H21l-6.52 7.45L22 22h-6.91l-4.94-6.45L4.56 22H2l7.06-8.06L2 2h6.91l4.47 5.93L18.244 2zm-1.21 18h1.83L7.05 4h-1.9l11.884 16z"/>
-              </svg>
-              @trveio
-            </a>
           </div>
           <div className="fcol">
             <span>{t('nav.otherIndustries')}</span>
