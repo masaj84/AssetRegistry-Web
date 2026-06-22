@@ -6,6 +6,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminRoute } from './components/AdminRoute';
 import { CookieConsent } from './components/legal/CookieConsent';
+import { ScrollToHash } from './components/ScrollToHash';
 
 // Layouts (keep synchronous - used as route wrappers)
 import { AppLayout } from './components/layout/AppLayout';
@@ -71,6 +72,7 @@ function App() {
       <LanguageProvider>
         <AuthProvider>
         <BrowserRouter>
+        <ScrollToHash />
         <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Public routes */}

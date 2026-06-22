@@ -1,49 +1,5 @@
-import { Link } from 'react-router-dom';
-import { Button } from '../components/ui/Button';
-import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
-
-function LanguageToggle() {
-  const { language, setLanguage } = useLanguage();
-
-  return (
-    <button
-      onClick={() => setLanguage(language === 'en' ? 'pl' : 'en')}
-      className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium font-mono"
-    >
-      {language === 'en' ? 'PL' : 'EN'}
-    </button>
-  );
-}
-
-function ThemeToggleButton() {
-  const { theme, toggleTheme } = useTheme();
-
-  return (
-    <button
-      onClick={toggleTheme}
-      className={`w-9 h-9 flex items-center justify-center border transition-all duration-300 group relative overflow-hidden ${
-        theme === 'dark'
-          ? 'border-orange/40 hover:border-orange hover:shadow-[0_0_12px_rgba(251,146,60,0.3)]'
-          : 'border-border hover:border-foreground'
-      }`}
-      aria-label={theme === 'light' ? 'Dark mode' : 'Light mode'}
-    >
-      {theme === 'dark' && (
-        <div className="absolute inset-0 bg-gradient-to-br from-orange/15 to-purple/10 opacity-50 group-hover:opacity-100 transition-opacity" />
-      )}
-      {theme === 'light' ? (
-        <svg className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors relative z-10" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-          <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-        </svg>
-      ) : (
-        <svg className="w-4 h-4 text-orange-light group-hover:text-orange transition-colors relative z-10 drop-shadow-[0_0_4px_rgba(251,146,60,0.5)]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-          <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      )}
-    </button>
-  );
-}
+import { TrveLayout } from '../components/layout/TrveLayout';
 
 function Divider() {
   return (
@@ -329,78 +285,55 @@ export function WhitepaperPage() {
   const content = wpContent[language];
 
   return (
-    <div className="min-h-screen bg-background relative">
-      {/* Print styles for PDF generation */}
+    <TrveLayout>
       <style>{`
+        .trve-wp{color:var(--mute)}
+        .trve-wp h1,.trve-wp h2,.trve-wp h3,.trve-wp h4,.trve-wp h5{color:var(--fg)}
+        .trve-wp h2{font-family:var(--display);font-size:1.6rem;font-weight:600;margin:48px 0 18px}
+        .trve-wp h3{font-family:var(--display);font-size:1.2rem;font-weight:500;margin:28px 0 10px;color:var(--fg)}
+        .trve-wp h4{font-family:var(--display);font-size:1.05rem;font-weight:500;margin:18px 0 8px;color:var(--fg)}
+        .trve-wp p{margin:0 0 14px;line-height:1.65}
+        .trve-wp ul,.trve-wp ol{padding-left:22px;margin:0 0 18px}
+        .trve-wp li{margin:4px 0}
+        .trve-wp .text-orange,.trve-wp .text-orange-600{color:var(--accent)!important}
+        .trve-wp .text-orange\\/80,.trve-wp .text-orange\\/70{color:var(--accent)!important;opacity:.85}
+        .trve-wp .text-muted-foreground{color:var(--mute)!important}
+        .trve-wp .text-foreground{color:var(--fg)!important}
+        .trve-wp .bg-orange,.trve-wp .bg-orange\\/10,.trve-wp .bg-orange\\/20{background:transparent!important}
+        .trve-wp .bg-foreground\\/\\[0\\.02\\],.trve-wp .bg-purple\\/5,.trve-wp .bg-purple\\/10{background:var(--bg-2)!important}
+        .trve-wp .border-orange,.trve-wp .border-orange\\/30,.trve-wp .border-orange\\/40,.trve-wp .border-orange\\/50,.trve-wp .border-orange\\/60,.trve-wp .border-purple\\/30{border-color:var(--line)!important}
+        .trve-wp .border-border{border-color:var(--line-soft)!important}
+        .trve-wp [class*="bg-clip-text"]{background:none!important;-webkit-text-fill-color:var(--fg)!important;color:var(--fg)!important}
+        .trve-wp hr{border-color:var(--line-soft)}
+        .trve-wp a{color:var(--accent)}
         @media print {
           nav, .fixed { display: none !important; }
-          section, article, .card { 
-            page-break-inside: avoid !important; 
+          section, article, .card {
+            page-break-inside: avoid !important;
             break-inside: avoid !important;
           }
-          h1, h2, h3, h4 { 
+          h1, h2, h3, h4 {
             page-break-after: avoid !important;
             break-after: avoid !important;
           }
           .phase-card, .roadmap-phase {
             page-break-inside: avoid !important;
           }
-          body { 
+          body {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
         }
       `}</style>
-      {/* Subtle background effects */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-orange/5 bg-orange/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple/5 bg-purple/10 rounded-full blur-[150px]" />
-      </div>
 
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border dark:border-border/50">
-        <div className="max-w-4xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-9 h-9 border-2 border-orange/60 flex items-center justify-center group-hover:bg-foreground group-hover:bg-orange/20 transition-colors">
-                <span className="text-[10px] font-mono font-bold tracking-tighter group-hover:text-background group-hover:text-orange transition-colors text-orange/90">T_</span>
-              </div>
-              <span className="text-sm font-mono font-medium tracking-widest hidden sm:block">TRVE<span className="text-orange">_</span></span>
-            </Link>
-
-            <div className="hidden md:flex items-center gap-8 text-sm font-mono">
-              <a href="#vision" className="text-muted-foreground hover:text-orange transition-colors">Vision</a>
-              <a href="#solution" className="text-muted-foreground hover:text-orange transition-colors">Solution</a>
-              <a href="#tech" className="text-muted-foreground hover:text-orange transition-colors">Tech</a>
-              <a href="#roadmap" className="text-muted-foreground hover:text-orange transition-colors">Roadmap</a>
-            </div>
-
-            <div className="flex items-center gap-4 font-mono">
-              <LanguageToggle />
-              <ThemeToggleButton />
-              <Link to="/">
-                <Button variant="ghost" className="text-sm font-mono">Home</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Content */}
-      <main className="pt-24 pb-16 px-6 relative">
-        <article className="max-w-4xl mx-auto">
+      <main className="trve-wrap trve-sub">
+        <article className="max-w-4xl mx-auto trve-wp">
 
           {/* Header */}
-          <header className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 border border-border border-orange/30 mb-6">
-              <span className="w-2 h-2 bg-orange rounded-full animate-pulse" />
-              <span className="text-sm font-mono text-muted-foreground">{content.badge}</span>
-            </div>
-            <h1 className="text-5xl md:text-6xl font-light mb-4">
-              <span className="bg-gradient-to-r from-foreground to-foreground/80 from-white to-orange bg-clip-text text-transparent">TRVE</span>
-              <span className="text-orange">_</span>
-            </h1>
-            <p className="text-xl text-muted-foreground">
+          <header className="trve-sub-head" style={{ paddingBottom: 56 }}>
+            <span className="trve-eyebrow">{content.badge}</span>
+            <h1>Whitepaper</h1>
+            <p>
               {content.subtitle}
             </p>
           </header>
@@ -790,7 +723,7 @@ export function WhitepaperPage() {
 
         </article>
       </main>
-    </div>
+    </TrveLayout>
   );
 }
 export default WhitepaperPage;

@@ -6,7 +6,7 @@ import { Input } from '../../components/ui/Input';
 import { adminService } from '../../services/adminService';
 import { getErrorMessage } from '../../services/authService';
 import { useLanguage } from '../../context/LanguageContext';
-import type { AnchoringStats, BlockchainHealth, BatchInfoResponse, VerificationResponse, AnchoringActivity, AssetAnchoringStates } from '../../types/admin';
+import type { AnchoringStats, BlockchainHealth, BatchInfoResponse, VerificationResponse, AnchoringActivity, AssetAnchoringStates, WalletBalanceResponse } from '../../types/admin';
 import { blockchainConfig } from '../../lib/blockchainConfig';
 
 export function AdminBlockchainPage() {
@@ -27,19 +27,22 @@ export function AdminBlockchainPage() {
   const [anchoringResult, setAnchoringResult] = useState<string | null>(null);
   const [activity, setActivity] = useState<AnchoringActivity | null>(null);
   const [assetStates, setAssetStates] = useState<AssetAnchoringStates | null>(null);
+  const [wallet, setWallet] = useState<WalletBalanceResponse | null>(null);
   const [isFixing, setIsFixing] = useState(false);
 
   const refreshAll = async () => {
-    const [statsData, healthData, activityData, assetStatesData] = await Promise.all([
+    const [statsData, healthData, activityData, assetStatesData, walletData] = await Promise.all([
       adminService.getAnchoringStats(),
       adminService.getBlockchainHealth(),
       adminService.getAnchoringActivity(),
       adminService.getAssetAnchoringStates(),
+      adminService.getWalletBalance().catch(() => null),
     ]);
     setStats(statsData);
     setHealth(healthData);
     setActivity(activityData);
     setAssetStates(assetStatesData);
+    setWallet(walletData);
   };
 
   useEffect(() => {
@@ -222,6 +225,9 @@ export function AdminBlockchainPage() {
           <p className="text-4xl font-light">{stats?.totalRecordsAnchored || 0}</p>
         </div>
       </div>
+
+      {/* Wallet Balance */}
+      <WalletBalanceCard wallet={wallet} />
 
       {/* Network Info */}
       <div className="border border-border p-6">
@@ -769,3 +775,112 @@ export function AdminBlockchainPage() {
   );
 }
 export default AdminBlockchainPage;
+
+function WalletBalanceCard({ wallet }: { wallet: WalletBalanceResponse | null }) {
+  if (!wallet || !wallet.available) {
+    return (
+      <div className="border border-border bg-card p-6">
+        <h3 className="font-medium mb-2 flex items-center gap-2">
+          <WalletIcon />
+          Anchoring Wallet
+        </h3>
+        <p className="text-sm text-muted-foreground">
+          {wallet?.message ?? 'Wallet balance unavailable. Check blockchain configuration.'}
+        </p>
+      </div>
+    );
+  }
+
+  const balance = wallet.balance ?? 0;
+  const usdValue = wallet.usdValue ?? null;
+  const usdRate = wallet.usdRate ?? null;
+  // Heuristic: warn under ~$2 of native currency, critical under ~$0.5
+  const usdWarn = usdValue != null && usdValue < 2;
+  const usdCritical = usdValue != null && usdValue < 0.5;
+  const tone = usdCritical
+    ? 'border-red-500/50 bg-red-500/5'
+    : usdWarn
+      ? 'border-amber-500/40 bg-amber-500/5'
+      : 'border-emerald-500/30 bg-emerald-500/5';
+  const accent = usdCritical ? 'text-red-500' : usdWarn ? 'text-amber-500' : 'text-emerald-500';
+
+  const explorer = wallet.chainId === 137
+    ? `https://polygonscan.com/address/${wallet.address}`
+    : wallet.chainId === 80002
+      ? `https://amoy.polygonscan.com/address/${wallet.address}`
+      : wallet.chainId === 11155111
+        ? `https://sepolia.etherscan.io/address/${wallet.address}`
+        : `https://etherscan.io/address/${wallet.address}`;
+
+  return (
+    <div className={`border ${tone} p-6`}>
+      <div className="flex items-start justify-between gap-4 mb-4">
+        <div>
+          <h3 className="font-medium flex items-center gap-2">
+            <WalletIcon />
+            Anchoring Wallet
+            <Badge variant={usdCritical ? 'destructive' : usdWarn ? 'warning' : 'success'}>
+              {usdCritical ? 'Low — top up' : usdWarn ? 'Running low' : 'OK'}
+            </Badge>
+          </h3>
+          <p className="text-xs text-muted-foreground mt-1">
+            {wallet.chainName} · gas runway for daily anchoring
+          </p>
+        </div>
+        {wallet.address && (
+          <a
+            href={explorer}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-primary hover:underline font-mono"
+            title={wallet.address}
+          >
+            {wallet.address.slice(0, 6)}…{wallet.address.slice(-4)} ↗
+          </a>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div>
+          <p className="text-sm text-muted-foreground mb-1">Native balance</p>
+          <p className={`text-3xl font-light ${accent}`}>
+            {balance.toLocaleString(undefined, { maximumFractionDigits: 4 })}{' '}
+            <span className="text-base text-muted-foreground">{wallet.symbol}</span>
+          </p>
+        </div>
+        <div>
+          <p className="text-sm text-muted-foreground mb-1">USD value</p>
+          <p className={`text-3xl font-light ${accent}`}>
+            {usdValue == null
+              ? '—'
+              : `$${usdValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+          </p>
+          {usdRate != null && (
+            <p className="text-xs text-muted-foreground mt-1">
+              @ ${usdRate.toLocaleString(undefined, { maximumFractionDigits: 4 })} / {wallet.symbol}
+            </p>
+          )}
+        </div>
+        <div>
+          <p className="text-sm text-muted-foreground mb-1">Updated</p>
+          <p className="text-sm text-foreground">
+            {wallet.fetchedAt ? new Date(wallet.fetchedAt).toLocaleString() : '—'}
+          </p>
+          {usdWarn && (
+            <p className="text-xs text-amber-500 mt-1">
+              Top up the wallet to keep daily anchoring running.
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WalletIcon() {
+  return (
+    <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
+    </svg>
+  );
+}

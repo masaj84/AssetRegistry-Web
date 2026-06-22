@@ -171,6 +171,20 @@ export interface BlockchainHealth {
   blockchain: 'connected' | 'disconnected';
 }
 
+export interface WalletBalanceResponse {
+  available: boolean;
+  message?: string;
+  address?: string;
+  chainId?: number;
+  chainName?: string;
+  symbol?: string;
+  balance?: number;
+  balanceWei?: string;
+  usdRate?: number | null;
+  usdValue?: number | null;
+  fetchedAt?: string;
+}
+
 export interface VerificationResponse {
   isVerified: boolean;
   recordHash: string;

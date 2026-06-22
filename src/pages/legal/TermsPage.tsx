@@ -1,24 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { TrveLayout } from '../../components/layout/TrveLayout';
 
 const TermsPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <Link 
-          to="/" 
-          className="inline-flex items-center text-orange-600 hover:text-orange-700 mb-8"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Home
-        </Link>
-
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">
-          Terms of Service
-        </h1>
-
-        <div className="prose prose-orange dark:prose-invert max-w-none">
+    <TrveLayout>
+      <main className="trve-wrap trve-sub">
+        <div className="trve-prose">
+          <p style={{ marginBottom: 24 }}>
+            <Link to="/">← Back to Home</Link>
+          </p>
+          <h1>Terms of Service</h1>
+          <div>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
             <strong>Last updated:</strong> February 18, 2026
           </p>
@@ -204,9 +197,10 @@ const TermsPage: React.FC = () => {
               </a>
             </p>
           </section>
+          </div>
         </div>
-      </div>
-    </div>
+      </main>
+    </TrveLayout>
   );
 };
 

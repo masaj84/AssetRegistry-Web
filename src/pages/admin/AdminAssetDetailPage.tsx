@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Badge } from '../../components/ui/Badge';
 import { Button } from '../../components/ui/Button';
+import { AssetQrCard } from '../../components/AssetQrCard';
 import { adminService } from '../../services/adminService';
 import { assetsService } from '../../services/assetsService';
 import { getErrorMessage } from '../../services/authService';
@@ -300,6 +301,15 @@ export function AdminAssetDetailPage() {
           </div>
         )}
       </div>
+
+      {/* QR for on-chain verification */}
+      {asset && (
+        <AssetQrCard
+          recordHash={asset.recordHash || ''}
+          assetName={asset.name || `Asset ${asset.id}`}
+          assetId={asset.id}
+        />
+      )}
 
       {/* Documents */}
       {asset?.documents && asset.documents.length > 0 && (

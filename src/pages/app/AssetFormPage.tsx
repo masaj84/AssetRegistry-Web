@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
 import { InfoTooltip } from '../../components/ui/Tooltip';
+import { AssetQrCard } from '../../components/AssetQrCard';
 import { assetsService } from '../../services/assetsService';
 import { getErrorMessage } from '../../services/authService';
 import { useAuth } from '../../context/AuthContext';
@@ -43,6 +44,7 @@ export function AssetFormPage() {
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState('');
   const [documents, setDocuments] = useState<AssetDocument[]>([]);
+  const [recordHash, setRecordHash] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -56,6 +58,7 @@ export function AssetFormPage() {
     try {
       setIsFetching(true);
       const asset = await assetsService.getById(assetId);
+      setRecordHash(asset.recordHash || null);
       setFormData({
         type: asset.type,
         name: asset.metadata.name || '',
@@ -210,6 +213,14 @@ export function AssetFormPage() {
           </svg>
           {error}
         </div>
+      )}
+
+      {isEditing && (
+        <AssetQrCard
+          recordHash={recordHash || ''}
+          assetName={formData.name || `Asset ${id}`}
+          assetId={id}
+        />
       )}
 
       {/* Form */}

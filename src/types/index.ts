@@ -73,6 +73,9 @@ export interface Asset {
   createdAt: string;
   updatedAt: string;
   documents?: AssetDocument[];
+  recordHash?: string;
+  merkleBatchId?: number;
+  anchoredAt?: string;
 }
 
 export interface AssetMetadata {

@@ -21,6 +21,7 @@ import type {
   AuditLogListRequest,
   AnchoringActivity,
   AssetAnchoringStates,
+  WalletBalanceResponse,
 } from '../types/admin';
 
 export const adminService = {
@@ -165,6 +166,11 @@ export const adminService = {
 
   async retryFailedBatches(): Promise<{ message: string; retriedCount: number }> {
     const response = await api.post('/admin/anchoring/retry');
+    return response.data;
+  },
+
+  async getWalletBalance(): Promise<WalletBalanceResponse> {
+    const response = await api.get<WalletBalanceResponse>('/admin/anchoring/wallet');
     return response.data;
   },
 
