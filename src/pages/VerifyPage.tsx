@@ -239,9 +239,12 @@ export default function VerifyPage() {
     return `${h.slice(0, chars + 2)}...${h.slice(-chars)}`;
   }
 
-  function eventTitle(key: string) {
+  function eventTitle(key: string): string {
     const mapped = EVENT_TITLES[key];
-    return mapped ? t[mapped] : key;
+    if (!mapped) return key;
+    // EVENT_TITLES only maps to string-valued copy keys (titles/bodies),
+    // never to the documentsCount() formatter — safe to cast.
+    return t[mapped] as string;
   }
 
   function fieldLabel(key: string) {
