@@ -32,7 +32,6 @@ export default function KomisPage() {
           <p>{t('dealer.subpage.ctaTitle')}</p>
           <div className="trve-cta-row">
             <Link to="/#demo" className="trve-btn trve-btn-primary">{t('dealer.subpage.ctaButton')}</Link>
-            <Link to="/#demo" className="trve-btn trve-btn-ghost">{t('komis.cta')}</Link>
           </div>
         </div>
       </main>

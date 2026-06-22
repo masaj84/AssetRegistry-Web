@@ -35,7 +35,6 @@ export default function IndustryPage({ industry }: IndustryPageProps) {
           <p>{t('industry.cta.body')}</p>
           <div className="trve-cta-row">
             <Link to="/#demo" className="trve-btn trve-btn-primary">{t('industry.cta.button')}</Link>
-            <Link to="/#demo" className="trve-btn trve-btn-ghost">{t('dealer.subpage.ctaWrite')}</Link>
           </div>
         </div>
       </main>
